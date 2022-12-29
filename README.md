@@ -1,17 +1,15 @@
 <div align="center">
-  <a href="https://github.com/kaivanwong/u-shop" target="_blank">
-    <img width="180" src="./static/app/logo.png"/>
+  <a href="https://github.com/zjc2782171149/cxj-tea" target="_blank">
+    <img width="180" src="./static/mine/logo.png"/>
   </a>
 </div>
 
 <div align="center">
-  <h1>uShop 友商城</h1>
+  <h1>茶小橘化橘红茶</h1>
   <div>
   
   基于 Uniapp 开发，面向社区电商场景的微信小程序模板，涵盖商品、订单、用户、社区和积分商城等内容。
 
-[![license](https://img.shields.io/github/license/kaivanwong/u-shop)](./LICENSE)
-[![github](https://img.shields.io/github/package-json/v/kaivanwong/u-shop)](https://github.com/kaivanwong/u-shop)
 
   </div>
 </div>
@@ -20,15 +18,13 @@
 
 - 基于 uniapp 的移动跨端技术，一套代码实现 Android / IOS App、各家小程序、H5页面、轻应用等；
 
-- uShop 提供面向社区电商场景的微信小程序模板，如商品、订单、社区、用户和积分商城等页面；
+- cxj 提供面向社区电商场景的微信小程序模板，如商品、订单、社区、用户和积分商城等页面；
 
 - 基于 uview-ui 组件库，采用组件化、模块化开发，二次封装大量业务性组件，维护性高、扩展性高；
 
 - 提供灵活的小程序分包策略（由于静态图片资源占比较大，暂时无法发布），可灵活搭配页面；
 
-- uShop 基于作者公司内部成熟的产品设计，拥有统一的 UI 设计及界面风格，可以直接接入逻辑使用；
-
-- uShop 使用 Sass 主题变量，将颜色、文字、阴影等样式进行抽离，可快速修改主题；
+- cxj 使用 Sass 主题变量，将颜色、文字、阴影等样式进行抽离，可快速修改主题；
 
 
 ### 📌 功能页面
@@ -59,7 +55,7 @@
 
 - [x] 积分商城模块
 
-### 🌰 界面展示
+<!-- ### 🌰 界面展示
 
 由于本地静态图片较多，暂时未上线发布，您可以参考图片或者 Clone 代码后运行。
 
@@ -94,7 +90,7 @@
         <td><img width="100%" src="./.readme/order-express.jpg"></td>
         <td><img width="100%" src="./.readme/post.jpg"></td>
     </tr>
-</table>
+</table> -->
 
 ### 🌈 使用
 
@@ -222,4 +218,4 @@ uniapp的pages.json配置
 
 ### 🧣 开源协议
 
-[MIT licensed](./LICENSE) © 2022-PRESENT Kaivan Wong
+[MIT licensed](./LICENSE) © 2022-PRESENT Jiancong Zhang
