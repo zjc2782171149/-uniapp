@@ -1,0 +1,16 @@
+.slot {
+	display: flex;
+	justify-content: space-between;
+	.name {
+		color: $app-theme-text-black-color;
+	}
+	.more {
+		display: flex;
+		align-items: center;
+		color: $app-theme-text-gray-color;
+	}
+}
+
+.web {
+	margin-top: 50rpx;
+}

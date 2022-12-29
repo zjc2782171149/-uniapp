@@ -1,0 +1,104 @@
+.container {
+	width: 100vw;
+	height: 100vh;
+	overflow: scroll;
+}
+
+.profile {
+	position: relative;
+	box-sizing: border-box;
+	width: 100%;
+	height: 240rpx;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	margin-top: 10rpx;
+	padding-left: 30rpx;
+	
+	.left {
+		width: 200rpx;
+		height: 200rpx;
+		border-radius: 20px;
+		// box-shadow: 5rpx 3rpx 7rpx 2rpx rgba(0, 0, 0, 0.35);
+		background-image: url("/static/mine/icon.png");
+		background-size: 100% 100%;
+	}
+	
+	.right {
+		position: relative;
+		flex: 1;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		margin-left: 35rpx;
+		margin-top: 35rpx;
+		
+		.nickname {
+			font-size: 48rpx;
+			font-weight: 600;
+			color: rgb(167, 125, 80);
+			letter-spacing: 5rpx;
+		}
+		
+		.account {
+			font-size: 24rpx;
+			color: rgb(228, 197, 152);
+			letter-spacing: 5rpx;
+			margin: 20rpx 0;
+		}
+		
+		.qrcode {
+			width: 55rpx;
+			height: 55rpx;
+			background-image: url("/static/mine/qrcode.png");
+			background-size: 100% 100%;
+		}
+	}
+	
+	.more {
+		font-size: 40rpx;
+		color: rgb(228, 197, 152);
+		margin-right: 20rpx;
+	}
+}
+
+.cells {
+	width: 100%;
+	min-height: 400rpx;
+	border-top: 15rpx solid rgb(221, 195, 135);
+}
+
+.cell {
+	
+	.cell-title {
+		font-size: 34rpx;
+		color: rgb(167, 125, 80);
+		letter-spacing: 5rpx;
+		font-weight: 600;
+		margin-left: 20rpx;
+	}
+
+	.cell-icon {
+		width: 40rpx;
+		height: 40rpx;
+		background-size: 100% 100%;
+		// margin-top: 80rpx;
+	}
+}
+
+.logo {
+	width: 100%;
+	height: 220rpx;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: -120rpx;
+	
+	.image {
+		width: 190rpx;
+		height: 100%;
+		background-image: url("/static/mine/logo.png");
+		background-size: 100% 100%;
+	}
+}
+
