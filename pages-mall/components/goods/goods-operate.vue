@@ -5,11 +5,13 @@
 				<u-icon size="36" name="server-fill"></u-icon>
 				<text>客服</text>
 			</view>
-			<view class="item">
-				<u-icon size="36" name="star-fill" v-if="data.isCollection"></u-icon>
-				<u-icon size="36" name="star" v-else></u-icon>
-				<text v-if="data.isCollection">已收藏</text>
-				<text v-else>收藏</text>
+			<view class="item" @click="changeCollect" v-if="isCollection === 1">
+				<u-icon size="36" name="star-fill"></u-icon>
+				<text>已收藏</text>
+			</view>
+			<view class="item" @click="changeCollect" v-else>
+				<u-icon size="36" name="star"></u-icon>
+				<text>收藏</text>
 			</view>
 			<view class="item" @click="goShoppingCart">
 				<u-icon size="36" name="shopping-cart"></u-icon>
@@ -34,12 +36,65 @@ export default {
 			default: () => {
 				return {};
 			}
-		}
+		},
+		isCollection: {
+			type: Number,
+			default: 0
+		},
 	},
-	data: {
-
+	data() {
+		return {
+			
+		};
 	},
 	methods: {
+		// 改变收藏状态
+		changeCollect() {
+			console.log("原收藏状态：", this.isCollection);
+			// 如果是已收藏状态，就变为未收藏
+			if(this.isCollection === 1) {
+				this.$u.api.setUserCollect({ 
+					user_id: uni.getStorageSync("user_id"),
+					good_id: this.data.good_id,
+					isCollection: 0
+				}).then(res => {
+					// console.log(res[0]);
+					uni.showToast({
+						title: "取消收藏成功",
+						icon: "success"
+					})
+				}).catch(err => {
+					console.error(err);
+					uni.showToast({
+						title: "取消收藏失败",
+						icon: "error"
+					})
+				})
+		
+			} else {
+				// 如果是未收藏状态，就变为已收藏
+				this.$u.api.setUserCollect({ 
+					user_id: uni.getStorageSync("user_id"),
+					good_id: this.data.good_id,
+					isCollection: 1
+				}).then(res => {
+					// console.log(res[0]);
+					uni.showToast({
+						title: "收藏成功",
+						icon: "success"
+					})
+				}).catch(err => {
+					console.error(err);
+					uni.showToast({
+						title: "收藏失败",
+						icon: "error"
+					})
+				})
+			}
+			
+			this.$emit("getGoodInfo", this.data.good_id);
+			
+		},
 		// 加入购物车
 		addShoppingCart() {
 			this.$emit('addShoppingCart');

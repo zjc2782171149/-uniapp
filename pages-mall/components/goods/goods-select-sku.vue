@@ -101,16 +101,45 @@ export default {
 				price: this.selectSkuPrice,
 				checked: true
 			}
-			getApp().globalData.goodsList.push(newGood);
 			
-			uni.showToast({
-				title: '添加购物车成功',
-				icon: 'success'
-			});
+			this.$u.api.setUserShoppingcart({
+				user_id: uni.getStorageSync("user_id"),
+				good_id: this.data.good_id,
+				title: this.data.title,
+				num: this.num,
+				sku: this.selectSkuLabel,
+				price: this.selectSkuPrice,
+				pics: this.data.pics,
+				checked: 0
+			}).then(res => {
+				uni.showToast({
+					title: '添加购物车成功',
+					icon: 'success'
+				});
+			})
+			
+			
 		},
 
 		// 立即购买
 		bugNowHandle() {
+			// 重置想要购买的商品
+			const goodsBuyArr = [];
+			
+			goodsBuyArr.push({
+				...this.data,
+				sku: this.selectSkuLabel,
+				price: this.selectSkuPrice,
+				num: this.num
+			})
+			console.log("新的购物车愿景", goodsBuyArr);
+			getApp().globalData.goodsListSelected = goodsBuyArr;
+			
+			const pages = getCurrentPages();
+			uni.setStorageSync("previousRoute", pages[pages.length - 1].route);
+			// console.log(pages[pages.length - 1])
+	
+			
 			uni.navigateTo({
 				url: '/pages-mall/pages/order/submit'
 			});

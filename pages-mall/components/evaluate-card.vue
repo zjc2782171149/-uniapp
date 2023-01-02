@@ -2,16 +2,16 @@
 	<view class="slot" :style="showBorderBottom ? '' : 'border-bottom:none;margin-bottom:0'">
 		<view class="user">
 			<view class="info">
-				<u-avatar size="80" src="/static/user/1.png"></u-avatar>
+				<u-avatar size="80" :src="data.cryptonym === 0 ? data.icon : '/static/user/virtual.png'"></u-avatar>
 				<view class="basic">
-					<view class="name">{{ data.userName }}</view>
+					<view class="name">{{ data.cryptonym === 0 ? data.nickname : "匿名用户" }}</view>
 					<view class="evaluate"><u-rate :count="5" v-model="data.star" disabled :inactive-color="rateInActiveColor" :active-color="rateActiveColor"></u-rate></view>
 				</view>
 			</view>
-			<view class="date">{{ data.date }}</view>
+			<view class="date">{{ data.create_time }}</view>
 		</view>
-		<view class="content">{{ data.content }}</view>
-		<view class="pictures"><u-image width="164rpx" height="164rpx" :src="data.pics"></u-image></view>
+		<view class="content">{{ data.content === '' ? '该用户很懒,暂未作出任何评价' : data.content }}</view>
+		<view class="pictures" v-if="data.pics.length"><u-image width="164rpx" height="164rpx" :src="data.pics"></u-image></view>
 	</view>
 </template>
 

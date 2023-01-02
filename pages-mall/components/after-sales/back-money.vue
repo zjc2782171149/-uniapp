@@ -4,7 +4,7 @@
 			<u-form :model="form" ref="form" label-width="140rpx">
 				<u-form-item label="退款原因"><u-input v-model="form.reason" type="select" placeholder="请选择" @click="openReasonPopup" /></u-form-item>
 				<u-form-item label="退款说明"><u-input v-model="form.desc" placeholder="选填" /></u-form-item>
-				<u-form-item label="退款金额" :border-bottom="false"><u-input v-model="form.money" disabled placeholder="-" /></u-form-item>
+				<u-form-item label="退款金额" :border-bottom="false">￥<u-input v-model="form.money" disabled placeholder="退款金额,如需更改请联系客服" /></u-form-item>
 			</u-form>
 		</view>
 		<view class="btn">
@@ -23,13 +23,21 @@ export default {
 	components: {
 		SelectReason
 	},
+	props: {
+		orderInfo: {
+			type: Object,
+			default: () => {
+				return {}
+			}
+		}
+	},
 	data() {
 		return {
 			// 表单
 			form: {
 				reason: '',
 				desc: '',
-				money: '￥180.00'
+				money: this.orderInfo.payment
 			},
 			// 原因
 			currentReasonIndex: null,
@@ -57,7 +65,9 @@ export default {
 		},
 
 		// 提交
-		submit() {}
+		submit() {
+			this.$emit("subitAffterSale", this.form);
+		}
 	}
 };
 </script>

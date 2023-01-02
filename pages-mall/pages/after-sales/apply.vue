@@ -6,12 +6,12 @@
 		<!-- 操作项 -->
 		<SelectItem v-if="backType == 'home'" :ops="selectOps" @change="changBackType"></SelectItem>
 		<!-- 仅退款 -->
-		<BackMoney v-if="backType == 'money'"></BackMoney>
+		<BackMoney :orderInfo="orderInfo" v-if="backType == 'money'" @subitAffterSale="subitAffterSale"></BackMoney>
 		<!-- 退货退款 -->
 		<!-- <BackAll v-if="backType == 'all'"></BackAll> -->
-		<BackMoney v-if="backType == 'all'"></BackMoney>
+		<BackMoney :orderInfo="orderInfo" v-if="backType == 'all'" @subitAffterSale="subitAffterSale"></BackMoney>
 		<!-- 换货 -->
-		<BackGoods v-if="backType == 'goods'"></BackGoods>
+		<BackGoods :orderInfo="orderInfo" v-if="backType == 'goods'" @subitAffterSale="subitAffterSale"></BackGoods>
 	</view>
 </template>
 
@@ -46,13 +46,13 @@ export default {
 				},
 				{
 					title: '退货退款',
-					desc: '未收到货(包含未签收),或与卖家协商同意前提下',
+					desc: '已收到货(包含未签收),或与卖家协商同意前提下',
 					icon: require('@/pages-mall/static/select-item-2.png'),
 					type: 'all'
 				},
 				{
-					title: '仅退款',
-					desc: '已收到货,需要退还收到的货物',
+					title: '换货',
+					desc: '已收到货,需要更换收到的货物',
 					icon: require('@/pages-mall/static/select-item-3.png'),
 					type: 'goods'
 				}
@@ -64,6 +64,36 @@ export default {
 	},
 
 	methods: {
+		// 提交售后
+		subitAffterSale(item) {
+			console.log("售后", item);
+			
+			this.$u.api.updateOrderAffterSale({
+				user_id: this.orderInfo.user_id,
+				order_id: this.orderInfo.order_id,
+				affterSale: {
+					...item,
+					isAffter: 0,
+					affterReason: item.reason,
+					affterReasonDetail: item.desc
+				}
+			}).then(res => {
+				if(res.affectedRows === 1) {
+					uni.showToast({
+						title: "提交售后成功",
+						icon: "success"
+					});
+					
+					setTimeout(() => {
+						uni.navigateTo({
+							url: "/pages-mall/pages/order/list"
+						})
+					}, 1000);
+											
+				}
+			})
+			
+		},
 		// 导航栏返回自定义函数
 		goBack() {
 			

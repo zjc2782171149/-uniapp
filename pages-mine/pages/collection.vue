@@ -4,7 +4,7 @@
 		<view class="list">
 			<u-checkbox-group @change="selectChange">
 				<view class="item" v-for="(item, index) in list" :key="index" @click="clickItem(item, index)">
-					<view class="pics"><u-image width="120rpx" height="120rpx" :src="item.img"></u-image></view>
+					<view class="pics"><u-image width="150rpx" height="150rpx" border-radius="12" :src="item.pics"></u-image></view>
 					<view class="info">
 						<view class="title">{{ item.title }}</view>
 						<view class="num">
@@ -33,8 +33,30 @@ export default {
 	},
 	onLoad(ops) {
 		if (ops.isSelect) this.isSelect = ops.isSelect;
+		
+		const that = this;
+		this.$u.api.getUserCollectList({
+			user_id: uni.getStorageSync("user_id")
+		}).then(res =>{
+			that.initGoodsList(res);
+		}).catch(err => {
+			console.error(err);
+		})
 	},
 	methods: {
+		// 初始化商品列表
+		async initGoodsList(goodsList) {
+			const that = this;
+			let task1 = goodsList.map(item => {
+				return that.$u.api.getGood({
+					id: item.good_id
+				}).then()
+			})
+			
+			task1 = await Promise.all(task1);
+			
+			this.list = task1.map(item => item[0]);
+		},
 		// 点击卡片
 		clickItem(item, index) {
 			item.checked = !item.checked;
@@ -43,6 +65,10 @@ export default {
 			} else {
 				this.selectIndexs.splice(index, 1);
 			}
+			
+			uni.navigateTo({
+				url: "/pages-mall/pages/goods/detail?id=" + item.good_id
+			})
 		},
 
 		// 复选框回调
@@ -75,6 +101,7 @@ export default {
 }
 .list {
 	.item {
+		width: 100%;
 		padding: 30rpx;
 		position: relative;
 		border-radius: 16rpx;
@@ -82,12 +109,16 @@ export default {
 		display: flex;
 		align-items: center;
 		margin-bottom: 24rpx;
-		.pic {
+		.pics {
+			width: 150rpx;
+			height: 150rpx;
 			margin-right: 24rpx;
 			border-radius: 12rpx;
-			overflow: hidden;
+			
+			
 		}
 		.info {
+			
 			.title {
 				font-size: 28rpx;
 				color: $app-theme-text-black-color;

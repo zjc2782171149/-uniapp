@@ -16,7 +16,7 @@
 			:backgroundColor="bgColor"
 			titleSize="32rpx"
 			align="center"
-			@clickMore="$u.route({ url: '/pages-mall/pages/evaluate/list' })"
+			@clickMore="turnToEvaluateList"
 		></TitleOperate>
 		<view class="evaluate-list">
 			<EvaluateCard
@@ -61,7 +61,7 @@
 
 		
 		<!-- 底部操作按钮 -->
-		<GoodsOperate :data="goodsDetail" @addShoppingCart="addShoppingCart" @buyNow="buyNow"></GoodsOperate>
+		<GoodsOperate :data="goodsDetail" :isCollection="goodsDetail.isCollection" @addShoppingCart="addShoppingCart" @buyNow="buyNow" @getGoodInfo="getGoodInfo"></GoodsOperate>
 		<!-- 选择sku -->
 		<GoodsSelectSku ref="GoodsSelectSku" @addShoppingCart="addShoppingCart" @buyNow="buyNow" @change="changeSku"></GoodsSelectSku>
 	</view>
@@ -95,23 +95,8 @@ export default {
 			// 商品类型，normal、points
 			goodsType: 'normal',
 			// 假数据
-			goodsDetail: {
-				sliderImageArr: [require('@/static/goods/11.png')],
-				price: 378,
-				sales: 650,
-				oldPrice: 516,
-				title: '戴森吹风机家用负离子护发专用大功率不伤发 家用负离子护发电吹风 HD08',
-				html: "<img style='width:100%' src='https://s1.ax1x.com/2022/07/07/jdWfLn.png'></img>",
-				isCollection: true,
-				skuData: [
-					{ label: 'HD08-普鲁士蓝防翘系列', value: '0', price: 123 },
-					{ label: 'HD08-紫红色防翘系列', value: '1', price: 1223 },
-					{ label: 'HD08-中国红防翘系列', value: '2', price: 1243 },
-					{ label: 'HD08-白色防翘系列', value: '3', price: 1236 }
-				],
-				pics: require('@/static/goods/11.png')
-			},
-			evaluateData: [{ star: 4, content: '非常好用!会推荐给家人', date: '2022-01-12', userName: '演示用户', pics: 'https://s1.ax1x.com/2022/07/07/jdWtRe.png' }],
+			goodsDetail: {},
+			evaluateData: [],
 			// evaluateData: [],
 			// 精选晒单
 			topicData: topicList,
@@ -148,6 +133,14 @@ export default {
 	
 	},
 	methods: {
+		// 跳转至评论列表
+		turnToEvaluateList() {
+			uni.setStorageSync("evaluateData", this.evaluateData);
+			uni.navigateTo({
+				url: '/pages-mall/pages/evaluate/list'
+			})
+
+		},
 		// 查询商品详情
 		getGoodsDetail() {
 			// this.selectedSku.label = this.goodsDetail.skuData[0].label;
@@ -179,6 +172,7 @@ export default {
 		},
 		
 		getGoodInfo(id) {
+			console.log("商品编号为：", id);
 			const that = this;
 			// 商品基本信息
 			this.$u.api.getGood({ id: id }).then(res => {
@@ -209,16 +203,53 @@ export default {
 				that.goodsDetail.sliderImageArr = arr;
 			})
 			
+			
 			// 获取商品评论
 			this.$u.api.getGoodEvaluate({ id: id }).then(res => {
 				// console.log(res);
-				const arr = res.map((item, index) => {
-					let ite = item;
-					ite.date = ite.date.slice(0, 10);
-					return ite;
+				let task1 = res.map(item => {
+					return that.$u.api.getUserMes({
+						user_id: item.user_id
+					}).then();
 				})
-				that.evaluateData = res;
+				
+				// 通过用户id拿到用户昵称
+				let nicknameArr = [];
+				Promise.all(task1).then(res2 => {
+					// console.log(res2);
+					nicknameArr = res2.map(item => item[0]);
+					
+					that.evaluateData = res.map((item, index) => {
+						return {
+							...item,
+							create_time: item.create_time.slice(0, 10),
+							nickname: nicknameArr[index].nickname,
+							icon: nicknameArr[index].icon
+						}
+					})
+				});
+				
+
 			})
+			
+			// 商品是否被收藏
+			this.$u.api.getUserCollect({ 
+				user_id: uni.getStorageSync("user_id"),
+				good_id: id
+			}).then(res => {
+				// console.log(res[0]);
+				if(res.length) {
+					that.goodsDetail.isCollection = 1;
+				} else {
+					that.goodsDetail.isCollection = 0;
+				}
+				console.log("收藏状态", that.goodsDetail.isCollection);
+			}).catch(err => {
+				console.error(err);
+				that.goodsDetail.isCollection = 0;
+			})
+			
+			
 		}
 	}
 };

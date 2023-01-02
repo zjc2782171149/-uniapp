@@ -65,7 +65,7 @@ export default {
 			{ label: '下单时间', value: this.orderInfo.create_time.slice(0, 10) + " " + this.orderInfo.create_time.slice(11, 19), operate: '' },
 			{ label: '订单类型', value: this.orderInfo.order_type == '1' ? '普通订单' : '其他订单', operate: '' },
 			{ label: '支付状态', value: this.orderInfo.status === 0 ? '未支付' : '支付完成', operate: '' },
-			{ label: '支付方式', value: this.orderInfo.pay_way, operate: '' }
+			{ label: '支付方式', value: this.orderInfo.pay_way + "支付", operate: '' }
 		];
 		
 		this.addressInfo = { ...this.orderInfo }; // 已选择的地址

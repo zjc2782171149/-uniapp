@@ -85,6 +85,9 @@ export default {
 					pay_way: "暂未支付",
 					payment: this.nowTotalPrice,
 					end_time: getApp().globalData.getNowTime(dayjs().add(15, 'minute').format()),
+					isRemind: 0,
+					coupon_id: getApp().globalData.discountIndex === -1 ? -1 : getApp().globalData.discountsList[getApp().globalData.discountIndex].coupon_id,
+					isEvaluate: 0,
 				}
 			});
 			

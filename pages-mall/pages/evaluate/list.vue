@@ -20,12 +20,12 @@ export default {
 	},
 	data() {
 		return {
-			evaluateData: [
-				{ star: 4, content: '非常好用!会推荐给家人', date: '2022-01-12', userName: '演示用户', pics: ['http://sdyy.apicloud-system.com/images2/img/imgThree.png'] },
-				{ star: 4, content: '非常好用!会推荐给家人', date: '2022-01-12', userName: '演示用户', pics: ['http://sdyy.apicloud-system.com/images2/img/imgThree.png'] }
-			]
+			evaluateData: []
 		};
-	}
+	},
+	onShow() {
+		this.evaluateData = uni.getStorageSync("evaluateData");
+	},
 };
 </script>
 

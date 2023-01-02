@@ -70,13 +70,21 @@ export default {
 		};
 	},
 	onShow() {
+		// 设置当前路由
+		const pages = getCurrentPages();
+		uni.setStorageSync("previousRoute", pages[pages.length - 1].route);
+		console.log(pages[pages.length - 1].route);
+		
+		
 		this.orderInfo = uni.getStorageSync('orderInfo');
 		console.log("要付款的订单信息", this.orderInfo);
 		console.log("时间", isExceedTime(this.orderInfo.end_time));
 		// 是正值，说明已经超时
 		if(isExceedTime(this.orderInfo.end_time) > 0) {
 			this.timestamp = 0; // 设置付款倒计时
-			this.deleteOrder(this.orderInfo.user_id, this.orderInfo.order_id);
+			if(this.orderInfo.status === 0) {
+				this.deleteOrder(this.orderInfo.user_id, this.orderInfo.order_id);
+			}
 		} else {
 			this.timestamp = -isExceedTime(this.orderInfo.end_time); // 设置付款倒计时
 		}
@@ -91,7 +99,10 @@ export default {
 	methods: {
 		// 倒计时结束，即订单逾期
 		end() {
-			this.deleteOrder(this.orderInfo.user_id, this.orderInfo.order_id);
+			if(this.orderInfo.status === 0) {
+				this.deleteOrder(this.orderInfo.user_id, this.orderInfo.order_id);
+			}
+			
 		},
 		goPayResult() {
 			// 更新订单信息——成已支付
@@ -108,7 +119,7 @@ export default {
 					});
 					// 支付成功1s才跳转
 					setTimeout(() => {
-						uni.navigateTo({
+						uni.redirectTo({
 							url: '/pages-mall/pages/order/pay-result?payment=' + this.payment
 						});
 					}, 1000);

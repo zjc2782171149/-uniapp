@@ -20,7 +20,7 @@
 
 		<!-- 列表 -->
 		<view class="list">
-			<OrderCard v-for="(item, index) in showList" :key="index" :data="item" @updateOrderList="getOrderList(1)"></OrderCard>
+			<OrderCard v-for="(item, index) in showList" :key="index" :data="item" :this="this" @updateOrderList="updateOrderList"></OrderCard>
 			<NoData height="60vh" type="order" v-if="showList.length === 0"></NoData>
 		</view>
 	</view>
@@ -62,16 +62,21 @@
 						value: 4
 					}
 				],
+
 			};
 		},
 		onLoad(ops) {
 			this.getOrderList(0);
-			
+
 		},
 		onShow() {
 
 		},
 		methods: {
+			// 更新订单列表
+			updateOrderList(index) {
+				this.getOrderList(index);
+			},
 			// 切换tab
 			change(index) {
 				this.tabIndex = index;

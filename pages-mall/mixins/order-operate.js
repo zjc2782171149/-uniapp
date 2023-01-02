@@ -69,14 +69,17 @@ export const orderOperate = {
 		},
 
 		// 确认收货
-		confirmReceipt() {
+		confirmReceipt(_this) {
+			const that = this;
+			console.log(_this);
 			uni.showModal({
 				title: '提示',
 				content: '是否确认收货？',
-				confirmColor: this.appThemeColor,
+				confirmColor: _this.appThemeColor,
 				success: function(res) {
 					if (res.confirm) {
 						// TODO 接口
+
 					}
 				}
 			});
@@ -99,6 +102,7 @@ export const orderOperate = {
 				success: function(res) {
 					if (res.confirm) {
 						// TODO 接口
+						
 					}
 				}
 			});

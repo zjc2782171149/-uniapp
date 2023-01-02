@@ -21,13 +21,21 @@ export default {
 	components: {
 		SelectReason
 	},
+	props: {
+		orderInfo: {
+			type: Object,
+			default: () => {
+				return {}
+			}
+		}
+	},
 	data() {
 		return {
 			// 表单
 			form: {
 				reason: '',
 				desc: '',
-				money: '￥180.00'
+				money: this.orderInfo.payment
 			},
 			// 原因
 			currentReasonIndex: null,
@@ -54,7 +62,9 @@ export default {
 		},
 
 		// 提交
-		submit() {}
+		submit() {
+			this.$emit("subitAffterSale", this.form);
+		}
 	}
 };
 </script>

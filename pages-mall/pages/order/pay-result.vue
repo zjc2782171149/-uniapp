@@ -96,8 +96,8 @@ export default {
 		},
 		// 去订单页面
 		goRedirect() {
-			uni.redirectTo({
-				url: '/pages-mall/pages/order/list'
+			uni.switchTab({
+				url: '/pages/mine-new/index'
 			});
 		}
 	}

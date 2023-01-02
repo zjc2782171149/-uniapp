@@ -45,8 +45,8 @@
 			],
 			// 购物车列表
 			goodsList: [
-				{ good_id: 1, name: "戴森吹风机家用负离子护发专用大功率不伤发 家用负离子护发电吹风 HD08", num: 2, sku: 'HD08-普鲁士蓝防翘系列', price: '378', checked: true, pics: "https://smoothbucket.oss-cn-shenzhen.aliyuncs.com/hzhj/goods/5.png" },
-				{ good_id: 2, name: '化州红橘', num: 5, sku: '尊贵装', price: '10000', checked: false, pics: "https://smoothbucket.oss-cn-shenzhen.aliyuncs.com/hzhj/goods/11.png" }
+				{ good_id: 1, title: "戴森吹风机家用负离子护发专用大功率不伤发 家用负离子护发电吹风 HD08", num: 2, sku: 'HD08-普鲁士蓝防翘系列', price: '378', checked: true, pics: "https://smoothbucket.oss-cn-shenzhen.aliyuncs.com/hzhj/goods/5.png" },
+				{ good_id: 2, title: '化州红橘', num: 5, sku: '尊贵装', price: '10000', checked: false, pics: "https://smoothbucket.oss-cn-shenzhen.aliyuncs.com/hzhj/goods/11.png" }
 			],
 			// 选中商品的购物车列表
 			goodsListSelected: [],

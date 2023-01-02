@@ -68,7 +68,24 @@ export const useOrdersApi = (Vue, vm) => {
 			order_id: req.order_id,
 			isRemind: 1
 		}),
-		
+		// 更新该用户的 相关订单的收货状态
+		updateOrderReceive: (req) => vm.$u.post('/update_order_receive', {
+			user_id: req.user_id,
+			order_id: req.order_id,
+			status: req.status
+		}),
+		// 更新该用户的 相关订单的评论状态
+		updateOrderEvaluate: (req) => vm.$u.post('/update_order_evaluate', {
+			user_id: req.user_id,
+			order_id: req.order_id,
+			isEvaluate: req.isEvaluate
+		}),
+		// 更新该用户的 相关订单的退款/售后状态
+		updateOrderAffterSale: (req) => vm.$u.post('/update_order_afftersale', {
+			user_id: req.user_id,
+			order_id: req.order_id,
+			...req.affterSale
+		}),
 		
 		// --------------------------删除订单信息--------------------------------
 		// 删除该用户的订单
@@ -94,5 +111,6 @@ export const useOrdersApi = (Vue, vm) => {
 			user_id: req.user_id,
 			order_id: req.order_id
 		}),
+		
 	}
 }

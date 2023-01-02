@@ -1,6 +1,8 @@
 <template>
 	<view class="container">
-		<view class="slot" :class="{ showBorderBottom }" v-for="(item, index) in data.goods" :key="index">
+		
+		<view class="slot" v-if="data.goods" v-for="(item, index) in data.goods"
+			:key="index">
 			<view class="pic">
 				<u-image width="180rpx" height="180rpx" :src="item.pics"></u-image>
 			</view>
@@ -31,8 +33,42 @@
 				</view>
 			</view>
 		</view>
-	</view>
 
+		<!-- 单品时 -->
+		<view class="slot" v-if="!data.goods">
+			<view class="pic">
+				<u-image width="180rpx" height="180rpx" :src="data.pics"></u-image>
+			</view>
+			<view class="info">
+				<view class="title">{{ data.title }}</view>
+				<view class="desc">
+					<view class="sku item">
+						<text>规格</text>
+						<text>{{ data.sku }}</text>
+					</view>
+					<!-- 		<view class="express item">
+				<text>运费</text>
+				<text>{{ item.express || '包邮' }}</text>
+			</view> -->
+				</view>
+				<view class="price">
+					<text>￥</text>
+					<text>{{ data.price }}</text>
+				</view>
+			</view>
+			<view class="status">
+				<view class="status-label">
+					<slot></slot>
+				</view>
+				<view class="num">
+					<text>×</text>
+					<text>{{ data.num }}</text>
+				</view>
+			</view>
+		</view>
+		
+		
+	</view>
 </template>
 
 <script>
@@ -66,14 +102,15 @@
 		align-items: center;
 		align-content: center;
 	}
-	
+
 	.slot {
 		display: flex;
 		align-items: center;
 		align-content: space-between;
 		background-color: $app-theme-bg-color;
+		margin-bottom: 30rpx;
 
-		&.showBorderBottom {
+		.showBorderBottom {
 			margin-bottom: 30rpx;
 			padding-bottom: 24rpx;
 			border-bottom: 1rpx solid $app-theme-border-color;

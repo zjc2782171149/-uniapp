@@ -22,5 +22,10 @@ export const useGoodsApi = (Vue, vm) => {
 		getGoodEvaluate: (req) => vm.$u.post('/good_evaluate', {
 			id: req.id
 		}),
+		
+		// 新增指定id的商品的评论
+		setGoodEvaluate: (req) => vm.$u.post('/set_good_evaluate', {
+			...req
+		}),
 	}
 }

@@ -53,6 +53,18 @@ export default {
 		}
 	},
 	onShow() {
+		const that = this;
+		
+		// 如果是付款页面返回来 提交订单 页面，则不允许重复提交而跳转
+		console.log("上一路由", uni.getStorageSync("previousRoute"));
+		if(uni.getStorageSync("previousRoute") !== "pages-mall/pages/shopping-cart" && uni.getStorageSync("previousRoute") !== "pages-mall/pages/goods/detail") {
+			uni.navigateTo({
+				url: '/pages-mall/pages/order/list'
+			});
+			return;
+		}
+
+		
 		this.goodsList = getApp().globalData.goodsListSelected; // 商品列表
 		this.addressInfo = getApp().globalData.addressList[getApp().globalData.addressIndex]; // 已选择的地址
 		

@@ -3,16 +3,16 @@
 		<!-- 一般导航栏 -->
 		<Navbar title="退款详情"></Navbar>
 		<!-- 退款状态 -->
-		<BackStatus :data="orderInfo" type="0"></BackStatus>
+		<BackStatus :data="orderInfo"></BackStatus>
 		<!-- 退款信息 -->
 		<view class="back-info">
 			<view class="item">
 				<view class="label">退款金额</view>
-				<view class="value">￥180.00</view>
+				<view class="value">￥{{ orderInfo.payment }}</view>
 			</view>
 			<view class="item">
-				<view class="label">退回至微信账户</view>
-				<view class="value">￥180.00</view>
+				<view class="label">退回至{{ orderInfo.pay_way }}账户</view>
+				<view class="value">￥{{ orderInfo.payment }}</view>
 			</view>
 		</view>
 		<!-- 退款节点 -->
@@ -51,7 +51,7 @@ export default {
 			// 订单详情
 			orderInfo: {},
 			// 退款节点
-			backDotCurrent: 1,
+			backDotCurrent: 0,
 			backDotList: [{ name: '买家申请' }, { name: '商家同意' }, { name: '退款成功' }],
 			// 退款信息配置项
 			backInfoOps: [
@@ -65,6 +65,20 @@ export default {
 	},
 	onLoad() {
 		this.orderInfo = uni.getStorageSync('orderInfo');
+		
+		this.backInfoOps[0].value = this.orderInfo.affterReasonDetail  ? this.orderInfo.affterReason : this.orderInfo.affterReasonDetail;
+		this.backInfoOps[1].value = this.orderInfo.payment;
+		
+		let totalSum = 0;
+		this.orderInfo.goods.map(item => {
+			totalSum += item.num
+		})
+		this.backInfoOps[2].value = totalSum;
+		
+		this.backInfoOps[3].value = this.orderInfo.create_time.slice(0, 10) + " " + this.orderInfo.create_time.slice(11, 19);
+		this.backInfoOps[4].value = this.orderInfo.order_id;
+		
+		this.backDotCurrent = this.orderInfo.isAffter === 0 ? 0 : 2;
 	}
 };
 </script>

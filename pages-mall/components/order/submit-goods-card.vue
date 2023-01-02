@@ -2,7 +2,7 @@
 	<view class="slot" :style="showBorderBottom ? '' : 'border-bottom:none'">
 		<view class="img"><u-image width="160rpx" height="160rpx" :src="data.pics"></u-image></view>
 		<view class="info">
-			<view class="title">{{ data.name }}</view>
+			<view class="title">{{ data.title }}</view>
 			<view class="sku">{{ data.sku }}</view>
 			<view class="price">
 				<text>￥</text>

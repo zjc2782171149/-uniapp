@@ -1,8 +1,12 @@
 <template>
 	<view class="slot">
-		<view class="status"><text v-if="type == '0'">退款成功</text></view>
+		<view class="status">
+			<text v-if="data.isAffter === 0">正在退款中</text>
+			<text v-else>退款成功</text>
+		</view>
+		
 		<view class="desc">
-			<text v-if="type == '0'">{{ ponitsDate }}</text>
+			<text>{{ data.create_time }}</text>
 		</view>
 		<view class="operate"></view>
 	</view>
