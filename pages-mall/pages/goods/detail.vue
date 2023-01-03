@@ -112,21 +112,11 @@ export default {
 	},
 	onLoad(ops) {
 		if (ops.goodsType) this.goodsType = ops.goodsType;
-		this.getGoodsDetail();
+		
+		this.getGoodInfo(ops.id * 1);
+		
 	},
 	onShow() {
-		const that = this;
-		//获取页面栈
-		const pages = getCurrentPages();
-		//获取路由参数
-		const curPage = pages[pages.length - 1];
-		var page = pages[pages.length - 1];
-		console.log(page.options)
-		if(page.options?.id) {
-			that.getGoodInfo(page.options.id * 1);
-		}
-		
-		
 		// 已选择地址
 		console.log("已选择地址", getApp().globalData.addressList[getApp().globalData.addressIndex].address);
 		this.selectedAddress = getApp().globalData.addressList[getApp().globalData.addressIndex].address;
@@ -140,11 +130,6 @@ export default {
 				url: '/pages-mall/pages/evaluate/list'
 			})
 
-		},
-		// 查询商品详情
-		getGoodsDetail() {
-			// this.selectedSku.label = this.goodsDetail.skuData[0].label;
-			// this.selectedSku.value = this.goodsDetail.skuData[0].value;
 		},
 
 		// 打开选择sku的弹窗

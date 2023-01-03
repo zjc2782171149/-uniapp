@@ -20,7 +20,7 @@
 		
 		<div class="new-items">
 			<div class="new-item" v-for="(item, index) in new_up" :key="index"
-			@click="$u.route({ url: '/pages-mall/pages/goods/detail', params: { id: item.id, goodsType: item.goodsType } })">
+			@click="$u.route({ url: '/pages-mall/pages/goods/detail', params: { id: item.id } })">
 				<image :src="item.src" mode="widthFix"></image>
 				<div class="text">{{item.title}}</div>
 				<div class="grey"></div>

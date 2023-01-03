@@ -8,7 +8,7 @@
 
 		<div class="types">
 			<div class="type" v-for="(item, index) in types" :key="index"
-			@click="$u.route({ url: '/pages-mall/pages/classify', params: { goodsType: item.title } })">
+			@click="$u.route({ url: '/pages-mall/pages/classify', params: { goodsType: item.goodsType } })">
 				<div class="img" :style="{ backgroundImage: `url(${item.src})`}"></div>
 				<div class="title">{{ item.title }}</div>
 			</div>
@@ -54,19 +54,23 @@
 			return {
 				types: [{
 						src: "/static/market/types.png",
-						title: "茶品"
+						title: "茶品",
+						goodsType: "moral"
 					},
 					{
 						src: "/static/market/cultures.png",
-						title: "茶文化"
+						title: "茶文化",
+						goodsType: "culture"
 					},
 					{
 						src: "/static/market/tools.png",
-						title: "茶具"
+						title: "茶具",
+						goodsType: "tool"
 					},
 					{
 						src: "/static/market/clothes.png",
-						title: "茶服"
+						title: "茶服",
+						goodsType: "clothes"
 					},
 				],
 				// 推荐商品列表
