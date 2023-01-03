@@ -60,6 +60,14 @@
 
 			// 新增每日喝茶记录 or 问题
 			submit() {
+				if(this.value.length < 10) {
+					uni.showToast({
+						title: '得至少输出10个文字',
+						icon: 'none'
+					})
+					return;
+				}
+				
 				if (this.title === "每日喝茶记录") {
 					// 有图片
 					this.$u.api.setArticleMes({

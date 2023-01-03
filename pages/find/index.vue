@@ -82,7 +82,7 @@
 
 		<!-- 每日喝茶记录 -->
 		<div v-if="type === 2" class="daily-tea">
-			<text>您已连续记录喝茶{{ showArticleList.length }}天啦</text>
+			<text>您已连续记录喝茶{{ consistentRecordDay }}天啦</text>
 		</div>
 		<u-cell-group v-if="type === 2">
 			<div class="cell" v-for="(item, index) in showArticleList" :key="item.article_id">
@@ -173,7 +173,8 @@
 				dayArr: ["日", "一", "二", "三", "四", "五", "六"],
 				monthAr: [31, 31, dayjs().isLeapYear() ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30],
 				year: '',
-				month: ''
+				month: '',
+				consistentRecordDay: 0
 			}
 		},
 		onLoad() {
@@ -183,10 +184,10 @@
 			let date = dayjs().date();
 			let day = dayjs().day();
 			let arr = new Array(7);
-			
+
 			this.year = year;
 			this.month = month + 1;
-			
+
 			for (let i = 6; i >= 0; i--) {
 				arr[i] = {
 					year: year, // 年
@@ -216,28 +217,30 @@
 				} else {
 					day -= 1;
 				}
-				
-				
+
+
 			}
-			console.log("数组为", arr);
+			// console.log("数组为", arr);
 			this.calendar = arr;
 
 		},
 		onShow() {
 			this.initArticleList();
-			
+
 		},
 		methods: {
 			// 改变日历上的记录
 			reloadRecord() {
 				let recordArr = [];
+
+				// 自己 发的记录
 				this.articleList.map(item => {
 					if (item.type === 2) {
 						recordArr.push(item)
 					}
 				});
-	
-				
+
+
 				let recordArr2 = recordArr.map(item => {
 					return {
 						year: item.publish_time.slice(0, 4) * 1,
@@ -245,12 +248,13 @@
 						date: item.publish_time.slice(8, 10) * 1,
 					}
 				})
-				
-				console.log(recordArr2);
-				
+
+				// console.log(recordArr2);
+
 				this.calendar = this.calendar.map((item, index) => {
 					// 如果发表的记录中，这一天有记录，那么便进行标记
-					if(recordArr2.find(record => record.year === item.year && record.month === item.month &&record.date === item.date)) {
+					if (recordArr2.find(record => record.year === item.year && record.month === item.month &&
+							record.date === item.date)) {
 						return {
 							...item,
 							isRecord: true
@@ -258,10 +262,60 @@
 					} else {
 						return item;
 					}
-					
+
 				})
+
+
+			},
+			// 计算连续喝茶天数
+			consistentRecord() {
+				let recordArr = [];
+
+				// 自己 发的记录
+				this.articleList.map(item => {
+					if (item.type === 2) {
+						recordArr.push(item)
+					}
+				});
+
+
+				let recordArr2 = recordArr.map(item => {
+					return {
+						year: item.publish_time.slice(0, 4) * 1,
+						month: item.publish_time.slice(5, 7) * 1,
+						date: item.publish_time.slice(8, 10) * 1,
+					}
+				})
+
+				// 喝茶日历进行初始化
+				let year = dayjs().year();
+				let month = dayjs().month();
+				let date = dayjs().date();
+
+				let i;
+				for (i = 0;; i++) {
+					if(!recordArr2.find(item => item.year === year && item.month === month + 1 && item.date === date)) {
+						break;
+					}
+					
+					if (date - 1 === 0) {
+						date = this.monthAr[dayjs().month()];
+						// 月份要减一
+						if (month - 1 === -1) {
+							month = 11;
+							// 年份也要减一
+							year -= 1;
+						} else {
+							month -= 1;
+						}
+
+					} else {
+						date -= 1;
+					}
+				}
 				
-				
+				this.consistentRecordDay = i;
+
 			},
 			recordDailyTea() {
 				uni.navigateTo({
@@ -269,10 +323,13 @@
 				})
 			},
 			async initArticleList() {
-				this.articleList = await this.$u.api.getArticleAll();
+				this.articleList = await this.$u.api.getArticleAll({
+					user_id: uni.getStorageSync("user_id")
+				});
 
 				const that = this;
 				this.showArticleList = [];
+
 				this.articleList.map(item => {
 					if (item.type === this.type) {
 						that.showArticleList.push({
@@ -281,10 +338,12 @@
 						});
 					}
 				});
-				console.log("要展现的文章", this.showArticleList);
-				
+				// console.log("要展现的文章", this.showArticleList);
+
 				// 修改日历上的喝茶记录
 				this.reloadRecord();
+				// 计算连续喝茶天数
+				this.consistentRecord();
 			},
 			turnArticleDetail(item) {
 				uni.navigateTo({
@@ -304,7 +363,7 @@
 						});
 					}
 				});
-				console.log("要展现的文章", this.showArticleList);
+				// console.log("要展现的文章", this.showArticleList);
 			},
 
 			// 添加

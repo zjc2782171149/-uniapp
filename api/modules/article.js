@@ -1,9 +1,9 @@
 export const useArticlesApi = (Vue, vm) => {
 	return {
 		// --------------------------查询文章信息--------------------------------
-		// 查询所有已发表文章
-		getArticleAll: () => vm.$u.post('/get_article_list', {
-		
+		// 查询所有已发表文章(其中记录，得是作者的才行)
+		getArticleAll: (req) => vm.$u.post('/get_article_list', {
+			user_id: req.user_id
 		}),
 		// 查询文章基本信息
 		getArticleMes: (req) => vm.$u.post('/get_article', {
