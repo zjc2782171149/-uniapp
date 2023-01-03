@@ -52,21 +52,22 @@
 		{
 			"path": "pages/login/index"
 		},
+		{
+			"path": "pages/mine-new/index",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		// 回答页
+		{
+			"path": "pages/find/answer-detail"
+		},
 		// 欢迎页，不需要时放在最后
 		{
 			"path": "pages/start-page"
 		}
-     
-        ,{
-            "path" : "pages/mine-new/index",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	// 副包
 	"subPackages": [{
 		// 电商副包

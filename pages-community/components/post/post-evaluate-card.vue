@@ -2,22 +2,22 @@
 	<view class="slot" :class="{ border }">
 		<view class="header">
 			<view class="user">
-				<u-avatar size="62" src="../../../static/user/1.png"></u-avatar>
-				<text>{{ data.username }}</text>
+				<u-avatar size="62" :src="data.icon"></u-avatar>
+				<text>{{ data.nickname }}</text>
 			</view>
 			<view class="operate">
-				<u-icon name="thumb-up" size="32rpx" :color="iconColor"></u-icon>
-				<text>{{ data.thumbNum }}</text>
+				<!-- <u-icon name="thumb-up" size="32rpx" :color="iconColor"></u-icon> -->
+				<!-- <text>{{ data.thumbNum }}</text> -->
 				<u-icon @click="report" size="30" name="warning" :color="iconColor"></u-icon>
 			</view>
 		</view>
 		<view class="body">{{ data.content }}</view>
 		<view class="footer">
-			<view class="time">{{ data.createDate }}</view>
-			<text>·</text>
-			<view class="operate">回复TA</view>
+			<view class="time">{{ data.publish_time }}</view>
+<!-- 			<text>·</text>
+			<view class="operate">回复TA</view> -->
 		</view>
-		<view class="reply">
+<!-- 		<view class="reply">
 			<view class="inner">
 				<view class="item" v-for="(item, index) in data.replyList" :key="index">
 					<view class="user">
@@ -28,7 +28,7 @@
 					<view class="content">{{ item.content }}</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 

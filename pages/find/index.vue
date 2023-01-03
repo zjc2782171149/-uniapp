@@ -32,15 +32,37 @@
 		</div>
 
 		<div class="tabs">
-			<u-tabs :list="list" :is-scroll="false" :current="current" @change="change" bar-height="12" bar-width="100"
+			<u-tabs :list="list" :is-scroll="false" :current="type" @change="change" bar-height="12" bar-width="100"
 				active-color="#dabd7b" gutter="20" inactive-color="grey" f-size="20" fontSize="30" letterSpacing="7"
 				>
 			</u-tabs>
 		</div>
-
-		<u-cell-group>
-			<div class="cell" v-for="(item, index) in record" :key="index">
-				<u-cell-item :arrow="false">
+		
+		<!-- 回答 -->
+		<u-cell-group v-if="type === 0">
+			<div class="cell" v-for="(item, index) in showArticleList" :key="item.article_id">
+				<u-cell-item :arrow="false" @click="turnArticleDetail(item)">
+					<div slot="title" class="cell-main">
+						<div class="cell-author">
+							<div class="cell-icon" :style="{ backgroundImage: `url(${item.icon})`}"></div>
+							<div class="cell-nickname">{{ item.nickname }}</div>
+							<div class="cell-rank">{{ item.rank }}</div>
+						</div>
+						<div class="cell-content">
+							{{ item.content }}
+						</div>
+					</div>
+		
+				</u-cell-item>
+		
+			</div>
+		</u-cell-group>
+		
+		
+		<!-- 官方科普 -->
+		<u-cell-group v-if="type === 1">
+			<div class="cell" v-for="(item, index) in showArticleList" :key="item.article_id">
+				<u-cell-item :arrow="false" @click="turnArticleDetail(item)">
 					<div slot="title" class="cell-main">
 						<div class="cell-title">{{ item.title }}</div>
 						<div class="cell-author">
@@ -48,10 +70,12 @@
 							<div class="cell-nickname">{{ item.nickname }}</div>
 							<div class="cell-rank">{{ item.rank }}</div>
 						</div>
-						<div class="cell-profile">{{ item.profile }}</div>
+						<div class="cell-profile">
+							<u-parse :html="item.desc"></u-parse>
+						</div>
 					</div>
 
-					<div slot="right-icon" class="cell-image" :style="{ backgroundImage: `url(${item.image})`}"></div>
+					<div slot="right-icon" class="cell-image" :style="{ backgroundImage: `url(${item.img})`}"></div>
 				</u-cell-item>
 
 			</div>
@@ -127,8 +151,10 @@
 					name: '记录',
 					// count: 5
 				}],
-				current: 0,
-				record: [{
+				type: 0,
+				articleList: [],
+				showArticleList: [{
+						article_id: 1,
 						title: "能空腹喝化州橘红吗？",
 						icon: "/static/find/icon.png",
 						nickname: "芋泥波波",
@@ -175,9 +201,38 @@
 				]
 			}
 		},
+		onShow() {
+			this.initArticleList();
+		},
 		methods: {
+			async initArticleList() {
+				this.articleList = await this.$u.api.getArticleAll();
+				
+				const that = this;
+				this.showArticleList = [];
+				this.articleList.map(item => {
+					if(item.type === this.type) {
+						that.showArticleList.push(item);
+					}
+				});
+				console.log("要展现的文章", this.showArticleList);
+			},
+			turnArticleDetail(item) {
+				uni.navigateTo({
+					url: "/pages/find/answer-detail?id=" + item.article_id + "&index=" + this.type
+				})
+			},
 			change(index) {
-				this.current = index;
+				this.type = index;
+				
+				const that = this;
+				this.showArticleList = [];
+				this.articleList.map(item => {
+					if(item.type === this.type) {
+						that.showArticleList.push(item);
+					}
+				});
+				console.log("要展现的文章", this.showArticleList);
 			},
 			
 			// 添加

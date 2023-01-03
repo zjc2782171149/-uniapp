@@ -160,17 +160,25 @@
 			}
 		}
 		
-		.cell-profile {
-			margin-top: -10rpx;
-			font-size: 12rpx;
-			line-height: 32rpx;
-
+		.cell-content, .cell-profile {
 			overflow: hidden;
 			display: -webkit-box;
 			-webkit-line-clamp: 4; // 显示2行
 			-webkit-box-orient: vertical;
 			word-break: break-all; 
-
+		}
+		
+		.cell-content {
+			font-weight: 600;
+			line-height: 37rpx;
+		}
+		
+		.cell-profile {
+			overflow: hidden;
+			display: -webkit-box;
+			-webkit-line-clamp: 4; // 显示2行
+			-webkit-box-orient: vertical;
+			word-break: break-all; 
 		}
 	}
 	
