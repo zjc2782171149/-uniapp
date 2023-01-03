@@ -11,16 +11,16 @@
 			<div class="calendar_out">
 				<div class="top">
 					<div class="date">
-						<div class="month">4月/</div>
-						<div class="year">2022年</div>
+						<div class="month">{{ month }}月/</div>
+						<div class="year">{{ year }}年</div>
 					</div>
-					<div class="record">点击记录</div>
+					<div class="record" @click="recordDailyTea">点击记录</div>
 				</div>
 				<div class="bottom">
 					<div class="eachday" v-for="(item, index) in calendar" :key="index">
-						<div :class="['name', item.isRecord ? 'color-gold' : '']">{{item.name}}</div>
+						<div :class="['name', item.isRecord ? 'color-gold' : '']">{{item.day}}</div>
 						<div :class="['number', item.isRecord ? 'border-gold color-gold' : 'border-grey']">
-							{{item.number}}
+							{{item.date}}
 						</div>
 					</div>
 				</div>
@@ -33,11 +33,10 @@
 
 		<div class="tabs">
 			<u-tabs :list="list" :is-scroll="false" :current="type" @change="change" bar-height="12" bar-width="100"
-				active-color="#dabd7b" gutter="20" inactive-color="grey" f-size="20" fontSize="30" letterSpacing="7"
-				>
+				active-color="#dabd7b" gutter="20" inactive-color="grey" f-size="20" fontSize="30" letterSpacing="7">
 			</u-tabs>
 		</div>
-		
+
 		<!-- 回答 -->
 		<u-cell-group v-if="type === 0">
 			<div class="cell" v-for="(item, index) in showArticleList" :key="item.article_id">
@@ -52,13 +51,13 @@
 							{{ item.content }}
 						</div>
 					</div>
-		
+
 				</u-cell-item>
-		
+
 			</div>
 		</u-cell-group>
-		
-		
+
+
 		<!-- 官方科普 -->
 		<u-cell-group v-if="type === 1">
 			<div class="cell" v-for="(item, index) in showArticleList" :key="item.article_id">
@@ -80,7 +79,33 @@
 
 			</div>
 		</u-cell-group>
-		
+
+		<!-- 每日喝茶记录 -->
+		<div v-if="type === 2" class="daily-tea">
+			<text>您已连续记录喝茶{{ showArticleList.length }}天啦</text>
+		</div>
+		<u-cell-group v-if="type === 2">
+			<div class="cell" v-for="(item, index) in showArticleList" :key="item.article_id">
+				<u-cell-item :arrow="false">
+					<div slot="title" class="cell-main">
+						<div class="cell-author">
+							<div class="cell-icon" :style="{ backgroundImage: `url(${item.icon})`}"></div>
+							<div class="cell-nickname">{{ item.nickname }}</div>
+							<div class="cell-rank">{{ item.publish_time }} 发布</div>
+						</div>
+
+						<div class="cell-profile">
+							{{ item.content }}
+						</div>
+					</div>
+
+
+					<div slot="right-icon" class="cell-image" :style="{ backgroundImage: `url(${item.img})`}"></div>
+				</u-cell-item>
+
+			</div>
+		</u-cell-group>
+
 		<div class="blank"></div>
 
 		<!-- 添加按钮 -->
@@ -97,7 +122,17 @@
 	import AddPopup from '@/components/add-popup.vue';
 	import GroupPage from '@/components/group.vue';
 	import FollowPage from '@/components/follow.vue';
-	
+
+	import dayjs from 'dayjs';
+	import relativeTime from 'dayjs/plugin/relativeTime';
+	import updateLocale from 'dayjs/plugin/updateLocale';
+	import isLeapYear from 'dayjs/plugin/isLeapYear';
+	import 'dayjs/locale/zh-cn';
+	dayjs.extend(relativeTime);
+	dayjs.extend(updateLocale);
+	dayjs.locale('zh-cn');
+	dayjs.extend(isLeapYear);
+
 	export default {
 		components: {
 			GroupPage,
@@ -107,42 +142,6 @@
 		},
 		data() {
 			return {
-				calendar: [{
-						name: "日",
-						number: 3,
-						isRecord: true
-					},
-					{
-						name: "一",
-						number: 4,
-						isRecord: false
-					},
-					{
-						name: "二",
-						number: 5,
-						isRecord: false
-					},
-					{
-						name: "三",
-						number: 6,
-						isRecord: false
-					},
-					{
-						name: "四",
-						number: 7,
-						isRecord: false
-					},
-					{
-						name: "五",
-						number: 8,
-						isRecord: true
-					},
-					{
-						name: "六",
-						number: 9,
-						isRecord: true
-					}
-				],
 				list: [{
 					name: '回答'
 				}, {
@@ -153,69 +152,139 @@
 				}],
 				type: 0,
 				articleList: [],
-				showArticleList: [{
-						article_id: 1,
-						title: "能空腹喝化州橘红吗？",
-						icon: "/static/find/icon.png",
-						nickname: "芋泥波波",
-						rank: "资深茶叶审评师",
-						profile: "化橘红怎样吃比较好，空腹喝是否可以_有时候，我们很想快点好起来，但是又怕乱吃不好，我们来学习下小知识：空腹可以喝化州橘红，主要地，类似中药材或者茶叶，健康是很重要的",
-						image: "/static/find/tea.png"
-					},
-					{
-						title: "能空腹喝化州橘红吗？",
-						icon: "/static/find/icon.png",
-						nickname: "芋泥波波",
-						rank: "资深茶叶审评师",
-						profile: "化橘红怎样吃比较好，空腹喝是否可以_有时候，我们很想快点好起来，但是又怕乱吃不好，我们来学习下小知识：空腹可以喝化州橘红，主要地，类似中药材或者茶叶，健康是很重要的",
-						image: "/static/find/tea.png"
-					},
-					{
-						title: "能空腹喝化州橘红吗？",
-						icon: "/static/find/icon.png",
-						nickname: "芋泥波波",
-						rank: "资深茶叶审评师",
-						profile: "化橘红怎样吃比较好，空腹喝是否可以_有时候，我们很想快点好起来，但是又怕乱吃不好，我们来学习下小知识：空腹可以喝化州橘红，主要地，类似中药材或者茶叶，健康是很重要的",
-						image: "/static/find/tea.png"
-					},
-					{
-						title: "能空腹喝化州橘红吗？",
-						icon: "/static/find/icon.png",
-						nickname: "芋泥波波",
-						rank: "资深茶叶审评师",
-						profile: "化橘红怎样吃比较好，空腹喝是否可以_有时候，我们很想快点好起来，但是又怕乱吃不好，我们来学习下小知识：空腹可以喝化州橘红，主要地，类似中药材或者茶叶，健康是很重要的",
-						image: "/static/find/tea.png"
-					}
-				],
+				showArticleList: [],
 				// 在切换到关注的时候不显示搜索框
 				showSearch: true,
 				// 新建按钮配置项
-				addOps: [
-					{
-						label: '创建圈子',
+				addOps: [{
+						label: '每日喝茶记录',
 						icon: require('../../static/operate/publish-community.png'),
-						url: '/pages-community/pages/community/add-or-update?type=add',
-						type: 'page'
+						url: '/pages/find/add',
+						type: 'dailyRecord'
 					},
-					{ label: '发布帖子', icon: require('../../static/operate/create-community.png'), url: '/pages-community/pages/post/add', type: 'page' }
-				]
+					{
+						label: '问题发布',
+						icon: require('../../static/operate/create-community.png'),
+						url: '/pages/find/add',
+						type: 'question'
+					}
+				],
+				calendar: [],
+				dayArr: ["日", "一", "二", "三", "四", "五", "六"],
+				monthAr: [31, 31, dayjs().isLeapYear() ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30],
+				year: '',
+				month: ''
 			}
+		},
+		onLoad() {
+			// 喝茶日历进行初始化
+			let year = dayjs().year();
+			let month = dayjs().month();
+			let date = dayjs().date();
+			let day = dayjs().day();
+			let arr = new Array(7);
+			
+			this.year = year;
+			this.month = month + 1;
+			
+			for (let i = 6; i >= 0; i--) {
+				arr[i] = {
+					year: year, // 年
+					month: month + 1, // 月
+					date: date, // 日
+					day: this.dayArr[day], // 星期几
+					isRecord: false
+				}
+
+				if (date - 1 === 0) {
+					date = this.monthAr[dayjs().month()];
+					// 月份要减一
+					if (month - 1 === -1) {
+						month = 11;
+						// 年份也要减一
+						year -= 1;
+					} else {
+						month -= 1;
+					}
+
+				} else {
+					date -= 1;
+				}
+
+				if (day - 1 === -1) {
+					day = 6;
+				} else {
+					day -= 1;
+				}
+				
+				
+			}
+			console.log("数组为", arr);
+			this.calendar = arr;
+
 		},
 		onShow() {
 			this.initArticleList();
+			
 		},
 		methods: {
+			// 改变日历上的记录
+			reloadRecord() {
+				let recordArr = [];
+				this.articleList.map(item => {
+					if (item.type === 2) {
+						recordArr.push(item)
+					}
+				});
+	
+				
+				let recordArr2 = recordArr.map(item => {
+					return {
+						year: item.publish_time.slice(0, 4) * 1,
+						month: item.publish_time.slice(5, 7) * 1,
+						date: item.publish_time.slice(8, 10) * 1,
+					}
+				})
+				
+				console.log(recordArr2);
+				
+				this.calendar = this.calendar.map((item, index) => {
+					// 如果发表的记录中，这一天有记录，那么便进行标记
+					if(recordArr2.find(record => record.year === item.year && record.month === item.month &&record.date === item.date)) {
+						return {
+							...item,
+							isRecord: true
+						}
+					} else {
+						return item;
+					}
+					
+				})
+				
+				
+			},
+			recordDailyTea() {
+				uni.navigateTo({
+					url: '/pages/find/add?type=' + "dailyRecord"
+				})
+			},
 			async initArticleList() {
 				this.articleList = await this.$u.api.getArticleAll();
-				
+
 				const that = this;
 				this.showArticleList = [];
 				this.articleList.map(item => {
-					if(item.type === this.type) {
-						that.showArticleList.push(item);
+					if (item.type === this.type) {
+						that.showArticleList.push({
+							...item,
+							publish_time: dayjs(item.publish_time).fromNow()
+						});
 					}
 				});
 				console.log("要展现的文章", this.showArticleList);
+				
+				// 修改日历上的喝茶记录
+				this.reloadRecord();
 			},
 			turnArticleDetail(item) {
 				uni.navigateTo({
@@ -224,17 +293,20 @@
 			},
 			change(index) {
 				this.type = index;
-				
+
 				const that = this;
 				this.showArticleList = [];
 				this.articleList.map(item => {
-					if(item.type === this.type) {
-						that.showArticleList.push(item);
+					if (item.type === this.type) {
+						that.showArticleList.push({
+							...item,
+							publish_time: dayjs(item.publish_time).fromNow()
+						});
 					}
 				});
 				console.log("要展现的文章", this.showArticleList);
 			},
-			
+
 			// 添加
 			add() {
 				let $this = this;
@@ -245,7 +317,7 @@
 					}
 				});
 			},
-			
+
 			// 关闭
 			closeAddPopup() {
 				uni.showTabBar({

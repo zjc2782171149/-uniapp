@@ -59,9 +59,13 @@
 				"enablePullDownRefresh": false
 			}
 		},
-		// 回答页
+		// 文章详情页(回答/科普)
 		{
 			"path": "pages/find/answer-detail"
+		},
+		// 每日喝茶记录/问题发布
+		{
+			"path": "pages/find/add"
 		},
 		// 欢迎页，不需要时放在最后
 		{

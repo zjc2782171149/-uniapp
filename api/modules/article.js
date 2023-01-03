@@ -17,12 +17,16 @@ export const useArticlesApi = (Vue, vm) => {
 		
 		
 		// --------------------------新建订单信息--------------------------------
-		// 新增文章基本信息
-		setArticleMes: (req) => vm.$u.post('/set_article_mes', {
+		// 新增文章基本信息(包括提问、官方科普、每日喝茶记录)
+		setArticleMes: (req) => vm.$u.post('/set_article', {
 			user_id: req.user_id,
 			content: req.content,
 			publish_time: req.publish_time,
-			view_num: 0
+			view_num: 0,
+			type: req.type,
+			title: req.title,
+			img: req.img,
+			desc: req.desc
 		}),
 		// 新增文章评论
 		setArticleEvaluate: (req) => vm.$u.post('/set_article_evaluate', {
@@ -31,6 +35,7 @@ export const useArticlesApi = (Vue, vm) => {
 			content: req.content,
 			publish_time: req.publish_time
 		}),
+		
 		
 
 
