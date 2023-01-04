@@ -38,8 +38,13 @@ import {
 	useArticlesApi
 } from './modules/article.js'
 
+// 首页各模块api
+import {
+	useHomesApi
+} from './modules/home.js'
+
 
 // 导出api全局安装方法
 export const installApiModules = (Vue, vm) => {
-	vm.$u.api = Object.assign(useFileApi(Vue, vm), useWxApi(Vue, vm), useMallApi(Vue, vm), useCommunityApi(Vue, vm), useGoodsApi(Vue, vm), useOrdersApi(Vue, vm), useCouponsApi(Vue, vm), useArticlesApi(Vue, vm))
+	vm.$u.api = Object.assign(useFileApi(Vue, vm), useWxApi(Vue, vm), useMallApi(Vue, vm), useCommunityApi(Vue, vm), useGoodsApi(Vue, vm), useOrdersApi(Vue, vm), useCouponsApi(Vue, vm), useArticlesApi(Vue, vm), useHomesApi(Vue, vm))
 }

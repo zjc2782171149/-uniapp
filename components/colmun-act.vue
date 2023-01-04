@@ -1,9 +1,9 @@
 <template>
 	<view class="slot">
-			<view class="item" v-for="(item, index) in list" :key="index" @click="$u.route({ url: '/pages/actDetail/index', params: { url: item.url } })">
+			<view class="item" v-for="(item, index) in list" :key="item.act_id" @click="$u.route({ url: '/pages/actDetail/index', params: { url: item.url } })">
 				<view class="title">
 					<image src="/static/bg/bg-community.png"></image>
-					<text>{{ item.text }}</text>
+					<text>{{ item.title }}</text>
 				</view>
 				<view class="info">
 					<image src="/static/bg/bg-user.png"></image>
@@ -12,7 +12,7 @@
 						<text>人参与</text>
 					</view>
 				</view>
-				<u-image class="bg" width="587.5rpx" height="250rpx" :src="item.bg"></u-image>
+				<u-image class="bg" width="587.5rpx" height="250rpx" :src="item.pics"></u-image>
 			</view>
 
 	</view>

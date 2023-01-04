@@ -184,6 +184,7 @@
 			let date = dayjs().date();
 			let day = dayjs().day();
 			let arr = new Array(7);
+			uni.setStorageSync("user_id", 1)
 
 			this.year = year;
 			this.month = month + 1;
