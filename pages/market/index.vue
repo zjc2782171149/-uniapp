@@ -74,40 +74,11 @@
 					},
 				],
 				// 推荐商品列表
-				recommendGoodsList: [{
-						img: "/static/market/1.png",
-						title: 'Beats Studio3 Wireless头戴式无线蓝牙耳机',
-						money: '1998',
-						num: '13042',
-						id: 38,
-						checked: true,
-					},
-					{
-						img: '/static/market/3.png',
-						title: '戴森吹风机家用负离子护发专用大功率不伤发',
-						money: '2290',
-						num: '1518',
-						id: 38,
-						checked: false,
-					},
-					{
-						img: '/static/market/2.png',
-						title: '戴森吹风机家用负离子护发专用大功率不伤发',
-						money: '2290',
-						num: '1518',
-						id: 38,
-						checked: false,
-					},
-					{
-						img: '/static/market/4.png',
-						title: '戴森吹风机家用负离子护发专用大功率不伤发',
-						money: '2290',
-						num: '1518',
-						id: 38,
-						checked: false,
-					}
-				],
+				recommendGoodsList: [],
 			}
+		},
+		onLoad() {
+			this.getRecommendGoods();
 		},
 		onShow() {
 			// 处理首页需要渲染的数据
@@ -122,12 +93,10 @@
 			// },
 
 			// 加载推荐商品
-			// getRecommendGoods() {
-			// 	this.$nextTick(() => {
-			// 		console.log(JSON.parse(JSON.stringify(goodsList)));
-			// 		this.recommendGoodsList = JSON.parse(JSON.stringify(goodsList));
-			// 	});
-			// },
+			async getRecommendGoods() {
+				const newUpList = await this.$u.api.getGoodsAll();
+				this.recommendGoodsList = newUpList;
+			},
 		}
 	}
 </script>

@@ -1,29 +1,32 @@
 <template>
 	<view class="slot"
-		@click="$u.route({ url: '/pages-mall/pages/goods/detail', params: { id: data.id, goodsType: 'normal' } })">
+		@click="$u.route({ url: '/pages-mall/pages/goods/detail', params: { id: data.good_id } })">
 		<view class="pic">
-			<u-image mode="widthFix" :src="data.img"></u-image>
+			<u-image mode="widthFix" :src="data.pics"></u-image>
 		</view>
 		<view class="inner">
 			<view class="title">{{ data.title }}</view>
 			<view class="info">
-				<view class="money">
-					<view class="now">
-						<text>￥</text>
-						<text>{{ data.money }}</text>
-					</view>
-					<!-- 					<view class="old" v-if="showOldMoney">
+				<div class="num">
+					
+					<view class="money">
+						<view class="now">
+							<text>￥</text>
+							<text>{{ data.price }}</text>
+						</view>
+						<!-- 					<view class="old" v-if="showOldMoney">
 						<text>￥{{ data.oldMoney }}</text>
 					</view> -->
-				</view>
+					</view>
 
-				<view class="sale">
-					<view>{{ data.num }}+人付款</view>
-					<!-- <text>{{ $replaceSale(data.num) }}+人付款</text> -->
-				</view>
+					<view class="sale">
+						<view>{{ data.sales }}+人付款</view>
+						<!-- <text>{{ $replaceSale(data.num) }}+人付款</text> -->
+					</view>
+				</div>
 
 				<view class="rank">
-					<text>月销上千</text>
+					<text>{{ data.sales >= 1000 ? '月销上千' : '好物推荐' }}</text>
 				</view>
 			</view>
 		</view>
@@ -89,30 +92,45 @@
 			justify-content: space-between;
 			align-items: flex-end;
 
-			.money {
-				.now {
-					margin-right: -40rpx;
-					
-					text:nth-child(1) {
-						font-size: 20rpx;
-						color: $app-theme-text-money-color;
-					}
+			.num {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: flex-start;
+				
+				.money {
+					width: 210rpx;
 
-					text:nth-child(2) {
-						font-size: 28rpx;
-						color: $app-theme-text-money-color;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+
+					.now {
+
+						text:nth-child(1) {
+							font-size: 20rpx;
+							color: $app-theme-text-money-color;
+						}
+
+						text:nth-child(2) {
+							font-size: 28rpx;
+							color: $app-theme-text-money-color;
+						}
 					}
+				}
+
+				.sale {
+					width: 200rpx;
+					font-size: 12rpx;
+					color: $app-theme-card-gray-color;
+					transform: scale(0.9);
+
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
 				}
 			}
 
-			.sale {
-				display: inline-block;
-				font-size: 12rpx;
-				color: $app-theme-card-gray-color;
-				// text-decoration-line: line-through;
-				transform: scale(0.7);
-				margin-right: -50rpx;
-			}
 
 			.rank {
 				font-size: 12;
