@@ -8,7 +8,7 @@
 					<view class="info">
 						<view class="title">{{ item.title }}</view>
 						<view class="num">
-							<text>553</text>
+							<text>{{ item.num }}</text>
 							<text>人收藏</text>
 						</view>
 					</view>
@@ -16,17 +16,17 @@
 				</view>
 			</u-checkbox-group>
 		</view>
-		<view class="btn" v-if="isSelect && selectIndexs.length > 0"><u-button type="primary" shape="circle" @click="selectCollections">选好了</u-button></view>
 	</view>
 </template>
 
 <script>
-import { goodsList } from '@/static/test-data.js';
+import { RandomNum } from '@/utils/random.js';
+
 export default {
 	data() {
 		return {
 			isSelect: false,
-			list: goodsList,
+			list: [],
 			selectIndexs: [],
 			checkboxColor: this.$appTheme.appThemeColor
 		};
@@ -55,7 +55,12 @@ export default {
 			
 			task1 = await Promise.all(task1);
 			
-			this.list = task1.map(item => item[0]);
+			this.list = task1.map(item => {
+				return {
+					...item[0],
+					num: RandomNum(100, 1000)
+				}
+			});
 		},
 		// 点击卡片
 		clickItem(item, index) {
@@ -76,21 +81,6 @@ export default {
 			this.selectIndexs = e;
 		},
 
-		// 选好了
-		selectCollections() {
-			let selectedCollections = [];
-			this.selectIndexs.map((item,index) => {
-				this.list.map((goods,goodsIndex) => {
-					if (goodsIndex == index) {
-						selectedCollections.push(goods);
-					}
-				});
-			});
-			uni.setStorageSync('TEMP_SELECED_COLLECTIONS', selectedCollections);
-			uni.navigateBack({
-				delta: 1
-			});
-		}
 	}
 };
 </script>

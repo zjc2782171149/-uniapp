@@ -40,6 +40,13 @@ export const useWxApi = (Vue, vm) => {
 			...req
 		}),
 		
+		// -------------------------------------更新-------------------------------------------------
+		// 修改用户个人信息
+		updateUserMes: (req) => vm.$u.post('/update_user_mes', {
+			user_id: req.user_id,
+			...req
+		}),
+		
 		// -------------------------------------删除--------------------------------------------------
 		// 添加商品到购物车列表
 		deleteUserShoppingcart: (req) => vm.$u.post('/delete_user_shoppingcart', {

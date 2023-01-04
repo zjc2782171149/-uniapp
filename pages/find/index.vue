@@ -38,7 +38,8 @@
 		</div>
 
 		<!-- 回答 -->
-		<u-cell-group v-if="type === 0">
+		<QuestionList v-if="type === 0" :data="showArticleList"></QuestionList>
+<!-- 		<u-cell-group v-if="type === 0">
 			<div class="cell" v-for="(item, index) in showArticleList" :key="item.article_id">
 				<u-cell-item :arrow="false" @click="turnArticleDetail(item)">
 					<div slot="title" class="cell-main">
@@ -55,7 +56,7 @@
 				</u-cell-item>
 
 			</div>
-		</u-cell-group>
+		</u-cell-group> -->
 
 
 		<!-- 官方科普 -->
@@ -81,30 +82,11 @@
 		</u-cell-group>
 
 		<!-- 每日喝茶记录 -->
-		<div v-if="type === 2" class="daily-tea">
+		<div class="daily-tea" v-if="type === 2">
 			<text>您已连续记录喝茶{{ consistentRecordDay }}天啦</text>
 		</div>
-		<u-cell-group v-if="type === 2">
-			<div class="cell" v-for="(item, index) in showArticleList" :key="item.article_id">
-				<u-cell-item :arrow="false">
-					<div slot="title" class="cell-main">
-						<div class="cell-author">
-							<div class="cell-icon" :style="{ backgroundImage: `url(${item.icon})`}"></div>
-							<div class="cell-nickname">{{ item.nickname }}</div>
-							<div class="cell-rank">{{ item.publish_time }} 发布</div>
-						</div>
+		<RecordList v-if="type === 2" :data="showArticleList" :consistentRecordDay="consistentRecordDay"></RecordList>
 
-						<div class="cell-profile">
-							{{ item.content }}
-						</div>
-					</div>
-
-
-					<div slot="right-icon" class="cell-image" :style="{ backgroundImage: `url(${item.img})`}"></div>
-				</u-cell-item>
-
-			</div>
-		</u-cell-group>
 
 		<div class="blank"></div>
 
@@ -122,6 +104,8 @@
 	import AddPopup from '@/components/add-popup.vue';
 	import GroupPage from '@/components/group.vue';
 	import FollowPage from '@/components/follow.vue';
+	import QuestionList from '@/pages-community/components/question-list.vue';
+	import RecordList from '@/pages-community/components/record-list.vue';
 
 	import dayjs from 'dayjs';
 	import relativeTime from 'dayjs/plugin/relativeTime';
@@ -138,7 +122,9 @@
 			GroupPage,
 			FollowPage,
 			AddBtnFixed,
-			AddPopup
+			AddPopup,
+			QuestionList,
+			RecordList
 		},
 		data() {
 			return {

@@ -3,7 +3,7 @@
 		<!-- 一般导航栏 -->
 		<Navbar title="商品详情"></Navbar>
 		<!-- 商品图片 -->
-		<ImgSwiper :list="goodsDetail.sliderImageArr"></ImgSwiper>
+		<ImgSwiper :list="sliderImageArr"></ImgSwiper>
 		<!-- 商品信息 -->
 		<GoodsInfo :data="goodsDetail" :goodsType="goodsType"></GoodsInfo>
 		<!-- 选择项 -->
@@ -61,7 +61,7 @@
 
 		
 		<!-- 底部操作按钮 -->
-		<GoodsOperate :data="goodsDetail" :isCollection="goodsDetail.isCollection" @addShoppingCart="addShoppingCart" @buyNow="buyNow" @getGoodInfo="getGoodInfo"></GoodsOperate>
+		<GoodsOperate :data="goodsDetail" :isCollection="isCollection" @addShoppingCart="addShoppingCart" @buyNow="buyNow" @getGoodInfo="getGoodInfo"></GoodsOperate>
 		<!-- 选择sku -->
 		<GoodsSelectSku ref="GoodsSelectSku" @addShoppingCart="addShoppingCart" @buyNow="buyNow" @change="changeSku"></GoodsSelectSku>
 	</view>
@@ -92,12 +92,12 @@ export default {
 	},
 	data() {
 		return {
-			// 商品类型，normal、points
-			goodsType: 'normal',
-			// 假数据
+			// 商品类型
+			goodsType: '',
 			goodsDetail: {},
+			isCollection: 0,
 			evaluateData: [],
-			// evaluateData: [],
+			sliderImageArr: [],
 			// 精选晒单
 			topicData: topicList,
 			// 相关商品
@@ -180,14 +180,8 @@ export default {
 			
 			// 获取商品轮播图
 			this.$u.api.getGoodSwiper({ id: id }).then(res => {
-				// console.log(res);
-				let arr = [];
-				res.forEach(item => {
-					arr.push(item.url);
-				})
-				that.goodsDetail.sliderImageArr = arr;
+				this.sliderImageArr = res.map(item => item.url);
 			})
-			
 			
 			// 获取商品评论
 			this.$u.api.getGoodEvaluate({ id: id }).then(res => {
@@ -201,15 +195,13 @@ export default {
 				// 通过用户id拿到用户昵称
 				let nicknameArr = [];
 				Promise.all(task1).then(res2 => {
-					// console.log(res2);
-					nicknameArr = res2.map(item => item[0]);
 					
 					that.evaluateData = res.map((item, index) => {
 						return {
 							...item,
 							create_time: item.create_time.slice(0, 10),
-							nickname: nicknameArr[index].nickname,
-							icon: nicknameArr[index].icon
+							nickname: res2[index].nickname,
+							icon: res2[index].icon
 						}
 					})
 				});
@@ -224,14 +216,14 @@ export default {
 			}).then(res => {
 				// console.log(res[0]);
 				if(res.length) {
-					that.goodsDetail.isCollection = 1;
+					that.isCollection = 1;
 				} else {
-					that.goodsDetail.isCollection = 0;
+					that.isCollection = 0;
 				}
-				console.log("收藏状态", that.goodsDetail.isCollection);
+				console.log("收藏状态", that.isCollection);
 			}).catch(err => {
 				console.error(err);
-				that.goodsDetail.isCollection = 0;
+				that.isCollection = 0;
 			})
 			
 			
