@@ -116,6 +116,7 @@
 		// 初始化购物车列表
 		onShow() {
 			const that = this;
+			console.log(uni.getStorageSync("userInfo"));
 			this.$u.api.getUserShoppingcart({
 				user_id: uni.getStorageSync("userInfo").user_id
 			}).then(res => {

@@ -5,12 +5,12 @@
 		<!-- 表单 -->
 		<view class="form">
 			<view class="content">
-				<u-input v-model="value" height="200" type="textarea" 
-				placeholder="请填写内容" :maxlength="title === '每日喝茶记录' ? 100 : 50"></u-input>
+				<u-input v-model="value" height="200" type="textarea" placeholder="请填写内容(最多50个字)"
+					maxlength="50" :border="true" border-color="#ddc387" :focus="true"></u-input>
 			</view>
 			<view v-if="title === '每日喝茶记录'" class="pics">
 				<!-- 图片上传 -->
-				<u-upload :deleteConfirmBtnColor="appThemeColor" width="180" height="180" max-count="9"
+				<u-upload :deleteConfirmBtnColor="appThemeColor" width="180" height="180" max-count="1"
 					:max-size="1024 * 1024 * 10" :action="uploadUrl" :auto-upload="true" @on-success="uploadPicSuccess">
 				</u-upload>
 			</view>
@@ -18,7 +18,7 @@
 		</view>
 		<!-- 按钮 -->
 		<view class="btn">
-			<u-button type="primary" shape="circle" @click="submit"><text>提交</text></u-button>
+			<u-button type="gold" shape="circle" @click="submit"><text>提交</text></u-button>
 		</view>
 	</view>
 </template>
@@ -35,7 +35,7 @@
 				appThemeColor: this.$appTheme.appThemeColor,
 				appThemeTextGrayColor: this.$appTheme.appThemeTextGrayColor,
 				// 上传地址
-				uploadUrl: '',
+				uploadUrl: 'http://47.106.83.74:3002/upload',
 				img: ''
 
 			};
@@ -49,25 +49,28 @@
 		},
 		methods: {
 			// 上传图片成功
-			uploadPicSuccess(data, index, lists, name) {
-				let obj = {
-					src: data.data.src,
-					name: name || '未命名图片.png',
-					type: 0
-				};
-				this.form.pics.push(obj);
+			uploadPicSuccess(data) {
+				if (data.code === 200) {
+					this.img = data.url;
+				} else {
+					uni.showToast({
+						title: '图片上传失败',
+						icon: 'error'
+					})
+				}
+
 			},
 
 			// 新增每日喝茶记录 or 问题
 			submit() {
-				if(this.value.length < 10) {
+				if (this.value.length < 10) {
 					uni.showToast({
 						title: '得至少输出10个文字',
 						icon: 'none'
 					})
 					return;
 				}
-				
+
 				if (this.title === "每日喝茶记录") {
 					// 有图片
 					this.$u.api.setArticleMes({
@@ -167,4 +170,5 @@
 	.btn {
 		padding: 60rpx 0rpx;
 	}
+	
 </style>

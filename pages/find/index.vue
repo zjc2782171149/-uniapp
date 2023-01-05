@@ -326,7 +326,7 @@
 						});
 					}
 				});
-				// console.log("要展现的文章", this.showArticleList);
+				console.log("要展现的文章", this.showArticleList);
 
 				// 修改日历上的喝茶记录
 				this.reloadRecord();

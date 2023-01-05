@@ -118,26 +118,26 @@ export default {
 				});
 				return;
 			}
-			
+			console.log("发表者", uni.getStorageSync("userInfo"));
 			const that = this;
 			const evaluate = {
 				article_id: this.article.article_id,
-				user_id: this.article.user_id,
+				user_id: uni.getStorageSync("userInfo").user_id,
 				content: this.value,
 				publish_time: getApp().globalData.getNowTime(dayjs().format())
 			};
 			
-			this.$u.api.setArticleEvaluate(evaluate).then(res => {
-				uni.showToast({
-					title: "发表评论成功",
-					icon: "success"
-				});
+			// this.$u.api.setArticleEvaluate(evaluate).then(res => {
+			// 	uni.showToast({
+			// 		title: "发表评论成功",
+			// 		icon: "success"
+			// 	});
 				
-				that.value = '';
+			// 	that.value = '';
 				
-				that.initArticleEvaluate(that.article.article_id);
+			// 	that.initArticleEvaluate(that.article.article_id);
 				
-			})
+			// })
 			
 			
 		},

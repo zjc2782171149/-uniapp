@@ -5,12 +5,16 @@
 		<!-- 表单 -->
 		<view class="form">
 			<u-form label-position="left" ref="form" label-width="180rpx">
-				<u-form-item label="头像">
-					<view class="value" @click="uploadAvatar">
+				<u-form-item label="头像" class="upload">
+					<view class="value">
 						<u-avatar style="height: 72rpx;" size="72"
 							:src="icon === '' ? '../../../static/user/1.png' : icon"></u-avatar>
 						<u-icon :color="arrowColor" style="margin-left: 20rpx;" size="28" name="arrow-right"></u-icon>
 					</view>
+					<!-- 图片上传 -->
+					<u-upload class="upload_item" :deleteConfirmBtnColor="themeColor" width="72" height="72" max-count="1"
+						:max-size="1024 * 1024 * 10" :action="uploadUrl" :auto-upload="true" @on-success="uploadPicSuccess">
+					</u-upload>
 				</u-form-item>
 				<u-form-item label="昵称">
 					<view class="value" @click="openUsernameModal">
@@ -179,13 +183,25 @@
 				region: '',
 
 				// 上传地址
-				uploadUrl: ''
+				uploadUrl: 'http://47.106.83.74:3002/upload',
 			};
 		},
 		onLoad(options) {
 			this.initUser();
 		},
 		methods: {
+			// 上传图片成功
+			uploadPicSuccess(data) {
+				if (data.code === 200) {
+					this.icon = data.url;
+				} else {
+					uni.showToast({
+						title: '图片上传失败',
+						icon: 'error'
+					})
+				}
+			
+			},
 			// 修改地区
 			confirmRegion(item) {
 				console.log(item);
@@ -270,7 +286,7 @@
 			// 保存个人信息的修改
 			submit() {
 				this.$u.api.updateUserMes({
-					user_id: uni.getStorageSync("user_id"),
+					user_id: uni.getStorageSync("userInfo").user_id,
 					nickname: this.nickname,
 					icon: this.icon,
 					gender: this.gender,
@@ -294,22 +310,9 @@
 					}, 1000);
 				})
 			},
-			// 上传头像
-			uploadAvatar() {
-				uni.chooseImage({
-					count: 1,
-					sizeType: ['original', 'compressed'],
-					sourceType: ['album', 'camera'],
-					success(res) {
-						console.log(JSON.stringify(res.tempFilePaths));
-					}
-				});
-			},
 
 			async initUser() {
-				const info = await this.$u.api.getUserMes({
-					user_id: uni.getStorageSync("user_id")
-				});
+				const info = uni.getStorageSync("userInfo");
 
 				// 初始化用户信息
 				this.icon = info.icon;
@@ -417,6 +420,15 @@
 
 	.slot-content {
 		padding: 30rpx;
+	}
+	
+	.upload {
+		position: relative;
+		
+		.upload_item {
+			position: absolute;
+			opacity: 0.01;
+		}
 	}
 	
 </style>

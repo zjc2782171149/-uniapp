@@ -102,12 +102,12 @@
 			}
 		},
 		onLoad(options) {
-			this.initUser();
 			// uni.setStorageSync("user_id", 1)
 		},
 		onShow() {
 			// 处理首页需要渲染的数据
 			// this.loadPageData(false);
+			this.initUser();
 		},
 		methods: {
 			// 去往对应页面

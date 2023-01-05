@@ -119,6 +119,7 @@ export default {
 			height: 150rpx;
 			background-size: 100% 100%;
 			margin-top: 80rpx;
+			border-radius: 20rpx;
 		}
 	}
 	
