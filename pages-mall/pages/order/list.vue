@@ -37,6 +37,7 @@
 		},
 		data() {
 			return {
+				userInfo: {},
 				orderList: [],
 				showList: [],
 				// 当前tab
@@ -66,6 +67,7 @@
 			};
 		},
 		onLoad(ops) {
+			this.initUser();
 			this.getOrderList(0);
 
 		},
@@ -73,6 +75,9 @@
 
 		},
 		methods: {
+			initUser() {
+				this.userInfo = uni.getStorageSync("userInfo");
+			},
 			// 更新订单列表
 			updateOrderList(index) {
 				this.getOrderList(index);
@@ -99,7 +104,7 @@
 
 				// 获取我的订单列表
 				const res1 = await this.$u.api.getOrderList({
-					user_id: 1
+					user_id: this.userInfo.user_id
 				});
 				res1.map(item => {
 					orderList.push({
@@ -160,21 +165,21 @@
 			// 根据订单id去获取订单的地址信息
 			getOrderAddress(item) {
 				return this.$u.api.getOrderAddress({
-					user_id: 1,
+					user_id: this.userInfo.user_id,
 					order_id: item.order_id
 				});
 			},
 			// 根据订单id去获取订单的基本信息
 			async getOrderMes(item) {
 				return this.$u.api.getOrderMes({
-					user_id: 1,
+					user_id: this.userInfo.user_id,
 					order_id: item.order_id
 				});
 			},
 			// 根据订单id去获取订单的基本信息
 			async getOrderGoodsList(item) {
 				return this.$u.api.getOrderGoodsList({
-					user_id: 1,
+					user_id: this.userInfo.user_id,
 					order_id: item.order_id
 				});
 			},

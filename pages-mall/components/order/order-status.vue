@@ -13,7 +13,7 @@
 		</view>
 		<view class="desc">
 			<text v-if="type == '0'">请在{{ data.end_time.slice(0, 10) + " " + data.end_time.slice(11, 19) }} 前完成支付</text>
-			<text v-if="type == '1'">预计发货日期：{{ data.end_time.slice(0, 10) + " " + data.end_time.slice(11, 19) }}的2天后</text>
+			<text v-if="type == '1'">预计发货日期：{{ freight_time + ' '}}前</text>
 			<text v-if="type == '2'">快件由 [{{ data.from }}] 发往 [{{ data.city + data.area + data.street }}]</text>
 			
 			<text v-if="type == '3' && data.isEvaluate === 0">您的订单还未评价</text>
@@ -37,6 +37,7 @@
 
 <script>
 import { orderOperate } from '@/pages-mall/mixins/order-operate.js';
+
 export default {
 	name: 'order-status',
 	// 工单操作方法混入
@@ -54,6 +55,11 @@ export default {
 			type: [String, Number],
 			default: '0'
 		},
+		// 预计发货日期
+		freight_time: {
+			type: String,
+			default: ''
+		}
 		// 付款截止日期
 		// endDate: {
 		// 	type: String,
@@ -75,7 +81,9 @@ export default {
 		// }
 	},
 	data() {
-		return {};
+		return {
+
+		};
 	}
 };
 </script>

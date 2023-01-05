@@ -211,7 +211,7 @@ export default {
 			
 			// 商品是否被收藏
 			this.$u.api.getUserCollect({ 
-				user_id: uni.getStorageSync("user_id"),
+				user_id: uni.getStorageSync("userInfo").user_id,
 				good_id: id
 			}).then(res => {
 				// console.log(res[0]);

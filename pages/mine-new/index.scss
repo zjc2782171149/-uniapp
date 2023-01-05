@@ -18,10 +18,10 @@
 	.left {
 		width: 200rpx;
 		height: 200rpx;
-		border-radius: 20px;
+		border-radius: 40rpx;
 		// box-shadow: 5rpx 3rpx 7rpx 2rpx rgba(0, 0, 0, 0.35);
-		background-image: url("/static/mine/icon.png");
 		background-size: 100% 100%;
+		
 	}
 	
 	.right {
@@ -102,3 +102,14 @@
 	}
 }
 
+	.slot-content {
+		padding: 30rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.copy {
+		font-size: 28rpx;
+		color: $app-theme-color;
+	}

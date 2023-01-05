@@ -15,7 +15,7 @@
 				</view> -->
 				<view class="fans">
 					<text>累计记录天数</text>
-					<text>100</text>
+					<text>{{ totalRecord }}</text>
 				</view>
 			</view>
 			<view class="desc">{{ userInfo.rank }}</view>
@@ -126,6 +126,7 @@
 				articleList: [],
 				showArticleList: [],
 				type: 0,
+				totalRecord: 0
 			};
 		},
 		onLoad(options) {
@@ -141,9 +142,7 @@
 		},
 		methods: {
 			async initUser() {
-				const info = await this.$u.api.getUserMes({
-					user_id: uni.getStorageSync("user_id")
-				});
+				const info = uni.getStorageSync("userInfo");
 
 				this.userInfo = {
 					...info,
@@ -160,9 +159,10 @@
 				else if (e === 2) this.type = 2;
 
 				const that = this;
+				const user_id = this.userInfo.user_id;
 				this.showArticleList = [];
 				this.articleList.map(item => {
-					if (item.type === this.type) {
+					if (item.type === this.type && item.user_id === user_id) {
 						that.showArticleList.push({
 							...item,
 							publish_time: dayjs(item.publish_time).fromNow()
@@ -173,22 +173,14 @@
 			},
 			async initArticleList() {
 				this.articleList = await this.$u.api.getArticleAll({
-					user_id: uni.getStorageSync("user_id")
+					user_id: uni.getStorageSync("userInfo").user_id
 				});
-
-				// 	const that = this;
-				// 	this.showArticleList = [];
-
-				// 	this.articleList.map(item => {
-				// 		if (item.type === this.type) {
-				// 			that.showArticleList.push({
-				// 				...item,
-				// 				publish_time: dayjs(item.publish_time).fromNow()
-				// 			});
-				// 		}
-				// 	});
-				// console.log("要展现的文章", this.showArticleList);
-
+				
+				this.totalRecord = 0;
+				this.articleList.map(item => {
+					if(item.type === 2)
+						this.totalRecord++;
+				})
 			},
 		}
 	};

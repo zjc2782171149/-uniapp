@@ -25,10 +25,14 @@ export default {
 				return {}; 
 			}
 		},
+		coupon_id: {
+			type: Number,
+			default: -1
+		},
 	},
 	methods: {
 		async goPayResult() {
-			if(!uni.getStorageSync("user_id")) {
+			if(!uni.getStorageSync("userInfo").user_id) {
 				uni.showToast({
 					title: "请先登录",
 					icon: "error"
@@ -36,14 +40,14 @@ export default {
 				return;
 			};
 			
-			const order_id = dayjs().valueOf() + uni.getStorageSync("user_id");
+			const order_id = dayjs().valueOf() + uni.getStorageSync("userInfo").user_id;
 			const create_time = getApp().globalData.getNowTime(dayjs().format());
 
 			const orderInfo = {
 				goods: getApp().globalData.goodsListSelected,
 				status: 0,
 				order_id: order_id,
-				user_id: uni.getStorageSync("user_id"),
+				user_id: uni.getStorageSync("userInfo").user_id,
 				create_time: create_time,
 				order_type: 1,
 				pay_way: "暂未支付",
@@ -52,7 +56,8 @@ export default {
 				addressInfo: {
 					...this.addressInfo,
 					from: "广州市天河区天山街道天山路171号"
-				}
+				},
+				coupon_id: getApp().globalData.discountIndex === -1 ? -1 : getApp().globalData.discountsList[getApp().globalData.discountIndex].coupon_id
 			}
 			
 			uni.setStorageSync("orderInfo", orderInfo);
@@ -60,13 +65,13 @@ export default {
 			
 			// 新建订单
 			let task1 = await this.setOrderList({
-				user_id: uni.getStorageSync("user_id"),
+				user_id: uni.getStorageSync("userInfo").user_id,
 				order_id: order_id
 			});
 			
 			// 新建订单信息——购买地址
 			let task2 = await this.setOrderAddress({
-				user_id: uni.getStorageSync("user_id"),
+				user_id: uni.getStorageSync("userInfo").user_id,
 				order_id: order_id,
 				address_info: {
 					...this.addressInfo,
@@ -76,7 +81,7 @@ export default {
 			
 			// 新建订单信息——订单基本信息
 			let task3 = await this.setOrderMes({
-				user_id: uni.getStorageSync("user_id"),
+				user_id: uni.getStorageSync("userInfo").user_id,
 				order_id: order_id,
 				order_mes: {
 					status: 0,
@@ -93,7 +98,7 @@ export default {
 			
 			// 新建订单信息——购买物品清单
 			let task4 = await this.setOrderGoodsList({
-				user_id: uni.getStorageSync("user_id"),
+				user_id: uni.getStorageSync("userInfo").user_id,
 				order_id: order_id,
 				goods: getApp().globalData.goodsListSelected
 			});

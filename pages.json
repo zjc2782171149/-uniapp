@@ -229,14 +229,6 @@
 			// 用户主页
 			{
 				"path": "pages/user"
-			},
-			// 帮助
-			{
-				"path": "pages/help"
-			},
-			// 联系我们
-			{
-				"path": "pages/contact"
 			}
 		]
 	}],

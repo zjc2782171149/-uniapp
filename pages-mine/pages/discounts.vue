@@ -21,34 +21,72 @@
 </template>
 
 <script>
+import dayjs from 'dayjs';
+
 export default {
 	data() {
 		return {
+			userInfo: {},
 			selectIndex: 0,
-			discountsList: []
+			discountsList: [],
+			payment: 0
 		};
+	},
+	onLoad(ops) {
+		this.initUser();
+		console.log(ops);
+		if(ops.payment) this.payment = ops.payment * 1;
 	},
 	onShow() {
 		this.selectIndex = getApp().globalData.discountIndex;
 		
-		const that = this;
-		this.$u.api.getCouponList({
-			user_id: uni.getStorageSync("user_id")
-		}).then(res => {
-			that.discountsList = res;
-			getApp().globalData.discountsList = res;
-			
-		}).catch(err => {
-			uni.showToast({
-				title: "查找优惠券失败"
-			})
-		})
+		this.initCouponsList();
+		
 	},
 	methods: {
+		initUser() {
+			this.userInfo = uni.getStorageSync("userInfo");
+		},
+		initCouponsList() {
+			const that = this;
+			
+			this.$u.api.getCouponList({
+				user_id: this.userInfo.user_id
+			}).then(res => {
+				const list = [];
+				res.map(item => {
+					list.push({
+						...item,
+						endDate: dayjs(item.endDate).format().slice(0, 10) + ' ' + dayjs(item.endDate).format().slice(11, 19)
+					})
+				})
+				that.discountsList = list;
+				getApp().globalData.discountsList = list;
+				
+			}).catch(err => {
+				uni.showToast({
+					title: "查找优惠券失败"
+				})
+			})
+		},
 		changeDiscount(item, index) {
+			// 非支付页面过来选择优惠券，不允许点击事件
+			if(this.payment === 0)
+				return;
+			
+			// 到达阈值才能选择此优惠券
+			if(this.payment < this.discountsList[index].threshold) {
+				uni.showToast({
+					title: '您的总金额未达到优惠券最低门槛',
+					icon: 'none'
+				});
+				return;
+			}
+				
 			this.selectIndex = index;
 			getApp().globalData.discountIndex = index;
 			console.log(getApp().globalData.discountIndex);
+			
 			// 选择完后自动返回付款页面
 			uni.navigateBack({
 				delta: 1,

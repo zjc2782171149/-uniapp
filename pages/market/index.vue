@@ -78,6 +78,7 @@
 			}
 		},
 		onLoad() {
+			this.initUser();
 			this.getRecommendGoods();
 		},
 		onShow() {
@@ -85,12 +86,12 @@
 			// this.loadPageData(false);
 		},
 		methods: {
-			// 首页需要渲染的数据
-			// loadPageData(isAll = true) {
-			// 	setTimeout(() => {
-			// 		this.getRecommendGoods();
-			// 	}, 0);
-			// },
+			async initUser() {
+				this.userInfo = await this.$u.api.getUserMes({
+					user_id: uni.getStorageSync("user_id")
+				});
+				uni.setStorageSync("userInfo", this.userInfo);
+			},
 
 			// 加载推荐商品
 			async getRecommendGoods() {

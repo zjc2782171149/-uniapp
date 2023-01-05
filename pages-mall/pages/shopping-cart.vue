@@ -117,9 +117,14 @@
 		onShow() {
 			const that = this;
 			this.$u.api.getUserShoppingcart({
-				user_id: uni.getStorageSync("user_id")
+				user_id: uni.getStorageSync("userInfo").user_id
 			}).then(res => {
-				that.goodsList = res;
+				that.goodsList = res.map(item => {
+					return {
+						...item,
+						checked: item.checked === 1
+					}
+				});
 			})
 
 			getApp().globalData.discountIndex = -1; // 重置已选择的优惠券
@@ -138,7 +143,7 @@
 					success: function(res) {
 						if (res.confirm) {
 							that.$u.api.deleteUserShoppingcart({
-								user_id: uni.getStorageSync("user_id"),
+								user_id: uni.getStorageSync("userInfo").user_id,
 								id_pri: good.id_pri
 							}).then(res => {
 								that.goodsList.splice(index, 1);

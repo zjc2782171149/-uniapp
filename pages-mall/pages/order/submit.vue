@@ -70,7 +70,7 @@ export default {
 		
 		// 说明选择了优惠券
 		if(getApp().globalData.discountIndex >= 0) {
-			this.discountSelected = getApp().globalData.discountsList[getApp().globalData.discountIndex].discounts;
+			this.discountSelected = getApp().globalData.discountsList[getApp().globalData.discountIndex].discount;
 			console.log("可减免价格", this.discountSelected);
 		}
 	},

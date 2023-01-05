@@ -12,7 +12,7 @@
 		
 		<view class="line">
 			
-			<view class="labe">运费 (总重量:16.5kg)</view>
+			<view class="labe">运费</view>
 			<view class="value"  v-if="freight === 0">
 				<text>￥</text>
 				<text>0.00</text>
@@ -103,7 +103,7 @@ export default {
 	methods: {
 		goDiscountsPage() {
 			uni.navigateTo({
-				url: '/pages-mine/pages/discounts'
+				url: '/pages-mine/pages/discounts?payment=' + this.currentTotalPrice
 			});
 		}
 	}

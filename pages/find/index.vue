@@ -38,7 +38,7 @@
 		</div>
 
 		<!-- 回答 -->
-		<QuestionList v-if="type === 0" :data="showArticleList"></QuestionList>
+		<QuestionList v-if="type === 0" :data="showArticleList" :type="type"></QuestionList>
 <!-- 		<u-cell-group v-if="type === 0">
 			<div class="cell" v-for="(item, index) in showArticleList" :key="item.article_id">
 				<u-cell-item :arrow="false" @click="turnArticleDetail(item)">
@@ -85,7 +85,7 @@
 		<div class="daily-tea" v-if="type === 2">
 			<text>您已连续记录喝茶{{ consistentRecordDay }}天啦</text>
 		</div>
-		<RecordList v-if="type === 2" :data="showArticleList" :consistentRecordDay="consistentRecordDay"></RecordList>
+		<RecordList v-if="type === 2" :data="showArticleList" :type="type"></RecordList>
 
 
 		<div class="blank"></div>
@@ -164,13 +164,14 @@
 			}
 		},
 		onLoad() {
+			this.initUser();
+			
 			// 喝茶日历进行初始化
 			let year = dayjs().year();
 			let month = dayjs().month();
 			let date = dayjs().date();
 			let day = dayjs().day();
 			let arr = new Array(7);
-			uni.setStorageSync("user_id", 1)
 
 			this.year = year;
 			this.month = month + 1;
@@ -311,7 +312,7 @@
 			},
 			async initArticleList() {
 				this.articleList = await this.$u.api.getArticleAll({
-					user_id: uni.getStorageSync("user_id")
+					user_id: uni.getStorageSync("userInfo").user_id
 				});
 
 				const that = this;
@@ -331,6 +332,12 @@
 				this.reloadRecord();
 				// 计算连续喝茶天数
 				this.consistentRecord();
+			},
+			async initUser() {
+				this.userInfo = await this.$u.api.getUserMes({
+					user_id: uni.getStorageSync("user_id")
+				});
+				uni.setStorageSync("userInfo", this.userInfo);
 			},
 			turnArticleDetail(item) {
 				uni.navigateTo({

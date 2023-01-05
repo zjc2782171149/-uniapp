@@ -3,7 +3,7 @@
 		<view class="inner">
 			<view class="price">
 				<text>￥</text>
-				<text>{{ totalPrice }}</text>
+				<text>{{ data.payment }}</text>
 			</view>
 			<view class="right">
 				<u-button shape="circle" size="small" type="error" @click="goPay" v-if="data.status == '0'">立即付款
@@ -36,13 +36,7 @@
 			}
 		},
 		computed: {
-			totalPrice() {
-				let sum = 0;
-				this.data.goods.map(item => {
-					sum += item.num * item.price;
-				})
-				return sum;
-			}
+
 		},
 		data() {
 			return {
@@ -163,6 +157,9 @@
 			height: 100%;
 
 			.price {
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
 				padding-left: 30rpx;
 
 				text:nth-child(1) {

@@ -27,6 +27,10 @@ export default {
 			type: Array,
 			default: []
 		},
+		type: {
+			type: Number,
+			default: 0
+		},
 
 	},
 	data() {

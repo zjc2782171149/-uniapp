@@ -26,6 +26,10 @@ export const useWxApi = (Vue, vm) => {
 		getUserShoppingcart: (req) => vm.$u.post('/get_user_shoppingcart', {
 			user_id: req.user_id
 		}),
+		// 根据user_id获取签到时间
+		getUserSign: (req) => vm.$u.post('/get_user_sign', {
+			user_id: req.user_id
+		}),
 		
 		// -------------------------------------修改-------------------------------------------------
 		// 修改该用户对该商品的收藏状态
@@ -39,10 +43,20 @@ export const useWxApi = (Vue, vm) => {
 			user_id: req.user_id,
 			...req
 		}),
+		// 新增用户每日签到
+		setUserSign: (req) => vm.$u.post('/set_user_sign', {
+			user_id: req.user_id,
+			...req
+		}),
 		
 		// -------------------------------------更新-------------------------------------------------
 		// 修改用户个人信息
 		updateUserMes: (req) => vm.$u.post('/update_user_mes', {
+			user_id: req.user_id,
+			...req
+		}),
+		// 修改用户积分
+		updateUserPoint: (req) => vm.$u.post('/update_user_point', {
 			user_id: req.user_id,
 			...req
 		}),

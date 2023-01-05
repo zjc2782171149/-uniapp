@@ -15,8 +15,8 @@
 			<view class="right">
 				<view class="point" v-if="data.bgImgType == 'yellow'" :style="{ color: yellowColor }">{{ data.points }}积分</view>
 				<view class="point" v-if="data.bgImgType == 'blue'" :style="{ color: blueColor }">{{ data.points }}积分</view>
-				<view class="operate" v-if="data.bgImgType == 'yellow'" :style="{ backgroundColor: yellowColor }">去兑换</view>
-				<view class="operate" v-if="data.bgImgType == 'blue'" :style="{ backgroundColor: blueColor }">去兑换</view>
+				<view @click="exchangeDiscount" class="operate" v-if="data.bgImgType == 'yellow'" :style="{ backgroundColor: yellowColor }">去兑换</view>
+				<view @click="exchangeDiscount" class="operate" v-if="data.bgImgType == 'blue'" :style="{ backgroundColor: blueColor }">去兑换</view>
 			</view>
 		</view>
 	</view>
@@ -40,7 +40,11 @@ export default {
 			blueColor: this.$appTheme.appThemePointsSignBlueColor
 		};
 	},
-	methods: {}
+	methods: {
+		exchangeDiscount() {
+			this.$emit('exchangeDiscount', this.data);
+		}
+	}
 };
 </script>
 
@@ -118,6 +122,10 @@ export default {
 				color: $app-theme-text-white-color;
 				text-align: center;
 				line-height: 48rpx;
+			}
+			
+			.operate:hover {
+				cursor: pointer;
 			}
 		}
 	}

@@ -70,7 +70,6 @@ export default {
 		};
 	},
 	onLoad(ops) {
-		console.log(ops);
 		this.type = ops.index * 1;
 		
 		this.initArticle(ops.id * 1);
@@ -133,6 +132,8 @@ export default {
 					title: "发表评论成功",
 					icon: "success"
 				});
+				
+				that.value = '';
 				
 				that.initArticleEvaluate(that.article.article_id);
 				

@@ -418,4 +418,5 @@
 	.slot-content {
 		padding: 30rpx;
 	}
+	
 </style>

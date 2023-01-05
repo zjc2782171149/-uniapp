@@ -8,7 +8,7 @@
 			<view class="status-name">支付成功</view>
 			<view class="money">
 				<text>￥</text>
-				<text>{{ payment }}.00</text>
+				<text>{{ payment }}</text>
 			</view>
 		</view>
 
@@ -27,7 +27,7 @@
 		<!-- 支付获得 -->
 		<view class="points">
 			<text>本次支付获得</text>
-			<text>2</text>
+			<text>{{ point }}</text>
 			<text>积分</text>
 		</view>
 		
@@ -72,23 +72,41 @@ export default {
 	data() {
 		return {
 			appThemeBgColor: this.$appTheme.appThemeBgColor,
-			payment: 0
+			payment: 0,
+			point: 0,
+			userInfo: {}
 		};
 	},
-	onShow() {
-		//获取页面栈
-		const pages = getCurrentPages();
-		//获取路由参数
-		const curPage = pages[pages.length - 1];
-		var page = pages[pages.length - 1];
-		console.log(page.options)
-		if(page.options?.payment) {
-			this.payment = page.options.payment * 1
-		}
+	onLoad(ops) {
+		console.log("参数为",ops)
 		
+		this.userInfo = uni.getStorageSync("userInfo");
+		this.payment = ops.payment * 1;
+		this.point = Math.ceil(ops.payment / 10);
+		
+		this.changePoint();
+		
+		// 清空缓存
 		uni.setStorageSync('orderInfo', null);
+		getApp().globalData.goodsListSelected = [];
+		getApp().globalData.discountIndex = -1;
+	},
+	onShow() {
+		
 	},
 	methods: {
+		// 更新积分
+		changePoint() {
+			const that = this;
+	
+			this.$u.api.updateUserPoint({
+				user_id: this.userInfo.user_id,
+				point: this.userInfo.point + this.point
+			}).then(res => {
+				that.userInfo.point = that.userInfo.point * 1 + that.point;
+				uni.setStorageSync("userInfo", that.userInfo);
+			})
+		},
 		backGoods() {
 			uni.navigateBack({
 				delta: 3
