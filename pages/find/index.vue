@@ -32,36 +32,18 @@
 		</div>
 
 		<div class="tabs">
-			<u-tabs :list="list" :is-scroll="false" :current="type" @change="change" bar-height="12" bar-width="100"
+			<u-tabs :list="opsList" :is-scroll="false" :current="type" @change="change" bar-height="12" bar-width="100"
 				active-color="#dabd7b" gutter="20" inactive-color="grey" f-size="20" fontSize="30" letterSpacing="7">
 			</u-tabs>
 		</div>
 
 		<!-- 回答 -->
-		<QuestionList v-if="type === 0" :data="showArticleList" :type="type"></QuestionList>
-<!-- 		<u-cell-group v-if="type === 0">
-			<div class="cell" v-for="(item, index) in showArticleList" :key="item.article_id">
-				<u-cell-item :arrow="false" @click="turnArticleDetail(item)">
-					<div slot="title" class="cell-main">
-						<div class="cell-author">
-							<div class="cell-icon" :style="{ backgroundImage: `url(${item.icon})`}"></div>
-							<div class="cell-nickname">{{ item.nickname }}</div>
-							<div class="cell-rank">{{ item.rank }}</div>
-						</div>
-						<div class="cell-content">
-							{{ item.content }}
-						</div>
-					</div>
-
-				</u-cell-item>
-
-			</div>
-		</u-cell-group> -->
+		<QuestionList v-if="type === 0" :data="list" :type="type"></QuestionList>
 
 
 		<!-- 官方科普 -->
 		<u-cell-group v-if="type === 1">
-			<div class="cell" v-for="(item, index) in showArticleList" :key="item.article_id">
+			<div class="cell" v-for="(item, index) in list" :key="item.article_id">
 				<u-cell-item :arrow="false" @click="turnArticleDetail(item)">
 					<div slot="title" class="cell-main">
 						<div class="cell-title">{{ item.title }}</div>
@@ -81,11 +63,20 @@
 			</div>
 		</u-cell-group>
 
+
 		<!-- 每日喝茶记录 -->
 		<div class="daily-tea" v-if="type === 2">
 			<text>您已连续记录喝茶{{ consistentRecordDay }}天啦</text>
 		</div>
-		<RecordList v-if="type === 2" :data="showArticleList" :type="type"></RecordList>
+		<RecordList v-if="type === 2" :data="list" :type="type"></RecordList>
+
+
+
+		<!-- 加载更多 -->
+		<view class="wrap">
+			<u-loadmore :status="status" @loadmore="loadmore" :load-text="loadText"/>
+		</view>
+
 
 
 		<div class="blank"></div>
@@ -128,7 +119,7 @@
 		},
 		data() {
 			return {
-				list: [{
+				opsList: [{
 					name: '回答'
 				}, {
 					name: '科普'
@@ -138,7 +129,7 @@
 				}],
 				type: 0,
 				articleList: [],
-				showArticleList: [],
+				showArticleList: [], // 应该展示的文章类别
 				// 在切换到关注的时候不显示搜索框
 				showSearch: true,
 				// 新建按钮配置项
@@ -160,12 +151,22 @@
 				monthAr: [31, 31, dayjs().isLeapYear() ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30],
 				year: '',
 				month: '',
-				consistentRecordDay: 0
+				consistentRecordDay: 0,
+
+				status: 'loadmore',
+				list: [], // 真正要展示的文章列表
+				page: 0,
+				loadText: {
+					loadmore: '上拉或点击我以加载更多',
+					loading: '努力加载中',
+					nomore: '已经到底啦'
+				}
 			}
 		},
 		onLoad() {
+
 			this.initUser();
-			
+
 			// 喝茶日历进行初始化
 			let year = dayjs().year();
 			let month = dayjs().month();
@@ -214,9 +215,28 @@
 		},
 		onShow() {
 			this.initArticleList();
-
+		},
+		onReachBottom() {
+			this.loadmore();
 		},
 		methods: {
+			// 加载更多
+			loadmore() {
+				// console.log(this.page, this.showArticleList.length);
+				
+				this.status = 'loading';
+
+				setTimeout(() => {
+					this.page = ++this.page; // 增加页数
+
+					if (this.page >= Math.ceil(this.showArticleList.length / 10)) {
+						this.status = 'nomore';
+					} else {
+						this.list = this.showArticleList.slice(0, (this.page + 1) * 10); // 显示更多列表出来
+						this.status = 'loadmore';
+					}
+				}, 1000);
+			},
 			// 改变日历上的记录
 			reloadRecord() {
 				let recordArr = [];
@@ -282,10 +302,10 @@
 
 				let i;
 				for (i = 0;; i++) {
-					if(!recordArr2.find(item => item.year === year && item.month === month + 1 && item.date === date)) {
+					if (!recordArr2.find(item => item.year === year && item.month === month + 1 && item.date === date)) {
 						break;
 					}
-					
+
 					if (date - 1 === 0) {
 						date = this.monthAr[dayjs().month()];
 						// 月份要减一
@@ -301,7 +321,7 @@
 						date -= 1;
 					}
 				}
-				
+
 				this.consistentRecordDay = i;
 
 			},
@@ -326,7 +346,9 @@
 						});
 					}
 				});
-				console.log("要展现的文章", this.showArticleList);
+
+				this.list = this.showArticleList.slice(0, (this.page + 1) * 10);
+				// console.log("要展现的文章", this.list);
 
 				// 修改日历上的喝茶记录
 				this.reloadRecord();
@@ -357,6 +379,11 @@
 						});
 					}
 				});
+				
+				// 重置加载更多
+				this.page = 0;
+				this.status = 'loadmore',
+				this.list = this.showArticleList.slice(0, (this.page + 1) * 10);
 				// console.log("要展现的文章", this.showArticleList);
 			},
 

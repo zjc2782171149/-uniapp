@@ -11,7 +11,7 @@
 			<text class="light">「精选晒单」</text>
 		</view>
 		<!-- 表单 -->
-		<view class="card" v-for="(item, index) in orderInfo.goods" :key="item.good_id">
+		<view class="card" v-for="(item, index) in orderInfo.goods" :key="item.good_id" @click="selectGood(index)">
 			<!-- 商品 -->
 			<view class="goods"><OrderGoodsCard :data="item" showBorderBottom></OrderGoodsCard></view>
 			<!-- 评价 -->
@@ -67,7 +67,8 @@ export default {
 			// 表单
 			form: [],
 			// 上传地址
-			uploadUrl: 'http://localhost:3001/upload'
+			uploadUrl: 'http://47.106.83.74:3002/upload',
+			selectIndex: 0
 		};
 	},
 	onLoad() {
@@ -86,15 +87,22 @@ export default {
 		})
 	},
 	methods: {
-		// 上传图片成功
-		uploadPicSuccess(data, index, lists, name) {
-			let obj = {
-				src: data.data.src,
-				name: name || '未命名图片.png',
-				type: 0
-			};
-			this.form.pics = obj;
-		},
+			// 上传图片成功
+			uploadPicSuccess(data) {
+				console.log(data);
+				if (data.code === 200) {
+					this.form[this.selectIndex].pics = data.url;
+				} else {
+					uni.showToast({
+						title: '图片上传失败',
+						icon: 'error'
+					})
+				}
+			
+			},
+			selectGood(index) {
+				this.selectIndex = index;
+			},
 		// 提交评价
 		async submit() {
 			console.log(this.form);

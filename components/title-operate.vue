@@ -1,7 +1,7 @@
 <template>
-	<view class="slot" :style="{ padding, backgroundColor, alignItems: align }">
+	<view class="slot" :style="{ padding, backgroundColor, alignItems: align }" @click="clickMore">
 		<view class="name" :style="[{ fontSize: titleSize }, titleColor ? { color: titleColor } : {}]">{{ title }}</view>
-		<view class="more" v-if="showMore" @click="clickMore">
+		<view class="more" v-if="showMore">
 			{{ moreLabel ? moreLabel : '' }}
 			<u-icon size="20" name="arrow-right"></u-icon>
 		</view>

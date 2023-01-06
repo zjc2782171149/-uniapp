@@ -21,9 +21,9 @@
 		<view class="evaluate-list">
 			<EvaluateCard
 				:data="evaluate"
-				v-for="(evaluate, evaluateIndex) in evaluateData"
+				v-for="(evaluate, evaluateIndex) in evaluateData.slice(-5)"
 				:key="evaluateIndex"
-				:showBorderBottom="evaluateIndex != evaluateData.length - 1"
+				:showBorderBottom="evaluateIndex !== evaluateData.length - 1"
 			></EvaluateCard>
 		</view>
 		<!-- 精选晒单
