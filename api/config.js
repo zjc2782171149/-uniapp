@@ -51,7 +51,7 @@ export const httpResponse = (res) => {
 		uni.reLaunch({
 			url: '/pages/login/index'
 		});
-	} else if (res.status === 200 || 0) {
+	} else if (res.status === 200) {
 		return res.data;
 	} else if (res.status === 500 && process.env.NODE_ENV === 'development') {
 		uni.showModal({
