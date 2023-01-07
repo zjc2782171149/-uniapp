@@ -31,30 +31,35 @@ export const UVIEWUI_HTTP_CONFIG = {
 	loadingMask: true,
 	// 配置请求头信息
 	header: {
-		'content-type': 'application/json;charset=UTF-8',
+		'content-type': 'application/json;charset=UTF-8'
 	},
 }
 
 // 此处配置请求拦截器
 export const httpRequest = (config) => {
-	const token = uni.getStorageSync('APP_USER_TOKEN')
-	config.headers = {
-		Authorization: token
+	config.header = {
+		...config,
+		'Authorization': 'Bearer ' + uni.getStorageSync('token')
 	}
 	return config;
 }
 
 // 此处配置响应拦截器
 export const httpResponse = (res) => {
-	if (res.status == 0 || 200) {
-		return res
-	} else if (res.status == 500 && process.env.NODE_ENV === 'development') {
+	// token不存在或过期，跳转到登录页面重新登陆
+	if (res.status === -1) {
+		uni.reLaunch({
+			url: '/pages/login/index'
+		});
+	} else if (res.status === 200 || 0) {
+		return res.data;
+	} else if (res.status === 500 && process.env.NODE_ENV === 'development') {
 		uni.showModal({
 			title: '仅在开发模式下提示',
 			content: '错误信息：' + res.msg
 		})
 		return res
-	} else if (res.status == 500 && process.env.NODE_ENV === 'production') {
+	} else if (res.status === 500 && process.env.NODE_ENV === 'production') {
 		uni.showToast({
 			title: '服务器异常，请联系客服！',
 			icon: 'none',

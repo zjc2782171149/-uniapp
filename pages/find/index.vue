@@ -32,7 +32,7 @@
 		</div>
 
 		<div class="tabs">
-			<u-tabs :list="opsList" :is-scroll="false" :current="type" @change="change" bar-height="12" bar-width="100"
+			<u-tabs :list="opsList" :current="type" @change="change" bar-height="12" bar-width="100"
 				active-color="#dabd7b" gutter="20" inactive-color="grey" f-size="20" fontSize="30" letterSpacing="7">
 			</u-tabs>
 		</div>
@@ -95,8 +95,8 @@
 	import AddPopup from '@/components/add-popup.vue';
 	import GroupPage from '@/components/group.vue';
 	import FollowPage from '@/components/follow.vue';
-	import QuestionList from '@/pages-community/components/question-list.vue';
-	import RecordList from '@/pages-community/components/record-list.vue';
+	import QuestionList from '@/pages/find/components/question-list.vue';
+	import RecordList from '@/pages/find/components/record-list.vue';
 
 	import dayjs from 'dayjs';
 	import relativeTime from 'dayjs/plugin/relativeTime';
@@ -135,13 +135,13 @@
 				// 新建按钮配置项
 				addOps: [{
 						label: '每日喝茶记录',
-						icon: require('../../static/operate/publish-community.png'),
+						icon: 'https://www.zhangjiancong.top/public/cxj/find/publish-community.png',
 						url: '/pages/find/add',
 						type: 'dailyRecord'
 					},
 					{
 						label: '问题发布',
-						icon: require('../../static/operate/create-community.png'),
+						icon: 'https://www.zhangjiancong.top/public/cxj/find/create-community.png',
 						url: '/pages/find/add',
 						type: 'question'
 					}
@@ -331,10 +331,8 @@
 				})
 			},
 			async initArticleList() {
-				this.articleList = await this.$u.api.getArticleAll({
-					user_id: uni.getStorageSync("userInfo").user_id
-				});
-
+				this.articleList = await this.$u.api.getArticleAll();
+				console.log(this.articleList);
 				const that = this;
 				this.showArticleList = [];
 
@@ -356,9 +354,7 @@
 				this.consistentRecord();
 			},
 			async initUser() {
-				this.userInfo = await this.$u.api.getUserMes({
-					user_id: uni.getStorageSync("user_id")
-				});
+				this.userInfo = await this.$u.api.getUserMes();
 				uni.setStorageSync("userInfo", this.userInfo);
 			},
 			turnArticleDetail(item) {

@@ -74,7 +74,6 @@
 				if (this.title === "每日喝茶记录") {
 					// 有图片
 					this.$u.api.setArticleMes({
-						user_id: uni.getStorageSync("user_id"),
 						content: this.value,
 						publish_time: getApp().globalData.getNowTime(dayjs().format()),
 						view_num: 0,
@@ -97,7 +96,6 @@
 				} else {
 					// 没图片
 					this.$u.api.setArticleMes({
-						user_id: uni.getStorageSync("user_id"),
 						content: this.value,
 						publish_time: getApp().globalData.getNowTime(dayjs().format()),
 						view_num: 0,

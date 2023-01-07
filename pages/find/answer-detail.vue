@@ -92,7 +92,6 @@ export default {
 					if (res.confirm) {
 						// TODO 接口
 						that.$u.api.deleteArticleEvaluate({
-							user_id: uni.getStorageSync("user_id"),
 							article_id: item.article_id
 						}).then(res => {
 							uni.showToast({
@@ -122,7 +121,6 @@ export default {
 			const that = this;
 			const evaluate = {
 				article_id: this.article.article_id,
-				user_id: uni.getStorageSync("userInfo").user_id,
 				content: this.value,
 				publish_time: getApp().globalData.getNowTime(dayjs().format())
 			};

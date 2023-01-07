@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<navbar-common rightIcon="/static/mine/settings.png" rightLink="/pages-mine/pages/mine"></navbar-common>
+		<navbar-common rightIcon="https://www.zhangjiancong.top/public/cxj/mine/settings.png" rightLink="/pages-mine/pages/mine"></navbar-common>
 
 		<div class="profile" @click="go('/pages-mine/pages/mine')">
 			<div class="left">
@@ -19,7 +19,8 @@
 				<div class="cell" v-for="(item, index) in mains" :key="index" @click="go(item.link)">
 					<u-cell-item :arrow="false">
 						<div slot="title" class="cell-title">{{ item.title }}</div>
-						<div slot="icon" class="cell-icon" :style="{ backgroundImage: `url(${item.src})`}"></div>
+						<!-- <div slot="icon" class="cell-icon" :style="{ backgroundImage: `url(${item.src})`}"></div> -->
+						<image slot="icon" class="cell-icon" :src="item.src"></image>
 					</u-cell-item>
 
 				</div>
@@ -31,14 +32,16 @@
 				<div class="cell" @click="openHelpModal">
 					<u-cell-item :arrow="false">
 						<div slot="title" class="cell-title">帮助</div>
-						<div slot="icon" class="cell-icon" :style="{ backgroundImage: `url('/static/mine/info.png')`}"></div>
+						<!-- <div slot="icon" class="cell-icon" :style="{ backgroundImage: `url('https://www.zhangjiancong.top/public/cxj/mine/info.png')`}"></div> -->
+						<image slot="icon" class="cell-icon" src='https://www.zhangjiancong.top/public/cxj/mine/info.png'></image>
 					</u-cell-item>
 						
 				</div>
 				<div class="cell" @click="contact">
 					<u-cell-item :arrow="false">
 						<div slot="title" class="cell-title">联系我们</div>
-						<div slot="icon" class="cell-icon" :style="{ backgroundImage: `url('/static/mine/phone.png')`}"></div>
+						<!-- <div slot="icon" class="cell-icon" :style="{ backgroundImage: `url('https://www.zhangjiancong.top/public/cxj/mine/phone.png')`}"></div> -->
+						<image slot="icon" class="cell-icon" src='https://www.zhangjiancong.top/public/cxj/mine/phone.png'></image>
 					</u-cell-item>
 						
 				</div>
@@ -74,27 +77,27 @@
 				showHelp: false,
 				mains: [{
 						title: "我的数据",
-						src: "/static/mine/files.png",
+						src: "https://www.zhangjiancong.top/public/cxj/mine/files.png",
 						link: "/pages-mine/pages/user"
 					},
 					{
 						title: "我的收藏",
-						src: "/static/mine/heart.png",
+						src: "https://www.zhangjiancong.top/public/cxj/mine/heart.png",
 						link: "/pages-mine/pages/collection"
 					},
 					{
 						title: "我的订单",
-						src: "/static/mine/paper.png",
+						src: "https://www.zhangjiancong.top/public/cxj/mine/paper.png",
 						link: "/pages-mall/pages/order/list"
 					},
 					{
 						title: "我的优惠",
-						src: "/static/mine/price.png",
+						src: "https://www.zhangjiancong.top/public/cxj/mine/price.png",
 						link: "/pages-mine/pages/discounts"
 					},
 					{
 						title: "我的积分",
-						src: "/static/mine/pack.png",
+						src: "https://www.zhangjiancong.top/public/cxj/mine/pack.png",
 						link: "/pages-points/pages/index"
 					}
 				],
@@ -130,9 +133,7 @@
 
 			},
 			async initUser() {
-				this.userInfo = await this.$u.api.getUserMes({
-					user_id: uni.getStorageSync("user_id")
-				});
+				this.userInfo = await this.$u.api.getUserMes();
 				uni.setStorageSync("userInfo", this.userInfo);
 			},
 		}

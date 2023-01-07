@@ -62,16 +62,13 @@
 		onLoad() {
 			this.initActList();
 			this.initUser();
-			uni.setStorageSync("user_id", 2);
 		},
 		onShow() {
 			
 		},
 		methods: {
 			async initUser() {
-				this.userInfo = await this.$u.api.getUserMes({
-					user_id: uni.getStorageSync("user_id")
-				});
+				this.userInfo = await this.$u.api.getUserMes();
 				uni.setStorageSync("userInfo", this.userInfo);
 			},
 			// 初始化活动列表

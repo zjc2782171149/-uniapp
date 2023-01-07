@@ -4,6 +4,19 @@
 	},
 	// 主包
 	"pages": [
+		// 首次进入的欢迎页面
+		{
+			"path": "pages/first/index",
+			"style": {
+				"navigationStyle": "custom", // 取消本页面的导航栏
+				"app-plus": {
+					"animationType": "fade-in", // 设置fade-in淡入动画，为最合理的动画类型
+					"background": "transparent", // 背景透明
+					"backgroundColor": "rgba(0,0,0,0)", // 背景透明
+					"popGesture": "none" // 关闭IOS屏幕左边滑动关闭当前页面的功能
+				}
+			}
+		},
 		// 首页
 		{
 			"path": "pages/home/index"
@@ -51,13 +64,6 @@
 		// 登录页
 		{
 			"path": "pages/login/index"
-		},
-		{
-			"path": "pages/mine-new/index",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
 		},
 		// 文章详情页(回答/科普)
 		{
@@ -270,6 +276,12 @@
 	},
 	// 启动模式配置
 	"condition": {
-
+		"current": 0,
+		"list": [
+			{
+				"name":"登录页",
+				"path":"pages/login/index"
+			}
+		]
 	}
 }
