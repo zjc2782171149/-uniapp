@@ -40,12 +40,12 @@
 			<u-form :model="loginCodeForm" ref="loginCodeForm">
 				<u-form-item :border-bottom="true">
 					<u-input v-model="loginCodeForm.phone" placeholder="请输入手机号"
-						:placeholder-style="{ color: '#ccc', fontSize: '30rpx' }" />
+						placeholder-style="color: #ccc; fontSize: 30rpx" />
 				</u-form-item>
 				<u-form-item :border-bottom="true">
 					<view style="display: flex;justify-content: space-between;align-items: center;">
 						<u-input style="width: 60%;" v-model="loginCodeForm.smsCode" placeholder="请输入验证码"
-							:placeholder-style="{ color: '#ccc', fontSize: '30rpx' }" />
+							placeholder-style="color: #ccc; fontSize: 30rpx" />
 						<view class="smscode" @click="getCode" v-if="!codeOPS.isGetting">
 							{{ codeOPS.getted ? '重新获取验证码' : '获取验证码' }}
 						</view>
@@ -77,6 +77,10 @@
 
 <script>
 	import FunUniappTheme from '@/theme.scss';
+	import {
+		checkTelephone
+	} from '@/utils/phone.js';
+
 	export default {
 		data() {
 			return {
@@ -287,21 +291,41 @@
 
 			// 获取验证码
 			getCode() {
-				// if (!this.loginCodeForm.phone) {
-				// 	uni.showToast({
-				// 		icon: 'none',
-				// 		title: '请输入手机号'
-				// 	});
-				// 	return;
-				// }
+				if (!checkTelephone(this.loginCodeForm.phone)) {
+					uni.showToast({
+						icon: 'none',
+						title: '请输入正确的手机号'
+					});
+					return;
+				}
+
 				uni.showLoading({
 					title: '正在获取验证码'
 				});
 
-				this.$u.api.getPhoneCode('19884990267').then(res => {
-					uni.showToast({
-						title: res.message
-					})
+				this.$u.api.getPhoneCode(this.loginCodeForm.phone).then(res => {
+					if (res.message === '发送成功') {
+						uni.showToast({
+							title: res.message,
+							icon: 'success'
+						})
+						
+						this.codeOPS.isGetting = true;
+						this.codeOPS.getted = true;
+						this.codeOPS.timer = setInterval(() => {
+							if (this.codeOPS.countDownTime > 0 && this.codeOPS.countDownTime <= 60) {
+								this.codeOPS.countDownTime--;
+							} else {
+								this.resetCountDown(false);
+							}
+						}, 1000);
+					} else {
+						uni.showToast({
+							title: res.message,
+							icon: 'none'
+						})
+					}
+
 					uni.hideLoading();
 				}).catch(err => {
 					console.error(err);
@@ -309,15 +333,6 @@
 				})
 
 
-				// this.codeOPS.isGetting = true;
-				// this.codeOPS.getted = true;
-				// this.codeOPS.timer = setInterval(() => {
-				// 	if (this.codeOPS.countDownTime > 0 && this.codeOPS.countDownTime <= 60) {
-				// 		this.codeOPS.countDownTime--;
-				// 	} else {
-				// 		this.resetCountDown(false);
-				// 	}
-				// }, 1000);
 			},
 
 			// 倒计时初始化

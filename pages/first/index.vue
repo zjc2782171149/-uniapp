@@ -1,5 +1,5 @@
 <template>
-	<u-modal v-model="show" cancel-text="完善手机号" confirm-text="开始使用" confirm-color="rgb(167, 125, 80)"
+	<u-modal v-model="show" :cancel-text="userInfo.phone === '' ? '完善手机号' : '完善个人信息'" confirm-text="开始使用" confirm-color="rgb(167, 125, 80)"
 		title="欢迎来到茶小橘" :show-cancel-button="true" @confirm="confirm" @cancel="toPersonal"
 	>
 		<view class="u-update-content">
@@ -21,11 +21,13 @@
 					茶小橘化橘红茶为一款基于 Uniapp 开发，面向社区电商场景的微信小程序，涵盖商品、订单、用户、社区和积分商城等内容。<br>
 					<br>
 					
-				`
+				`,
+				userInfo: {}
 			}
 		},
 		onShow() {
 			this.show = true;
+			this.userInfo = uni.getStorageSync('userInfo');
 		},
 		methods: {
 			confirm() {

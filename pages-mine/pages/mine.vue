@@ -286,7 +286,7 @@ export default {
         },
         {
           label: "保密",
-          value: "",
+          value: "保密",
         },
       ],
       genderIndex: 0,
@@ -351,13 +351,16 @@ export default {
     },
     // 修改性别
     confirmGender(item) {
-      console.log(item);
-      if (item[0] === 0) {
+      console.log(item[0]);
+      if (item[0] === 0 || item[0] === -1) {
         this.gender = "男";
-      } else if (item[0] === 0) {
+		this.genderIndex = 0;
+      } else if (item[0] === 1) {
         this.gender = "女";
+		this.genderIndex = 1;
       } else {
         this.gender = "保密";
+		this.genderIndex = 2;
       }
     },
     // -----------------modal-------------------------
@@ -450,6 +453,15 @@ export default {
       this.icon = info.icon;
       this.nickname = this.nicknameTemp = info.nickname;
       this.gender = info.gender;
+	  
+	  if(this.gender === '男') {
+		  this.genderIndex = 0;
+	  } else if(this.gender === '女') {
+		  this.genderIndex = 1;
+	  } else {
+		  this.genderIndex = 2;
+	  }
+	  
       this.personal_signature = this.personal_signatureTemp =
         info.personal_signature;
       this.birthday = dayjs(info.birthday).format().slice(0, 10);
@@ -457,7 +469,7 @@ export default {
       this.password = this.passwordTemp = info.password;
       this.phone = this.phoneTemp = info.phone;
 
-      this.regionArr = [info.province, info.city, info.region];
+      this.regionArr = [info.province || '广东省', info.city || '广州市', info.region || '天河区'];
       this.province = info.province;
       this.city = info.city;
       this.region = info.region;
