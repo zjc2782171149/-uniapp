@@ -3,12 +3,12 @@
 		<!-- 每日喝茶记录 -->
 		<u-cell-group>
 			<div class="cell" v-for="(item, index) in data" :key="item.article_id">
-				<u-cell-item :arrow="false">
+				<u-cell-item :arrow="false" class="cell-item">
 					<div slot="title" class="cell-main">
 						<div class="cell-author">
 							<div class="cell-icon" :style="{ backgroundImage: `url(${item.icon})`}"></div>
 							<div class="cell-nickname">{{ item.nickname + item.article_id }}</div>
-							<div class="cell-rank">{{ item.publish_time }} 发布</div>
+							<div class="cell-rank">{{ item.publish_time }}</div>
 						</div>
 		
 						<div class="cell-profile">
@@ -16,7 +16,7 @@
 						</div>
 					</div>
 		
-					<div slot="right-icon" class="cell-image" :style="{ backgroundImage: `url(${item.img})`}"></div>
+					<div v-if="item.img" slot="right-icon" class="cell-image" :style="{ backgroundImage: `url(${item.img})`}"></div>
 				</u-cell-item>
 		
 			</div>
@@ -57,6 +57,12 @@ export default {
 		border-top: 12rpx solid rgb(221, 195, 135);
 		padding-bottom: 10rpx;
 		
+		.cell-item {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		
 		.cell-main {
 			padding: 0 10rpx 0 20rpx;
 			letter-spacing: 5rpx;
@@ -85,8 +91,8 @@ export default {
 					
 				.cell-rank {
 					font-size: 12rpx;
-					transform: scale(0.8);
-					margin: 5rpx 0 0 -20rpx;
+					// transform: scale(0.8);
+					margin: 5rpx 0 0 10rpx;
 				}
 			}
 			
@@ -118,7 +124,7 @@ export default {
 			width: 210rpx;
 			height: 150rpx;
 			background-size: 100% 100%;
-			margin-top: 80rpx;
+			margin-top: 10rpx;
 			border-radius: 20rpx;
 		}
 	}

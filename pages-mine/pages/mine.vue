@@ -322,7 +322,7 @@ export default {
       uploadUrl: "http://47.106.83.74:3002/upload",
     };
   },
-  onLoad(options) {
+  onShow() {
     this.initUser();
   },
   methods: {

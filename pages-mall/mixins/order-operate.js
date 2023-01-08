@@ -1,5 +1,3 @@
-import { deleteOrder } from '../../utils/deleteOrder.js';
-
 export const orderOperate = {
 	data() {
 		return {
@@ -32,7 +30,7 @@ export const orderOperate = {
 				confirmColor: this.appThemeColor,
 				success: function(res) {
 					if (res.confirm) {
-						deleteOrder(that.data.user_id, that.data.order_id);
+
 					}
 				}
 			});
@@ -56,7 +54,7 @@ export const orderOperate = {
 		goExpress() {
 			uni.setStorageSync('orderInfo', this.data);
 			uni.navigateTo({
-				url: '/pages-mall/pages/order/express'
+				url: `plugin://kdPlugin/index?num=${this.data.logistics}&appName=玩转组队`,
 			})
 		},
 
@@ -102,7 +100,7 @@ export const orderOperate = {
 				success: function(res) {
 					if (res.confirm) {
 						// TODO 接口
-						
+
 					}
 				}
 			});

@@ -13,9 +13,9 @@
 
 		</view>
 		<!-- 评论区 -->
-		<TitleOperate v-if="type === 0" :title="'回答（' + evaluateList.length + '）'" titleSize="32rpx"></TitleOperate>
+		<TitleOperate v-if="type === 0" :title="'回答（' + evaluateLength + '）'" titleSize="32rpx"></TitleOperate>
 		<view v-if="type === 0" class="evaluate-list">
-			<PostEvaluateCard @report="report" :border="evaluateList.length - 1 != index" v-for="(item, index) in evaluateList" :key="index" 
+			<PostEvaluateCard @report="report" :border="evaluateLength - 1 !== index" v-for="(item, index) in evaluateList" :key="index" 
 			:data="item" :index="index" @deleteEvaluate="deleteEvaluate"></PostEvaluateCard>
 		</view>
 		<!-- 操作 -->
@@ -55,6 +55,7 @@ export default {
 			article: {},
 			// 评论数据
 			evaluateList: [],
+			evaluateLength: 0,
 			// 举报原因
 			currentReasonIndex: 0,
 			reasonOps: [
@@ -100,7 +101,7 @@ export default {
 							});
 							
 							that.evaluateList.splice(index, 1);
-							
+							that.evaluateLength--;
 							
 						})
 					}
@@ -125,17 +126,17 @@ export default {
 				publish_time: getApp().globalData.getNowTime(dayjs().format())
 			};
 			
-			// this.$u.api.setArticleEvaluate(evaluate).then(res => {
-			// 	uni.showToast({
-			// 		title: "发表评论成功",
-			// 		icon: "success"
-			// 	});
+			this.$u.api.setArticleEvaluate(evaluate).then(res => {
+				uni.showToast({
+					title: "发表评论成功",
+					icon: "success"
+				});
 				
-			// 	that.value = '';
+				that.value = '';
 				
-			// 	that.initArticleEvaluate(that.article.article_id);
+				that.initArticleEvaluate(that.article.article_id);
 				
-			// })
+			})
 			
 			
 		},
@@ -166,6 +167,8 @@ export default {
 					publish_time: dayjs(item.publish_time).fromNow()
 				}
 			})
+			
+			this.evaluateLength = this.evaluateList.length;
 			
 		},
 

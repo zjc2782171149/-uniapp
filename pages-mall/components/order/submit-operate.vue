@@ -105,7 +105,7 @@ export default {
               : getApp().globalData.discountsList[
                   getApp().globalData.discountIndex
                 ].coupon_id,
-          isEvaluate: 0,
+          isEvaluate: 0
         },
       });
 
@@ -139,14 +139,12 @@ export default {
     // 新建该用户订单
     setOrderList(req) {
       return this.$u.api.setOrderList({
-        user_id: req.user_id,
         order_id: req.order_id,
       });
     },
     // 新建该用户的 相关订单的地址信息
     setOrderAddress(req) {
       return this.$u.api.setOrderAddress({
-        user_id: req.user_id,
         order_id: req.order_id,
         address_info: req.address_info,
       });
@@ -154,7 +152,6 @@ export default {
     // 新建该用户的 相关订单的基本信息
     setOrderMes(req) {
       return this.$u.api.setOrderMes({
-        user_id: req.user_id,
         order_id: req.order_id,
         order_mes: req.order_mes,
       });
@@ -162,7 +159,6 @@ export default {
     // 根据订单id去获取订单的地址信息
     setOrderGoodsList(req) {
       return this.$u.api.setOrderGoodsList({
-        user_id: req.user_id,
         order_id: req.order_id,
         goods: req.goods,
       });

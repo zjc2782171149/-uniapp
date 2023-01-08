@@ -83,8 +83,8 @@ import NavbarRoundImg from "@/components/navbar/navbar-round-img.vue";
 import TitleOperate from "@/components/title-operate.vue";
 import CommunityCard from "@/pages/community/components/community-card.vue";
 import PostCard from "@/pages/community/components/post-card";
-import QuestionList from "@/pages-community/components/question-list.vue";
-import RecordList from "@/pages-community/components/record-list.vue";
+import QuestionList from "../components/question-list.vue";
+import RecordList from "../components/record-list.vue";
 import { circleList } from "@/static/test-data.js";
 
 import dayjs from "dayjs";
@@ -151,8 +151,11 @@ export default {
     };
   },
   onLoad(options) {
-    this.initUser();
-    this.initArticleList();
+
+  },
+  onShow() {
+	this.initUser();
+	this.initArticleList();
   },
   onPageScroll(e) {
     if (e.scrollTop > 10) {
@@ -164,7 +167,7 @@ export default {
   methods: {
     async initUser() {
       const info = uni.getStorageSync("userInfo");
-
+		console.log(info);
       this.userInfo = {
         ...info,
         birthday: dayjs(info.birthday).format().slice(0, 10),

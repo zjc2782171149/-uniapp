@@ -55,7 +55,7 @@
 		data() {
 			return {
 				iconColor: this.$appTheme.appThemeTextGrayColor,
-				user_id: uni.getStorageSync("user_id")
+				user_id: uni.getStorageSync("userInfo").user_id
 			};
 		},
 		methods: {

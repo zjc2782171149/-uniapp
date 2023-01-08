@@ -73,6 +73,15 @@ export default {
 			{ label: '优惠券减免', value: '¥' + (this.orderInfo.coupon_id === -1 ? '0' : currentTotal - this.orderInfo.payment), operate: '' }
 		];
 		
+		// 如果发货了，那就加入物流单号
+		if(this.orderInfo.logistics) {
+			this.orderInfoOps.splice(1, 1, {
+				label: '物流单号',
+				value: this.orderInfo.logistics,
+				operate: 'copy'
+			})
+		}
+		
 		this.addressInfo = { ...this.orderInfo }; // 已选择的地址
 		this.goodsList = this.orderInfo.goods;
 		console.log("订单信息", this.orderInfo);

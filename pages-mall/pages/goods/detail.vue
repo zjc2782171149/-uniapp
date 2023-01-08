@@ -14,7 +14,7 @@
     ></GoodsSelect>
     <!-- 评价 -->
     <TitleOperate
-      :title="'商品评价（' + evaluateData.length + '条）'"
+      :title="'商品评价（' + evaluateLength + '条）'"
       showMore
       moreLabel=" "
       :backgroundColor="bgColor"
@@ -27,7 +27,7 @@
         :data="evaluate"
         v-for="(evaluate, evaluateIndex) in evaluateData.slice(-5)"
         :key="evaluateIndex"
-        :showBorderBottom="evaluateIndex !== evaluateData.length - 1"
+        :showBorderBottom="evaluateIndex !== evaluateLength - 1"
       ></EvaluateCard>
     </view>
     <!-- 精选晒单
@@ -116,6 +116,7 @@ export default {
       goodsDetail: {},
       isCollection: 0,
       evaluateData: [],
+	  evaluateLength: 0,
       sliderImageArr: [],
       // 精选晒单
       topicData: topicList,
@@ -207,11 +208,7 @@ export default {
       this.$u.api.getGoodEvaluate({ id: id }).then((res) => {
         // console.log(res);
         let task1 = res.map((item) => {
-          return that.$u.api
-            .getUserMes({
-              user_id: item.user_id,
-            })
-            .then();
+          return that.$u.api.getUserMes().then();
         });
 
         // 通过用户id拿到用户昵称
@@ -225,6 +222,9 @@ export default {
               icon: res2[index].icon,
             };
           });
+		  
+		  that.evaluateLength = that.evaluateData.length;
+		  
         });
       });
 

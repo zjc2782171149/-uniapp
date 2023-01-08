@@ -80,6 +80,7 @@
 		width: 100%;
 		height: 150rpx;
 		padding: 0rpx;
+		margin-top: 130rpx;
 		margin-bottom: 10rpx;
 		
 		.left {
