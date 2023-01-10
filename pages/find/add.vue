@@ -6,20 +6,26 @@
 		<view class="form">
 			<view class="content">
 				<u-input v-model="value" height="200" type="textarea" placeholder="请填写内容(最多50个字)"
-					maxlength="50" :border="true" border-color="#ddc387" :focus="true"></u-input>
+					maxlength="50" :focus="true"></u-input>
 			</view>
 			<view v-if="title === '每日喝茶记录'" class="pics">
 				<!-- 图片上传 -->
 				<u-upload :deleteConfirmBtnColor="appThemeColor" width="180" height="180" max-count="1"
-					:max-size="1024 * 1024 * 10" :action="uploadUrl" :auto-upload="true" @on-success="uploadPicSuccess">
+					:max-size="1024 * 1024 * 10" :action="uploadUrl" 
+					:auto-upload="true" @on-success="uploadPicSuccess"
+					:header="{ 'Authorization': 'Bearer ' + token }"
+				>
 				</u-upload>
 			</view>
+			
 
 		</view>
 		<!-- 按钮 -->
 		<view class="btn">
 			<u-button type="gold" shape="circle" @click="submit"><text>提交</text></u-button>
 		</view>
+		
+		<u-image :src="img"></u-image>
 	</view>
 </template>
 
@@ -35,9 +41,10 @@
 				appThemeColor: this.$appTheme.appThemeColor,
 				appThemeTextGrayColor: this.$appTheme.appThemeTextGrayColor,
 				// 上传地址
-				uploadUrl: 'http://47.106.83.74:3002/upload',
-				img: ''
-
+				uploadUrl: 'http://47.106.83.74:3002/api/cxj/upload',
+				// uploadUrl: 'http://localhost:3001/api/upload',
+				img: '',
+				token: uni.getStorageSync('token')
 			};
 		},
 		onLoad(options) {
@@ -50,7 +57,7 @@
 		methods: {
 			// 上传图片成功
 			uploadPicSuccess(data) {
-				if (data.code === 200) {
+				if (data.status === 200) {
 					this.img = data.url;
 				} else {
 					uni.showToast({

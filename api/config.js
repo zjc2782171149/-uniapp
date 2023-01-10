@@ -1,14 +1,16 @@
 // api请求地址
-// export const HTTP_URL_DEV = 'http://sdyy.apicloud-system.com/cm-app-api'
-// export const HTTP_URL_PROD = 'http://sdyy.apicloud-system.com/cm-app-api'
-export const HTTP_URL_DEV = 'http://localhost:3001'
-export const HTTP_URL_PROD = 'http://localhost:3001'
+export const HTTP_URL_DEV = 'http://www.zhangjiancong.top'
+export const HTTP_URL_PROD = 'http://www.zhangjiancong.top'
+// export const HTTP_URL_DEV = 'http://localhost:3001'
+// export const HTTP_URL_PROD = 'http://localhost:3001'
 
 // api前缀
 // export const HTTP_URL_DEV_PREFIX = '/api'
 // export const HTTP_URL_PROD_PREFIX = '/api'
 export const HTTP_URL_DEV_PREFIX = ''
 export const HTTP_URL_PROD_PREFIX = ''
+
+console.log("开发环境", process.env.NODE_ENV);
 
 // 基于uview-ui的http配置
 export const UVIEWUI_HTTP_CONFIG = {

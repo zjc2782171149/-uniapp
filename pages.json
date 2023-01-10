@@ -25,25 +25,13 @@
 		{
 			"path": "pages/find/index"
 		},
-		// 原商城
-		{
-			"path": "pages/mall/index"
-		},
 		// 市集
 		{
 			"path": "pages/market/index"
 		},
-		// 原社区
-		{
-			"path": "pages/community/index"
-		},
 		// 我的
 		{
 			"path": "pages/mine-new/index"
-		},
-		// 原我的
-		{
-			"path": "pages/mine/index"
 		},
 		// 活动详情页
 		{
@@ -143,40 +131,7 @@
 	}, {
 		// 社区副包
 		"root": "pages-community",
-		"pages": [
-			// 搜索圈子
-			{
-				"path": "pages/community/search"
-			},
-			// 选择圈子
-			{
-				"path": "pages/community/select"
-			},
-			// 创建/编辑圈子
-			{
-				"path": "pages/community/add-or-update"
-			},
-			// 发布帖子
-			{
-				"path": "pages/post/add"
-			},
-			// 帖子详情
-			{
-				"path": "pages/post/detail"
-			},
-			// 圈子详情
-			{
-				"path": "pages/community/detail"
-			},
-			// 圈子信息
-			{
-				"path": "pages/community/info"
-			},
-			// 晒单精选
-			{
-				"path": "pages/post/list"
-			}
-		]
+		"pages": {}
 	}, {
 		// 积分副包
 		"root": "pages-points",
@@ -208,29 +163,9 @@
 			{
 				"path": "pages/message"
 			},
-			// 发现好友
-			{
-				"path": "pages/discover"
-			},
-			// 我的粉丝
-			{
-				"path": "pages/fans"
-			},
-			// 我的关注
-			{
-				"path": "pages/follow"
-			},
-			// 我的社区
-			{
-				"path": "pages/community"
-			},
 			// 个人主页
 			{
 				"path": "pages/mine"
-			},
-			// 设置
-			{
-				"path": "pages/setting"
 			},
 			// 用户主页
 			{
