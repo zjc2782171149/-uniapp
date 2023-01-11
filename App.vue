@@ -22,32 +22,9 @@
 			// 已选择的地址占地址列表中的索引
 			addressIndex: 0,
 			// 用户地址列表
-			addressList: [{
-					isHome: true,
-					province: '山东省',
-					city: '青岛市',
-					area: '李沧区',
-					street: '浮山路街道',
-					address: '华南农业大学创客空间',
-					name: '李李',
-					phone: '187****7234'
-				},
-				{
-					isHome: true,
-					province: '山东省',
-					city: '青岛市',
-					area: '李沧区',
-					street: '浮山路街道',
-					address: '大马路路60号就金茂悦10号楼1单元',
-					name: '李李',
-					phone: '187****7234'
-				}
-			],
+			addressList: [],
 			// 购物车列表
-			goodsList: [
-				{ good_id: 1, title: "戴森吹风机家用负离子护发专用大功率不伤发 家用负离子护发电吹风 HD08", num: 2, sku: 'HD08-普鲁士蓝防翘系列', price: '378', checked: true, pics: "https://smoothbucket.oss-cn-shenzhen.aliyuncs.com/hzhj/goods/5.png" },
-				{ good_id: 2, title: '化州红橘', num: 5, sku: '尊贵装', price: '10000', checked: false, pics: "https://smoothbucket.oss-cn-shenzhen.aliyuncs.com/hzhj/goods/11.png" }
-			],
+			goodsList: [],
 			// 选中商品的购物车列表
 			goodsListSelected: [],
 			// 优惠券

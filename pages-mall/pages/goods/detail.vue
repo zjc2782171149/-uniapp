@@ -96,7 +96,11 @@ import GoodsSelectSku from "@/pages-mall/components/goods/goods-select-sku.vue";
 import EvaluateCard from "@/pages-mall/components/evaluate-card.vue";
 import PostCardSimple from "@/pages/community/components/post-card-simple.vue";
 import CardGoods from "@/pages/mall/components/card.vue";
+
 import { topicList, goodsList } from "@/static/test-data.js";
+
+import dayjs from "dayjs";
+
 export default {
   components: {
     TitleOperate,
@@ -206,26 +210,17 @@ export default {
 
       // 获取商品评论
       this.$u.api.getGoodEvaluate({ id: id }).then((res) => {
-        // console.log(res);
-        let task1 = res.map((item) => {
-          return that.$u.api.getUserMes().then();
-        });
-
-        // 通过用户id拿到用户昵称
-        let nicknameArr = [];
-        Promise.all(task1).then((res2) => {
-          that.evaluateData = res.map((item, index) => {
-            return {
-              ...item,
-              create_time: item.create_time.slice(0, 10),
-              nickname: res2[index].nickname,
-              icon: res2[index].icon,
-            };
-          });
-		  
+		  that.evaluateData = res.map((item, index) => {
+		    return {
+		      ...item,
+		      create_time: dayjs(item.create_time).format().slice(0, 10),
+		      nickname: item.nickname,
+		      icon: item.icon,
+		    };
+		  });
+		  // console.log(res, that.evaluateData);
 		  that.evaluateLength = that.evaluateData.length;
-		  
-        });
+
       });
 
       // 商品是否被收藏

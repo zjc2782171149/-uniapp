@@ -1,12 +1,16 @@
 <template>
 	<view class="page">
-		<Navbar title="收货地址"></Navbar>
+		<!-- 自定义头部 -->
+		<u-navbar back-icon-name="arrow-leftward" title="收货地址">
+		</u-navbar>
+		
+
 		<view class="list">
 			<AddressCard v-for="(item, index) in list" :isBack="Boolean(isBack)" :key="index" :data="item" :showEdit="!isSelect"
 			:showBorderBottom="index !== list.length - 1" :addressIndex="index"></AddressCard>
 		</view>
 		<view class="btn" v-if="!isSelect">
-			<u-button type="primary" shape="circle" @click="$u.route({ url: '/pages-mine/pages/address/add-or-update?type=add' })">
+			<u-button type="gold" shape="circle" @click="$u.route({ url: '/pages-mine/pages/address/add-or-update?type=add' })">
 				<u-icon name="plus"></u-icon>
 				<text>新建收货地址</text>
 			</u-button>
@@ -32,12 +36,22 @@ export default {
 			this.isSelect = ops.isSelect;
 			this.isBack = ops.isBack;
 		}
-		console.log('地址列表', getApp().globalData.addressList);
-		this.list = getApp().globalData.addressList;
+		
+	},
+	onShow() {
+		this.initAddress();
 	},
 	methods: {
 		selectAddress(index) {
 
+		},
+		initAddress() {
+			this.$u.api.getUserAddress().then(res => {
+				this.list = res;
+				getApp().globalData.addressList = res;
+			}).catch(err => {
+				console.error(err);
+			})
 		}
 	}
 };

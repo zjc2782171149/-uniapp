@@ -23,6 +23,8 @@ export const useWxApi = (Vue, vm) => {
 		getUserShoppingcart: (req) => vm.$u.post('/api/cxj/get_user_shoppingcart'),
 		// 根据user_id获取签到时间
 		getUserSign: (req) => vm.$u.post('/api/cxj/get_user_sign'),
+		// 根据user_id获取地址列表
+		getUserAddress: (req) => vm.$u.post('/api/cxj/get_user_address'),
 		
 		// -------------------------------------修改-------------------------------------------------
 		// 修改该用户对该商品的收藏状态
@@ -38,6 +40,10 @@ export const useWxApi = (Vue, vm) => {
 		setUserSign: (req) => vm.$u.post('/api/cxj/set_user_sign', {
 			...req
 		}),
+		// 添加用户地址
+		setUserAddress: (req) => vm.$u.post('/api/cxj/set_user_address', {
+			...req
+		}),
 		
 		// -------------------------------------更新-------------------------------------------------
 		// 修改用户个人信息
@@ -48,10 +54,14 @@ export const useWxApi = (Vue, vm) => {
 		updateUserPoint: (req) => vm.$u.post('/api/cxj/update_user_point', {
 			...req
 		}),
+		// 修改用户地址
+		updateUserAddress: (req) => vm.$u.post('/api/cxj/update_user_address', {
+			...req
+		}),
 		
 		// -------------------------------------删除--------------------------------------------------
-		// 添加商品到购物车列表
-		deleteUserShoppingcart: (req) => vm.$u.post('/api/cxj/delete_user_shoppingcart', {
+		// 删除购物车列表
+		deleteUserAddress: (req) => vm.$u.post('/api/cxj/delete_user_address', {
 			id_pri: req.id_pri
 		}),
 	}

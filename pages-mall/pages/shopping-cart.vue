@@ -42,6 +42,8 @@
               </view>
             </view>
           </view>
+		  
+		  
           <div
             class="delete"
             v-show="deleteShow"
@@ -49,6 +51,7 @@
           >
             <u-icon name="trash" size="40"></u-icon>
           </div>
+		  
         </view>
       </view>
     </view>

@@ -60,8 +60,8 @@
 
 <script>
 import CardGoods from "@/pages/mall/components/card.vue";
-// 导入假数据
-import { goodsList } from "@/static/test-data.js";
+
+import dayjs from "dayjs";
 
 export default {
   components: {
