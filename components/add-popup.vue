@@ -33,13 +33,14 @@
 			},
 			// 关闭
 			close() {
-				this.$emit('close');
+				this.show = false;
 			},
 			// 选择
 			chose(item, index) {
 				uni.navigateTo({
 					url: item.url + "?type=" + item.type
 				});
+				this.close();
 			}
 		}
 	};

@@ -37,9 +37,6 @@
 			"path": "pages/search"
 		},
 		{
-			"path": "pages/search-result"
-		},
-		{
 			"path": "pages/login/index"
 		},
 		{
@@ -94,9 +91,6 @@
 				},
 				{
 					"path": "pages/after-sales/back"
-				},
-				{
-					"path": "pages/order/express"
 				}
 			]
 		},
@@ -180,6 +174,10 @@
 			{
 				"name": "登录页",
 				"path": "pages/login/index"
+			},
+			{
+				"name": "首页",
+				"path": "pages/home/index"
 			}
 		]
 	}

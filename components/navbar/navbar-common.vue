@@ -3,7 +3,7 @@
 		<div class="left" @click="goLeft" :style="{ backgroundImage: `url(${leftIcon})`}"></div>
 		<view class="search-box" @click="goSearchPage">
 			<view class="search-input" @tap="showSearch=true">
-				<image src="/static/home/search-icon.png" class="search-icon"></image>
+				<image src="https://cxj.zhangjiancong.top/images/cxj/home/search-icon.png" class="search-icon"></image>
 				<view>搜索</view>
 			</view>
 		</view>
@@ -18,7 +18,7 @@
 			// 左侧图标
 			leftIcon: {
 				type: String,
-				default: "/static/home/menu.png"
+				default: "https://cxj.zhangjiancong.top/images/cxj/home/menu.png"
 			},
 			// 左側图标要跳转的链接
 			leftLink: {
@@ -28,7 +28,7 @@
 			// 右侧图标
 			rightIcon: {
 				type: String,
-				default: "/static/home/cart.png"
+				default: "https://cxj.zhangjiancong.top/images/cxj/home/cart.png"
 			},
 			// 右側图标要跳转的链接
 			rightLink: {
@@ -60,12 +60,10 @@
 					url: rightLink
 				});
 			},
-			// 右侧图标点击事件默认去搜索页面
+			// 右侧图标点击事件默认去商品列表搜索——活动未开放
 			goSearchPage() {
-				const search = this.search;
-				
 				uni.navigateTo({
-					url: search
+					url: '/pages-mall/pages/goods/list'
 				});
 			},
 		}

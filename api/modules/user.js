@@ -6,13 +6,21 @@ export const useWxApi = (Vue, vm) => {
 		getOpenId: (req) => vm.$u.post('/api/cxj/login', {
 			...req
 		}),
+		// 获取授权，授权了才登陆
+		getAuth: (req) => vm.$u.post('/api/cxj/login/login_isAuth', {
+			...req
+		}),
 		// 手机号登录
 		getPhoneCode: (phone) => vm.$u.post('/api/cxj/login/get_phone_code', {
 			phone
 		}),
 	
-		// 根据user_id获取用户数据
+		// 获取用户数据
 		getUserMes: (req) => vm.$u.post('/api/cxj/get_user_mes'),
+		// 根据user_id获取用户数据
+		getUserMesSome: (req) => vm.$u.post('/api/cxj/get_user_mes_some', {
+			user_id: req.user_id
+		}),
 		// 根据user_id和good_id获取用户是否收藏了该商品
 		getUserCollect: (req) => vm.$u.post('/api/cxj/get_user_collect', {
 			good_id: req.good_id

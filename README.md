@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/zjc2782171149/cxj-tea" target="_blank">
-    <img width="180" src="./static/mine/logo.png"/>
+    <img width="180" src="https://cxj.zhangjiancong.top/images/cxj/logo/logo.png"/>
   </a>
 </div>
 

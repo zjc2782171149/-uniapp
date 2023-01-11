@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<navbar-common rightIcon="https://www.zhangjiancong.top/public/cxj/mine/settings.png" rightLink="/pages-mine/pages/mine"></navbar-common>
+		<navbar-common rightIcon="https://cxj.zhangjiancong.top/images/cxj/mine/settings.png" rightLink="/pages-mine/pages/mine"></navbar-common>
 
 		<div class="profile" @click="go('/pages-mine/pages/mine')">
 			<div class="left">
@@ -32,18 +32,15 @@
 				<div class="cell" @click="openHelpModal">
 					<u-cell-item :arrow="false">
 						<div slot="title" class="cell-title">帮助</div>
-						<!-- <div slot="icon" class="cell-icon" :style="{ backgroundImage: `url('https://www.zhangjiancong.top/public/cxj/mine/info.png')`}"></div> -->
-						<image slot="icon" class="cell-icon" src='https://www.zhangjiancong.top/public/cxj/mine/info.png'></image>
+						<image slot="icon" class="cell-icon" src='https://cxj.zhangjiancong.top/images/cxj/mine/info.png'></image>
 					</u-cell-item>
 						
 				</div>
 				<div class="cell" @click="contact">
 					<u-cell-item :arrow="false">
 						<div slot="title" class="cell-title">联系我们</div>
-						<!-- <div slot="icon" class="cell-icon" :style="{ backgroundImage: `url('https://www.zhangjiancong.top/public/cxj/mine/phone.png')`}"></div> -->
-						<image slot="icon" class="cell-icon" src='https://www.zhangjiancong.top/public/cxj/mine/phone.png'></image>
+						<image slot="icon" class="cell-icon" src='https://cxj.zhangjiancong.top/images/cxj/mine/phone.png'></image>
 					</u-cell-item>
-						
 				</div>
 				
 			</u-cell-group>
@@ -77,27 +74,27 @@
 				showHelp: false,
 				mains: [{
 						title: "我的数据",
-						src: "https://www.zhangjiancong.top/public/cxj/mine/files.png",
+						src: "https://cxj.zhangjiancong.top/images/cxj/mine/files.png",
 						link: "/pages-mine/pages/user"
 					},
 					{
 						title: "我的收藏",
-						src: "https://www.zhangjiancong.top/public/cxj/mine/heart.png",
+						src: "https://cxj.zhangjiancong.top/images/cxj/mine/heart.png",
 						link: "/pages-mine/pages/collection"
 					},
 					{
 						title: "我的订单",
-						src: "https://www.zhangjiancong.top/public/cxj/mine/paper.png",
+						src: "https://cxj.zhangjiancong.top/images/cxj/mine/paper.png",
 						link: "/pages-mall/pages/order/list"
 					},
 					{
 						title: "我的优惠",
-						src: "https://www.zhangjiancong.top/public/cxj/mine/price.png",
+						src: "https://cxj.zhangjiancong.top/images/cxj/mine/price.png",
 						link: "/pages-mine/pages/discounts"
 					},
 					{
 						title: "我的积分",
-						src: "https://www.zhangjiancong.top/public/cxj/mine/pack.png",
+						src: "https://cxj.zhangjiancong.top/images/cxj/mine/pack.png",
 						link: "/pages-points/pages/index"
 					}
 				],

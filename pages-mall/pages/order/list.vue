@@ -7,7 +7,7 @@
 
 		<view class="search-slot">
 			<u-search placeholder="搜索全部订单" :showAction="false" shape="round" v-model="searchValue" 
-			bg-color="#F4F5F8" @custom="search" @search="search" @clear="clear">
+			bg-color="#F4F5F8" @custom="search" @search="search" @clear="clear" @change="change">
 			</u-search>
 		</view>
 
@@ -76,6 +76,11 @@
 		},
 		onShow() {},
 		methods: {
+			change() {
+				if(this.searchValue === '') {
+					this.showList = this.goodsList;
+				}
+			},
 			toMine() {
 				uni.switchTab({
 					url: '/pages/mine-new/index'

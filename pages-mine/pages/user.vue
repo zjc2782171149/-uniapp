@@ -10,10 +10,7 @@
     <!-- 信息 -->
     <view class="info">
       <view class="avatar">
-        <u-avatar
-          size="132"
-          :src="userInfo.icon ? userInfo.icon : '../../../static/user/1.png'"
-        ></u-avatar>
+        <u-avatar size="132" :src="userInfo.icon"></u-avatar>
       </view>
       <view class="name">{{ userInfo.nickname }}</view>
       <view class="num">
@@ -26,7 +23,7 @@
           <text>{{ totalRecord }}</text>
         </view>
       </view>
-      <view class="desc">{{ userInfo.rank }}</view>
+      <view class="desc">{{ userInfo.grade }}</view>
       <view class="operate">
         <!-- 				<u-button type="gold" size="small" shape="circle">
 					<u-icon name="plus"></u-icon>
@@ -63,16 +60,10 @@
       <!--提问卡片-->
       <!-- 回答 -->
       <QuestionList :data="showArticleList"></QuestionList>
-      <!-- 			<view class="card" style="padding: 0;">
-				<PostCard smallCard v-for="(item, index) in circleList" :key="index" :data="item" :border="index != circleList.length - 1"></PostCard>
-			</view> -->
     </view>
     <view class="item" v-if="currentTab == 2">
       <!-- 记录卡片 -->
       <RecordList :data="showArticleList"></RecordList>
-      <!-- 			<view class="card" style="padding: 12rpx 30rpx;">
-				<CommunityCard showActive v-for="(item, index) in communityList" :border="communityList.length - 1 != index" :data="item" :key="index"></CommunityCard>
-			</view> -->
     </view>
   </view>
 </template>
@@ -81,11 +72,8 @@
 import Tabs from "@/components/tabs.vue";
 import NavbarRoundImg from "@/components/navbar/navbar-round-img.vue";
 import TitleOperate from "@/components/title-operate.vue";
-import CommunityCard from "@/pages/community/components/community-card.vue";
-import PostCard from "@/pages/community/components/post-card";
 import QuestionList from "../components/question-list.vue";
 import RecordList from "../components/record-list.vue";
-import { circleList } from "@/static/test-data.js";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -100,14 +88,12 @@ export default {
     Tabs,
     NavbarRoundImg,
     TitleOperate,
-    CommunityCard,
-    PostCard,
     QuestionList,
     RecordList,
   },
   data() {
     return {
-      bgImg: require("@/static/mine/bg.webp"),
+      bgImg: "https://cxj.zhangjiancong.top/images/cxj/mine/bg.webp",
       backgroundColor: "rgba(0,0,0,0)",
       // tabs
       currentTab: 0,
@@ -122,27 +108,6 @@ export default {
           text: "记录",
         },
       ],
-      // 圈子列表
-      communityList: [
-        {
-          pics: require("@/static/community/1.png"),
-          cateName: "学生党",
-          desc: "一起来学习呀",
-        },
-        {
-          pics: require("@/static/community/2.png"),
-          cateName: "好听的音乐",
-          desc: "这首歌的等你来听这首歌的等你…",
-        },
-        {
-          pics: require("@/static/community/3.png"),
-          cateName: "音悦台",
-          desc: "这首歌的等你来听…",
-        },
-      ],
-      // 帖子列表
-      circleList: circleList,
-
       userInfo: {},
       articleList: [],
       showArticleList: [],
@@ -150,12 +115,10 @@ export default {
       totalRecord: 0,
     };
   },
-  onLoad(options) {
-
-  },
+  onLoad(options) {},
   onShow() {
-	this.initUser();
-	this.initArticleList();
+    this.initUser();
+    this.initArticleList();
   },
   onPageScroll(e) {
     if (e.scrollTop > 10) {
@@ -167,7 +130,7 @@ export default {
   methods: {
     async initUser() {
       const info = uni.getStorageSync("userInfo");
-		console.log(info);
+      console.log(info);
       this.userInfo = {
         ...info,
         birthday: dayjs(info.birthday).format().slice(0, 10),
@@ -186,7 +149,7 @@ export default {
       const user_id = this.userInfo.user_id;
       this.showArticleList = [];
       this.articleList.map((item) => {
-        if (item.type === this.type && item.user_id === user_id) {
+        if (item.type === this.type) {
           that.showArticleList.push({
             ...item,
             publish_time: dayjs(item.publish_time).fromNow(),
@@ -195,7 +158,17 @@ export default {
       });
     },
     async initArticleList() {
-      this.articleList = await this.$u.api.getArticleAll();
+      const res = await this.$u.api.getArticleAll();
+
+	  const res2 = res.map((item, index) => {
+	    return {
+	      ...item,
+	      publish_time: getApp().globalData.getNowTime(
+	        dayjs(item.publish_time).format()
+	      ),
+	    };
+	  });
+      this.articleList = res2.reverse(); // 反转，最新发的在前面
 
       this.totalRecord = 0;
       this.articleList.map((item) => {

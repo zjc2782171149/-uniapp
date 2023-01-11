@@ -109,7 +109,7 @@ export default {
   .item {
     width: 100%;
     height: 174rpx;
-    background-image: url("@/pages-mine/static/discounts-bg.png");
+    background-image: url("https://cxj.zhangjiancong.top/images/cxj/mine/discounts-bg.png");
     background-size: cover;
     margin-bottom: 30rpx;
     display: flex;
@@ -151,7 +151,7 @@ export default {
     .select {
       height: 60rpx;
       width: 60rpx;
-      background-image: url("@/pages-mine/static/discounts-select.png");
+      background-image: url("https://cxj.zhangjiancong.top/images/cxj/mine/discounts-select.png");
       background-size: cover;
       position: absolute;
       top: 4rpx;

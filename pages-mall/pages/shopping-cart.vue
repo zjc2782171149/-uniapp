@@ -42,8 +42,7 @@
               </view>
             </view>
           </view>
-		  
-		  
+
           <div
             class="delete"
             v-show="deleteShow"
@@ -51,7 +50,6 @@
           >
             <u-icon name="trash" size="40"></u-icon>
           </div>
-		  
         </view>
       </view>
     </view>
@@ -101,8 +99,6 @@
 </template>
 
 <script>
-// 假数据
-import { goodsList } from "@/static/test-data.js";
 // 组件
 import CardGoods from "@/pages/mall/components/card.vue";
 export default {

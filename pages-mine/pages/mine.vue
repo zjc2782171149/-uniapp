@@ -14,11 +14,7 @@
       <u-form label-position="left" ref="form" label-width="180rpx">
         <u-form-item label="头像" class="upload">
           <view class="value">
-            <u-avatar
-              style="height: 72rpx"
-              size="72"
-              :src="icon === '' ? '../../../static/user/1.png' : icon"
-            ></u-avatar>
+            <u-avatar style="height: 72rpx" size="72" :src="icon"></u-avatar>
             <u-icon
               :color="arrowColor"
               style="margin-left: 20rpx"
@@ -37,7 +33,7 @@
             :action="uploadUrl"
             :auto-upload="true"
             @on-success="uploadPicSuccess"
-			:header="{ 'Authorization': 'Bearer ' + token }"
+            :header="{ Authorization: 'Bearer ' + token }"
           >
           </u-upload>
         </u-form-item>
@@ -329,7 +325,7 @@ export default {
       // 上传地址
       uploadUrl: "https://cxj.zhangjiancong.top/api/cxj/upload",
       // uploadUrl: "http://47.106.83.74:3002/api/cxj/upload",
-	  token: uni.getStorageSync('token')
+      token: uni.getStorageSync("token"),
     };
   },
   onShow() {
@@ -342,9 +338,9 @@ export default {
       });
     },
     // 上传图片成功
-    uploadPicSuccess(data) {
-      if (data.code === 200) {
-        this.icon = data.url;
+    uploadPicSuccess(res) {
+      if (res.status === 200) {
+        this.icon = res.data.url;
       } else {
         uni.showToast({
           title: "图片上传失败",

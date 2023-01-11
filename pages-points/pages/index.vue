@@ -18,8 +18,8 @@
     <!-- 		<view class="active">
 			<TitleOperate title="福利中心" padding="28rpx 24rpx"></TitleOperate>
 			<view class="inner">
-				<view class="item"><u-image width="100%" height="220rpx" mode="widthFix" src="@/pages-points/static/active-1.png"></u-image></view>
-				<view class="item"><u-image width="100%" height="220rpx" mode="widthFix" src="@/pages-points/static/active-2.png"></u-image></view>
+				<view class="item"><u-image width="100%" height="220rpx" mode="widthFix" src="https://cxj.zhangjiancong.top/images/cxj/mine/active-1.png"></u-image></view>
+				<view class="item"><u-image width="100%" height="220rpx" mode="widthFix" src="https://cxj.zhangjiancong.top/images/cxj/mine/active-2.png"></u-image></view>
 			</view>
 		</view> -->
 
@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import { pointsGoodsData } from "@/static/test-data.js";
 import NavbarRoundImg from "@/components/navbar/navbar-round-img.vue";
 import UserInfo from "@/pages-points/components/user-info.vue";
 import Sign from "@/pages-points/components/sign";
@@ -77,48 +76,12 @@ export default {
   data() {
     return {
       themeColor: this.$appTheme.appThemeColor,
-      bgImg: require("@/pages-points/static/bg.png"),
+      bgImg: "https://cxj.zhangjiancong.top/images/cxj/mine/bg.png",
       backgroundColor: "rgba(0,0,0,0)",
       // 测试数据
-      goodsData: pointsGoodsData,
+      goodsData: [],
       // 任务列表
-      taskList: [
-        {
-          icon: require("@/pages-points/static/sign-3.png"),
-          title: "累计签到3天",
-          desc: "连续累计签到3天额外获得20积分",
-          isOver: true,
-          pointsNum: 20,
-        },
-        {
-          icon: require("@/pages-points/static/sign-7.png"),
-          title: "累计签到7天",
-          desc: "连续累计签到7天额外获得50积分",
-          isOver: false,
-          pointsNum: 50,
-        },
-        {
-          icon: require("@/pages-points/static/publish.png"),
-          title: "发布帖子",
-          desc: "发布帖子, 获得20积分",
-          isOver: false,
-          pointsNum: 20,
-        },
-        {
-          icon: require("@/pages-points/static/collection.png"),
-          title: "收藏帖子",
-          desc: "收藏帖子, 获得10积分",
-          isOver: true,
-          pointsNum: 10,
-        },
-        {
-          icon: require("@/pages-points/static/over-order.png"),
-          title: "完成订单",
-          desc: "完成下单, 获得100积分",
-          isOver: false,
-          pointsNum: 100,
-        },
-      ],
+      taskList: [],
       // 优惠卷列表
       discountsData: [
         {

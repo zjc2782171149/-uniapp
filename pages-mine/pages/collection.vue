@@ -35,6 +35,9 @@
         </view>
       </u-checkbox-group>
     </view>
+	
+	<NoData height="50vh" v-if="list.length === 0"></NoData>
+	
   </view>
 </template>
 

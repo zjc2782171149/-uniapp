@@ -59,19 +59,19 @@ export default {
         {
           title: "仅退款",
           desc: "未收到货(包含未签收),或与卖家协商同意前提下",
-          icon: require("@/pages-mall/static/select-item-1.png"),
+          icon: "https://cxj.zhangjiancong.top/images/cxj/mall/select-item-1.png",
           type: "money",
         },
         {
           title: "退货退款",
           desc: "已收到货(包含未签收),或与卖家协商同意前提下",
-          icon: require("@/pages-mall/static/select-item-2.png"),
+          icon: "https://cxj.zhangjiancong.top/images/cxj/mall/select-item-2.png",
           type: "all",
         },
         {
           title: "换货",
           desc: "已收到货,需要更换收到的货物",
-          icon: require("@/pages-mall/static/select-item-3.png"),
+          icon: "https://cxj.zhangjiancong.top/images/cxj/mall/select-item-3.png",
           type: "goods",
         },
       ],

@@ -7,7 +7,7 @@
 					<div slot="title" class="cell-main">
 						<div class="cell-author">
 							<div class="cell-icon" :style="{ backgroundImage: `url(${item.icon})`}"></div>
-							<div class="cell-nickname">{{ item.nickname + item.article_id }}</div>
+							<div class="cell-nickname">{{ item.nickname }}</div>
 							<div class="cell-rank">{{ item.publish_time }}</div>
 						</div>
 		

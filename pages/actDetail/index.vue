@@ -1,10 +1,8 @@
 <template>
 	<view class="slot">
 		<Navbar title="活动详情" :background="{ backgroundColor: 'transparent' }"></Navbar>
-		<view class="web">
-			<web-view :src="url">
-			</web-view>
-		</view>
+		<web-view :src="url">
+		</web-view>
 
 	</view>
 </template>
@@ -16,19 +14,20 @@
 		},
 		data() {
 			return {
-				url: ""
-
+				url: "",
+				isHave: false
 			};
 		},
+		onLoad(ops) {
+			if(ops.url) {
+				this.url = ops.url;
+				this.isHave = true;
+			} else {
+				this.isHave = false;
+			}
+		},
 		onShow() {
-			//获取页面栈
-			const pages = getCurrentPages();
-			//获取路由参数
-			const curPage = pages[pages.length - 1];
-			var page = pages[pages.length - 1];
-			console.log(page);
-			this.url = page.options.url ?? "";
-
+			
 		},
 		methods: {
 

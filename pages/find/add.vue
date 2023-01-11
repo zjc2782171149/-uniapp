@@ -56,9 +56,9 @@
 		},
 		methods: {
 			// 上传图片成功
-			uploadPicSuccess(data) {
-				if (data.status === 200) {
-					this.img = data.url;
+			uploadPicSuccess(res) {
+				if (res.status === 200) {
+					this.img = res.data.url;
 				} else {
 					uni.showToast({
 						title: '图片上传失败',

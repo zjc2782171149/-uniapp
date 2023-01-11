@@ -71,22 +71,22 @@ export default {
     return {
       types: [
         {
-          src: "/static/market/types.png",
+          src: "https://cxj.zhangjiancong.top/images/cxj/market/types.png",
           title: "茶品",
           goodsType: "moral",
         },
         {
-          src: "/static/market/cultures.png",
+          src: "https://cxj.zhangjiancong.top/images/cxj/market/cultures.png",
           title: "茶文化",
           goodsType: "culture",
         },
         {
-          src: "/static/market/tools.png",
+          src: "https://cxj.zhangjiancong.top/images/cxj/market/tools.png",
           title: "茶具",
           goodsType: "tool",
         },
         {
-          src: "/static/market/clothes.png",
+          src: "https://cxj.zhangjiancong.top/images/cxj/market/clothes.png",
           title: "茶服",
           goodsType: "clothes",
         },

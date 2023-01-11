@@ -14,7 +14,7 @@
     <view
       class="card"
       v-for="(item, index) in orderInfo.goods"
-      :key="item.good_id"
+      :key="index"
       @click="selectGood(index)"
     >
       <!-- 商品 -->
@@ -59,7 +59,7 @@
               :action="uploadUrl"
               :auto-upload="true"
               @on-success="uploadPicSuccess"
-			  :header="{ 'Authorization': 'Bearer ' + token }"
+              :header="{ Authorization: 'Bearer ' + token }"
             ></u-upload>
           </view>
           <u-form-item
@@ -106,7 +106,7 @@ export default {
       // 上传地址
       uploadUrl: "https://cxj.zhangjiancong.top/api/cxj/upload",
       selectIndex: 0,
-	  token: uni.getStorageSync('token')
+      token: uni.getStorageSync("token"),
     };
   },
   onLoad() {
@@ -125,10 +125,9 @@ export default {
   },
   methods: {
     // 上传图片成功
-    uploadPicSuccess(data) {
-      console.log(data);
-      if (data.code === 200) {
-        this.form[this.selectIndex].pics = data.url;
+    uploadPicSuccess(res) {
+      if (res.status === 200) {
+        this.form[this.selectIndex].pics = res.data.url;
       } else {
         uni.showToast({
           title: "图片上传失败",
@@ -141,7 +140,7 @@ export default {
     },
     // 提交评价
     async submit() {
-      console.log(this.form);
+      // console.log(this.form);
       const that = this;
 
       let task1 = this.form.map((item) => {
