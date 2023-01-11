@@ -14,7 +14,6 @@
 		<!-- 默认登录页面显示 -->
 		<view style="width: 100%;" v-if="pageStatus == 'home'">
 			<view class="text-area" @click="getWxLoginRole(1)">微信用户一键登录</view>
-			<view class="text-area" @click="go">测试域名</view>
 			<view class="login" @click="loginByCode">手机号登录/注册</view>
 		</view>
 
@@ -145,18 +144,6 @@
 			}
 		},
 		methods: {
-			go() {
-				this.$u.api.getOrder().then(res => {
-					uni.showToast({
-						title: '请求成功'
-					})
-				}).catch(err => {
-					uni.showToast({
-						title: '请求失败',
-						icon: 'error'
-					})
-				})
-			},
 			// 勾选/取消用于协议
 			changeAgreeFlag() {
 				this.agree_flag = !this.agree_flag;

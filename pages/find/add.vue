@@ -25,7 +25,7 @@
 			<u-button type="gold" shape="circle" @click="submit"><text>提交</text></u-button>
 		</view>
 		
-		<u-image :src="img"></u-image>
+
 	</view>
 </template>
 
@@ -41,7 +41,7 @@
 				appThemeColor: this.$appTheme.appThemeColor,
 				appThemeTextGrayColor: this.$appTheme.appThemeTextGrayColor,
 				// 上传地址
-				uploadUrl: 'http://47.106.83.74:3002/api/cxj/upload',
+				uploadUrl: 'https://cxj.zhangjiancong.top/api/cxj/upload',
 				// uploadUrl: 'http://localhost:3001/api/upload',
 				img: '',
 				token: uni.getStorageSync('token')

@@ -59,6 +59,7 @@
               :action="uploadUrl"
               :auto-upload="true"
               @on-success="uploadPicSuccess"
+			  :header="{ 'Authorization': 'Bearer ' + token }"
             ></u-upload>
           </view>
           <u-form-item
@@ -103,8 +104,9 @@ export default {
       // 表单
       form: [],
       // 上传地址
-      uploadUrl: "http://47.106.83.74:3002/upload",
+      uploadUrl: "https://cxj.zhangjiancong.top/api/cxj/upload",
       selectIndex: 0,
+	  token: uni.getStorageSync('token')
     };
   },
   onLoad() {
