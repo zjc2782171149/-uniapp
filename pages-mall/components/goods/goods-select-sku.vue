@@ -75,7 +75,7 @@ export default {
       data: {},
       // 已选择的sku
       selectSkuLabel: "",
-      selectSkuValue: "-1",
+      selectSkuValue: "0",
       selectSkuPrice: "",
       // 数量
       num: 1,
@@ -163,7 +163,7 @@ export default {
         price: this.selectSkuPrice,
         num: this.num,
       });
-      console.log("新的购物车愿景", goodsBuyArr);
+      // console.log("新的购物车愿景", goodsBuyArr);
       getApp().globalData.goodsListSelected = goodsBuyArr;
 
       const pages = getCurrentPages();

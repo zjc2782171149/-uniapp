@@ -1,6 +1,6 @@
 <template>
   <view class="page">
-    <Navbar title="优惠卷"></Navbar>
+    <Navbar title="优惠券"></Navbar>
     <view class="list">
       <view
         class="item"
@@ -21,7 +21,10 @@
         </view>
         <view class="select" v-if="selectIndex == index"></view>
       </view>
+	  
     </view>
+	
+	<NoData height="50vh" v-if="discountsList.length === 0"></NoData>
   </view>
 </template>
 

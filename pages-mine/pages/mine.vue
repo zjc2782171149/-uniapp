@@ -26,8 +26,8 @@
           <u-upload
             class="upload_item"
             :deleteConfirmBtnColor="themeColor"
-            width="72"
-            height="72"
+            width="100"
+            height="100"
             max-count="1"
             :max-size="1024 * 1024 * 10"
             :action="uploadUrl"
@@ -121,6 +121,18 @@
             ></u-icon>
           </view>
         </u-form-item>
+		
+		<!-- 跳转地址列表 -->
+		<u-form-item label="地址列表">
+		  <view class="value" @click="toAddress">
+		    <u-icon
+		      :color="arrowColor"
+		      style="margin-left: 20rpx"
+		      size="28"
+		      name="arrow-right"
+		    ></u-icon>
+		  </view>
+		</u-form-item>
       </u-form>
     </view>
 
@@ -337,6 +349,11 @@ export default {
         url: "/pages/mine-new/index",
       });
     },
+	toAddress() {
+	  uni.navigateTo({
+	    url: '/pages-mine/pages/address/list?isSelect=false&isBack=false',
+	  });
+	},
     // 上传图片成功
     uploadPicSuccess(res) {
       if (res.status === 200) {
@@ -588,6 +605,8 @@ export default {
 
   .upload_item {
     position: absolute;
+	top: 5rpx;
+	right: 10rpx;
     opacity: 0.01;
   }
 }

@@ -5,10 +5,8 @@
       <u-cell-item :arrow="false" @click="turnArticleDetail(item)">
         <div slot="title" class="cell-main">
           <div class="cell-author">
-            <div
-              class="cell-icon"
-              :style="{ backgroundImage: `url(${item.icon})` }"
-            ></div>
+            <image class="cell-icon" :src="item.icon"></image>
+
             <div class="cell-nickname">{{ item.nickname }}</div>
             <div class="cell-rank">{{ item.grade }}</div>
           </div>
@@ -84,9 +82,8 @@ export default {
       }
 
       .cell-rank {
-        font-size: 12rpx;
-        transform: scale(0.8);
-        margin: 5rpx 0 0 -20rpx;
+        font-size: 16rpx;
+        margin: 5rpx 0 0 10rpx;
       }
     }
 

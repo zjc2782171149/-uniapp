@@ -64,23 +64,17 @@
           <div slot="title" class="cell-main">
             <div class="cell-title">{{ item.title }}</div>
             <div class="cell-author">
-              <div
-                class="cell-icon"
-                :style="{ backgroundImage: `url(${item.icon})` }"
-              ></div>
+              <image class="cell-icon" :src="item.icon"></image>
+
               <div class="cell-nickname">{{ item.nickname }}</div>
               <div class="cell-rank">{{ item.grade }}</div>
             </div>
             <div class="cell-profile">
-              <u-parse :html="item.desc"></u-parse>
+              <u-parse class="cell-profile" :html="item.desc"></u-parse>
             </div>
           </div>
 
-          <div
-            slot="right-icon"
-            class="cell-image"
-            :style="{ backgroundImage: `url(${item.img})` }"
-          ></div>
+          <image slot="right-icon" class="cell-image" :src="item.img"></image>
         </u-cell-item>
       </div>
     </u-cell-group>

@@ -94,9 +94,9 @@
     "mp-weixin" : {
         "appid" : "wx00ad24ea3d88ed1b",
         "setting" : {
-            "urlCheck" : false,
+            "urlCheck" : true,
             "es6" : true,
-            "minified" : false,
+            "minified" : true,
             "postcss" : true
         },
         "optimization" : {
@@ -116,6 +116,9 @@
                 "version" : "1.1.2",
                 "provider" : "wx6885acbedba59c14"
             }
+        },
+        "unipush" : {
+            "enable" : false
         }
     },
     "mp-alipay" : {
@@ -150,5 +153,8 @@
         "title" : "uView UI"
     },
     "vueVersion" : "2",
-    "locale" : "zh-Hans"
+    "locale" : "zh-Hans",
+    "uniStatistics" : {
+        "version" : "2"
+    }
 }

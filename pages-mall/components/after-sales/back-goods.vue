@@ -7,7 +7,7 @@
 			</u-form>
 		</view>
 		<view class="btn">
-			<u-button type="primary" shape="circle" @click="submit"><text>提交</text></u-button>
+			<u-button type="gold" shape="circle" @click="submit"><text>提交</text></u-button>
 		</view>
 		<!-- 原因选择框 -->
 		<SelectReason ref="SelectReason" :ops="reasonOps" title="换货原因" @change="changeReason"></SelectReason>

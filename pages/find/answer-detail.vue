@@ -252,7 +252,7 @@
 
 	.fixed-btn {
 		position: fixed;
-		bottom: 0;
+		bottom: 15rpx;
 		left: 0;
 		z-index: 199;
 		width: 100%;

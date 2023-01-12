@@ -1,7 +1,7 @@
 <template>
 	<view class="page" style="padding-top: 0vh">
 		<view>
-			<u-navbar :custom-back="toMine" back-text="" title="我的订单" :background="{ backgroundColor: 'rgb(221, 195, 135)' }">
+			<u-navbar :custom-back="toMine" title="我的订单" :background="{ backgroundColor: 'rgb(221, 195, 135)' }">
 			</u-navbar>
 		</view>
 
@@ -82,6 +82,7 @@
 				}
 			},
 			toMine() {
+				console.log("返回到主页");
 				uni.switchTab({
 					url: '/pages/mine-new/index'
 				})

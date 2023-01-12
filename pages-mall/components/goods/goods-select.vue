@@ -46,7 +46,7 @@ export default {
 		// 跳转收货地址页面
 		goAddressPage() {
 			uni.navigateTo({
-				url: '/pages-mine/pages/address/list?isSelect=false&isBack=true'
+				url: '/pages-mine/pages/address/list?isSelect=true&isBack=true'
 			});
 		}
 	}

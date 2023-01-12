@@ -108,12 +108,12 @@
 					.now {
 
 						text:nth-child(1) {
-							font-size: 20rpx;
+							font-size: 25rpx;
 							color: $app-theme-text-money-color;
 						}
 
 						text:nth-child(2) {
-							font-size: 28rpx;
+							font-size: 32rpx;
 							color: $app-theme-text-money-color;
 						}
 					}
@@ -121,9 +121,9 @@
 
 				.sale {
 					width: 200rpx;
-					font-size: 12rpx;
+					font-size: 22rpx;
 					color: $app-theme-card-gray-color;
-					transform: scale(0.9);
+					margin-left: 5rpx;
 
 					white-space: nowrap;
 					overflow: hidden;

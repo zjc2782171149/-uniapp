@@ -11,14 +11,15 @@
       :ops="selectOps"
       @change="changBackType"
     ></SelectItem>
+
     <!-- 仅退款 -->
     <BackMoney
       :orderInfo="orderInfo"
       v-if="backType == 'money'"
       @subitAffterSale="subitAffterSale"
     ></BackMoney>
-    <!-- 退货退款 -->
-    <!-- <BackAll v-if="backType == 'all'"></BackAll> -->
+
+    <!-- 退款退货 -->
     <BackMoney
       :orderInfo="orderInfo"
       v-if="backType == 'all'"
@@ -38,14 +39,12 @@
 import OrderGoodsCard from "@/pages-mall/components/order/order-goods-card.vue";
 import SelectItem from "@/pages-mall/components/after-sales/select-item.vue";
 import BackMoney from "@/pages-mall/components/after-sales/back-money.vue";
-import BackAll from "@/pages-mall/components/after-sales/back-all.vue";
 import BackGoods from "@/pages-mall/components/after-sales/back-goods.vue";
 export default {
   components: {
     OrderGoodsCard,
     SelectItem,
     BackMoney,
-    BackAll,
     BackGoods,
   },
   data() {

@@ -3,7 +3,7 @@
 		<view class="info">
 			<view class="item">
 				<text class="tag" v-if="data.isHome">家</text>
-				<text class="label">{{ data.province }}{{ data.city }}{{ data.area }}{{ data.street }}</text>
+				<text class="label">{{ data.province }}{{ data.city }}{{ data.region }}{{ data.street }}</text>
 			</view>
 			<view class="item">{{ data.address }}</view>
 			<view class="item">
@@ -68,6 +68,7 @@ export default {
 					delta: 1
 				});
 			} else {
+				// 选择地址时，点击卡片进来地址列表
 				uni.navigateTo({
 					url: '/pages-mine/pages/address/list?isSelect=true&isBack=true'
 				});

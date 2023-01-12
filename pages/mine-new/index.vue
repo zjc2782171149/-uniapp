@@ -19,7 +19,6 @@
 				<div class="cell" v-for="(item, index) in mains" :key="index" @click="go(item.link)">
 					<u-cell-item :arrow="false">
 						<div slot="title" class="cell-title">{{ item.title }}</div>
-						<!-- <div slot="icon" class="cell-icon" :style="{ backgroundImage: `url(${item.src})`}"></div> -->
 						<image slot="icon" class="cell-icon" :src="item.src"></image>
 					</u-cell-item>
 

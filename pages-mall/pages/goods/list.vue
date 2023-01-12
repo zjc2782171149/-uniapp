@@ -1,27 +1,29 @@
 <template>
 	<view class="page">
 		<!-- 带搜索框的一般导航栏 -->
-		<u-navbar title="商品列表" placeholder="搜索商品、品牌"></u-navbar>
+		<u-navbar title="商品列表"></u-navbar>
 
 		<view class="search-slot">
-			<u-search :focus="true" placeholder="搜索全部订单" :showAction="false" shape="round" v-model="searchValue" bg-color="#F4F5F8"
+			<u-search :focus="true" placeholder="搜索商品" :showAction="false" shape="round" v-model="searchValue" bg-color="#F4F5F8"
 				@custom="search" @search="search" @clear="clear" @change="change">
 			</u-search>
 		</view>
 
 		<!-- 商品列表 -->
 		<view class="list" v-if="showList.length !== 0">
+			<CardGoods class="item" v-for="(item, index) in showList" :key="index" :data="item"
+				:showOldMoney="item.oldMoney"></CardGoods>
 			<!-- 瀑布流组件 -->
-			<u-waterfall ref="topicWaterFall" v-model="showList" marginLeft="7rpx" marginRight="7rpx">
-				<template v-slot:left="{ leftList }">
+<!-- 			<u-waterfall ref="goodsWaterFall" v-model="showList" marginLeft="7rpx" marginRight="7rpx">
+				<template v-slot:left="{ leftList }" v-if="leftList.length">
 					<CardGoods v-for="(item, index) in leftList" :key="index" :data="item"
 						:showOldMoney="item.oldMoney"></CardGoods>
 				</template>
-				<template v-slot:right="{ rightList }">
+				<template v-slot:right="{ rightList }" v-if="rightList.length">
 					<CardGoods v-for="(item, index) in rightList" :key="index" :data="item"
 						:showOldMoney="item.oldMoney"></CardGoods>
 				</template>
-			</u-waterfall>
+			</u-waterfall> -->
 		</view>
 		
 		<NoData height="50vh" v-if="showList.length === 0"></NoData>
@@ -54,10 +56,14 @@
 					this.showList = this.goodsList;
 				}
 			},
-			initList() {
-				this.$u.api.getGoodsAll().then(res => {
-					this.goodsList = this.showList = res;
-				})
+			async initList() {
+				const res = await this.$u.api.getGoodsAll();
+				this.goodsList = this.showList = res.map(item => {
+					return {
+						...item,
+						id: item.good_id
+					}
+				});
 			},
 			search() {
 				console.log("搜索", this.searchValue)
@@ -65,19 +71,21 @@
 
 				let arr = [];
 				this.showList = [];
+							
 				this.goodsList.map((item) => {
 					// 订单中物品列表有搜索框文字，加入
 					if(item.title.includes(that.searchValue)) {
 						arr.push(item);
+					} else {
+						// this.$refs.goodsWaterFall.remove(item.good_id); // 不在的就移除
 					}
 				});
-				console.log(arr);
+
 				this.showList = arr;
 
 			},
 			clear() {
 				this.searchValue = '';
-
 			},
 		}
 	};
@@ -85,7 +93,15 @@
 
 <style lang="scss" scoped>
 	.list {
+		display: flex;
+		flex-wrap: wrap;
 		padding: 30rpx;
+		
+		.item {
+			width: 47%;
+			// height: 300rpx;
+			margin: 5rpx 10rpx;
+		}
 	}
 
 	.search-slot {

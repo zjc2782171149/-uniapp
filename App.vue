@@ -1,6 +1,6 @@
 <script>
 	import dayjs from 'dayjs'
-	
+
 	export default {
 		globalData: {
 			// 胶囊距上距离
@@ -96,5 +96,9 @@
 		font-size: $font-size-base;
 		color: $text-color-base;
 		font-family: "SourceHanSansCN";
+	}
+
+	image {
+		will-change: transform
 	}
 </style>

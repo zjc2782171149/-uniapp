@@ -4,11 +4,11 @@
 			<u-form :model="form" ref="form" label-width="140rpx">
 				<u-form-item label="退款原因"><u-input v-model="form.reason" type="select" placeholder="请选择" @click="openReasonPopup" /></u-form-item>
 				<u-form-item label="退款说明"><u-input v-model="form.desc" placeholder="选填" /></u-form-item>
-				<u-form-item label="退款金额" :border-bottom="false">￥<u-input v-model="form.money" disabled placeholder="退款金额,如需更改请联系客服" /></u-form-item>
+				<u-form-item label="退款金额" :border-bottom="false">￥<u-input class="input" v-model="form.money" disabled placeholder="退款金额,如需更改请联系客服" /></u-form-item>
 			</u-form>
 		</view>
 		<view class="btn">
-			<u-button type="primary" shape="circle" @click="submit"><text>提交</text></u-button>
+			<u-button type="gold" shape="circle" @click="submit"><text>提交</text></u-button>
 		</view>
 
 		<!-- 原因选择框 -->
@@ -81,5 +81,8 @@ export default {
 }
 .btn {
 	padding: 60rpx 0rpx;
+}
+.input {
+	display: inline-block;
 }
 </style>

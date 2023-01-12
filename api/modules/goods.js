@@ -1,7 +1,7 @@
 export const useGoodsApi = (Vue, vm) => {
 	return {
 		// 查询所有商品
-		getGoodsAll: () => vm.$u.get('/api/cxj/goods'),
+		getGoodsAll: () => vm.$u.post('/api/cxj/goods'),
 		
 		// 查询指定id的商品
 		getGood: (req) => vm.$u.post('/api/cxj/good', {

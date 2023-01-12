@@ -1,9 +1,7 @@
 <template>
 	<view class="slot">
-		<Navbar title="活动详情" :background="{ backgroundColor: 'transparent' }"></Navbar>
-		<web-view :src="url">
-		</web-view>
-
+		<Navbar title="活动详情"></Navbar>
+		<web-view :src="url"></web-view>
 	</view>
 </template>
 
@@ -14,20 +12,23 @@
 		},
 		data() {
 			return {
-				url: "",
-				isHave: false
+				url: ""
 			};
 		},
 		onLoad(ops) {
-			if(ops.url) {
+			if (ops.url) {
 				this.url = ops.url;
-				this.isHave = true;
-			} else {
-				this.isHave = false;
 			}
 		},
 		onShow() {
-			
+
+		},
+		onReady() {
+			setTimeout(() => {
+				uni.setNavigationBarTitle({
+					title: '活动详情'
+				})
+			}, 1000)
 		},
 		methods: {
 

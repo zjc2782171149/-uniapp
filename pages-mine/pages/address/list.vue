@@ -9,12 +9,16 @@
 			<AddressCard v-for="(item, index) in list" :isBack="Boolean(isBack)" :key="index" :data="item" :showEdit="!isSelect"
 			:showBorderBottom="index !== list.length - 1" :addressIndex="index"></AddressCard>
 		</view>
-		<view class="btn" v-if="!isSelect">
+		
+		<view class="btn">
 			<u-button type="gold" shape="circle" @click="$u.route({ url: '/pages-mine/pages/address/add-or-update?type=add' })">
 				<u-icon name="plus"></u-icon>
 				<text>新建收货地址</text>
 			</u-button>
 		</view>
+		
+		<NoData height="50vh" v-if="list.length === 0"></NoData>
+		
 	</view>
 </template>
 
@@ -26,15 +30,15 @@ export default {
 	},
 	data() {
 		return {
-			isSelect: false,
-			isBack: false,
+			isSelect: true,
+			isBack: true,
 			list: []
 		};
 	},
 	onLoad(ops) {
-		if (ops.isSelect) {
-			this.isSelect = ops.isSelect;
-			this.isBack = ops.isBack;
+		if (ops) {
+			this.isSelect = ops.isSelect === "true" ? true : false;
+			this.isBack = ops.isBack === "true" ? true : false;
 		}
 		
 	},

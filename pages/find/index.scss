@@ -78,7 +78,7 @@
 		.bottom {
 			// height: 130rpx;
 			display: flex;
-			justify-content: flex-start;
+			justify-content: center;
 			align-items: center;
 			padding-left: 30rpx;
 			
@@ -87,7 +87,7 @@
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
-				margin-right: 30rpx;
+				margin-right: 40rpx;
 				color: #fff;
 				
 				.name {
@@ -159,8 +159,7 @@
 			}
 				
 			.cell-rank {
-				font-size: 12rpx;
-				// transform: scale(0.8);
+				font-size: 16rpx;
 				margin: 5rpx 0 0 10rpx;
 			}
 		}
@@ -171,6 +170,7 @@
 			-webkit-line-clamp: 4; // 显示2行
 			-webkit-box-orient: vertical;
 			word-break: break-all; 
+			text-overflow: ellipsis;
 		}
 		
 		.cell-content {
@@ -179,13 +179,14 @@
 		}
 		
 		.cell-profile {
+			width: 100%;
 			line-height: 40rpx;
 			
-			overflow: hidden;
 			display: -webkit-box;
 			-webkit-line-clamp: 4; // 显示2行
 			-webkit-box-orient: vertical;
 			word-break: break-all; 
+			overflow: hidden;
 		}
 	}
 	

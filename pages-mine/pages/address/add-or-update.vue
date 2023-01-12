@@ -2,9 +2,9 @@
 	<view class="page">
 		<!-- 自定义头部 -->
 		<u-navbar back-icon-name="arrow-leftward" :title="title">
-		  <view class="slot-wrap">
+		  <view class="slot-wrap" v-if="type === 'update'">
 		    <u-button
-		      type="error"
+		      type="gold"
 		      shape="circle"
 		      size="mini"
 		      :ripple="true"
@@ -131,7 +131,6 @@ export default {
 			// 新增地址
 			if(this.type == 'add') {
 				that.$u.api.setUserAddress({
-					id_pri: addressInfo.id_pri,
 					...that.form,
 					isHome: that.form.isHome === false ? 0 : 1
 				}).then(res => {

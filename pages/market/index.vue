@@ -18,7 +18,8 @@
           })
         "
       >
-        <div class="img" :style="{ backgroundImage: `url(${item.src})` }"></div>
+        <image class="img" :src="item.src"></image>
+
         <div class="title">{{ item.title }}</div>
       </div>
     </div>

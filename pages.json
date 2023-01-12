@@ -4,6 +4,9 @@
 	},
 	"pages": [
 		{
+			"path": "pages/home/index"
+		},
+		{
 			"path": "pages/first/index",
 			"style": {
 				"navigationStyle": "custom",
@@ -16,9 +19,6 @@
 			}
 		},
 		{
-			"path": "pages/home/index"
-		},
-		{
 			"path": "pages/find/index"
 		},
 		{
@@ -28,7 +28,10 @@
 			"path": "pages/mine-new/index"
 		},
 		{
-			"path": "pages/actDetail/index"
+			"path": "pages/actDetail/index",
+			"style": {
+				"navigationBarTitleText": "活动详情"
+			}
 		},
 		{
 			"path": "pages/home/city-list"

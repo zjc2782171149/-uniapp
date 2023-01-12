@@ -31,16 +31,20 @@ export default {
       type: Number,
       default: -1,
     },
+	haveAddress: {
+		type: Number,
+		default: 0
+	},
   },
   methods: {
     async goPayResult() {
-      if (!uni.getStorageSync("userInfo").user_id) {
-        uni.showToast({
-          title: "请先登录",
-          icon: "error",
-        });
-        return;
-      }
+	  if(!this.haveAddress) {
+		  uni.showToast({
+		    title: "请选择地址",
+		    icon: "none",
+		  });
+		  return;
+	  }
 
       const order_id =
         dayjs().valueOf() + uni.getStorageSync("userInfo").user_id;

@@ -2,21 +2,23 @@
 	<view class="page">
 		<!-- 一般导航栏 -->
 		<Navbar title="商品详情"></Navbar>
-		<!-- 商品图片 -->
-		<ImgSwiper :list="sliderImageArr"></ImgSwiper>
-		<!-- 商品信息 -->
-		<GoodsInfo :data="goodsDetail" :goodsType="goodsType"></GoodsInfo>
-		<!-- 选择项 -->
-		<GoodsSelect :selectedSku="selectedSku" :selectedAddress="selectedAddress" @openSku="openSkuPopup">
-		</GoodsSelect>
-		<!-- 评价 -->
-		<TitleOperate :title="'商品评价（' + evaluateLength + '条）'" showMore moreLabel=" " :backgroundColor="bgColor"
-			titleSize="32rpx" align="center" @clickMore="turnToEvaluateList"></TitleOperate>
-		<view class="evaluate-list">
-			<EvaluateCard :data="evaluate" v-for="(evaluate, evaluateIndex) in evaluateData.slice(-5)"
-				:key="evaluateIndex" :showBorderBottom="evaluateIndex !== evaluateLength - 1"></EvaluateCard>
-		</view>
-		<!-- 精选晒单
+
+		<div class="main" v-if="!loading">
+			<!-- 商品图片 -->
+			<ImgSwiper :list="sliderImageArr"></ImgSwiper>
+			<!-- 商品信息 -->
+			<GoodsInfo :data="goodsDetail" :goodsType="goodsType"></GoodsInfo>
+			<!-- 选择项 -->
+			<GoodsSelect :selectedSku="selectedSku" :selectedAddress="selectedAddress" @openSku="openSkuPopup">
+			</GoodsSelect>
+			<!-- 评价 -->
+			<TitleOperate :title="'商品评价（' + evaluateLength + '条）'" showMore moreLabel=" " :backgroundColor="bgColor"
+				titleSize="32rpx" align="center" @clickMore="turnToEvaluateList"></TitleOperate>
+			<view class="evaluate-list">
+				<EvaluateCard :data="evaluate" v-for="(evaluate, evaluateIndex) in evaluateData.slice(-5)"
+					:key="evaluateIndex" :showBorderBottom="evaluateIndex !== evaluateLength - 1"></EvaluateCard>
+			</view>
+			<!-- 精选晒单
 		<TitleOperate :title="'精选晒单（' + topicData.length + '条）'" :backgroundColor="bgColor" titleSize="32rpx" align="center"></TitleOperate>
 		<view class="topci-list">
 			瀑布流组件 
@@ -31,11 +33,11 @@
 			<view class="view-more"><u-button size="medium" shape="circle" plain @click="$u.route('/pages-community/pages/post/list')">查看全部</u-button></view>
 		</view>-->
 
-		<!-- 商品详情 -->
-		<TitleOperate title="商品详情" :backgroundColor="bgColor" titleSize="32rpx" align="center"></TitleOperate>
-		<view class="details-html" v-html="goodsDetail.html"></view>
+			<!-- 商品详情 -->
+			<TitleOperate title="商品详情" :backgroundColor="bgColor" titleSize="32rpx" align="center"></TitleOperate>
+			<view class="details-html" v-html="goodsDetail.html"></view>
 
-		<!-- 相关商品 
+			<!-- 相关商品 
 		<TitleOperate title="相关商品" :backgroundColor="bgColor" titleSize="32rpx" align="center"></TitleOperate>
 		<view class="goods-list">
 			<!-- 瀑布流组件 
@@ -49,12 +51,18 @@
 			</u-waterfall>
 		</view>-->
 
-		<!-- 底部操作按钮 -->
-		<GoodsOperate :data="goodsDetail" :isCollection="isCollection" @addShoppingCart="addShoppingCart"
-			@buyNow="buyNow" @getGoodInfo="getGoodInfo"></GoodsOperate>
-		<!-- 选择sku -->
-		<GoodsSelectSku ref="GoodsSelectSku" @addShoppingCart="addShoppingCart" @buyNow="buyNow" @change="changeSku">
-		</GoodsSelectSku>
+			<!-- 底部操作按钮 -->
+			<GoodsOperate :data="goodsDetail" :isCollection="isCollection" @addShoppingCart="addShoppingCart"
+				@buyNow="buyNow" @getGoodInfo="getGoodInfo"></GoodsOperate>
+			<!-- 选择sku -->
+			<GoodsSelectSku ref="GoodsSelectSku" @addShoppingCart="addShoppingCart" @buyNow="buyNow"
+				@change="changeSku">
+			</GoodsSelectSku>
+		</div>
+		
+		<u-loading :show="loading" size="50"></u-loading>
+	
+
 	</view>
 </template>
 
@@ -103,6 +111,8 @@
 				},
 				// 已选择地址
 				selectedAddress: "",
+				
+				loading: true, // 是否显示骨架屏组件
 			};
 		},
 		onLoad(ops) {
@@ -150,95 +160,72 @@
 			async initAddress() {
 				getApp().globalData.addressList = await this.$u.api.getUserAddress();
 				// 已选择地址
-				console.log(
-					getApp().globalData.addressIndex,
-					getApp().globalData.addressList
-				);
+				// console.log(
+				// 	getApp().globalData.addressIndex,
+				// 	getApp().globalData.addressList
+				// );
 				this.selectedAddress =
-					getApp().globalData.addressList[getApp().globalData.addressIndex]
-					.street || "";
+					getApp().globalData.addressList[getApp().globalData.addressIndex] ? getApp().globalData.addressList[getApp().globalData.addressIndex].street : "";
 			},
 
-			getGoodInfo(id) {
+			async getGoodInfo(id) {
 				console.log("商品编号为：", id);
 				const that = this;
+
+				let task1 = this.$u.api.getGood({
+					id: id
+				}).then();
+				let task2 = this.$u.api.getGoodSpec({
+					id: id
+				}).then();
+				let task3 = this.$u.api.getGoodSwiper({
+					id: id
+				}).then();
+				let task4 = this.$u.api.getGoodEvaluate({
+					id: id
+				}).then();
+				let task5 = this.$u.api.getUserCollect({
+					good_id: id
+				}).then();
+
+				const res = await Promise.all([task1, task2, task3, task4, task5]);
+
 				// 商品基本信息
-				this.$u.api
-					.getGood({
-						id: id,
-					})
-					.then((res) => {
-						// console.log(res[0]);
-						that.goodsDetail = res[0];
-					});
+				this.goodsDetail = res[0][0];
 
 				// 获取商品规格
-				this.$u.api
-					.getGoodSpec({
-						id: id,
-					})
-					.then((res) => {
-						// console.log(res);
-						const arr = res.map((item, index) => {
-							return {
-								label: item.label,
-								price: item.price,
-								value: index + "",
-							};
-						});
-						that.goodsDetail.skuData = arr;
-					});
-
+				this.goodsDetail.skuData = res[1].map((item, index) => {
+					return {
+						label: item.label,
+						price: item.price,
+						value: index + "",
+					};
+				});
+				// 默认选中第一个商品规格
+				this.selectedSku = {
+					...this.goodsDetail.skuData[0],
+					value: '0'
+				}
 
 				// 获取商品轮播图
-				this.$u.api
-					.getGoodSwiper({
-						id: id,
-					})
-					.then((res) => {
-						this.sliderImageArr = res.map((item) => item.url);
-					});
-
+				this.sliderImageArr = res[2].map((item) => item.url);
 
 				// 获取商品评论
-				this.$u.api
-					.getGoodEvaluate({
-						id: id,
-					})
-					.then((res) => {
-						// 获取到商品评论列表
-						that.evaluateData = res.map((item, index) => {
-							return {
-								...item,
-								create_time: dayjs(item.create_time).format().slice(0, 10),
-							};
-						});
-						
-						that.evaluateLength = that.evaluateData.length;
-
-					});
-
-
-
+				this.evaluateData = res[3].map((item, index) => {
+					return {
+						...item,
+						create_time: dayjs(item.create_time).format().slice(0, 10),
+					};
+				});
+				this.evaluateLength = that.evaluateData.length;
 
 				// 商品是否被收藏
-				this.$u.api
-					.getUserCollect({
-						good_id: id,
-					})
-					.then((res) => {
-						// console.log(res[0]);
-						if (res.length) {
-							that.isCollection = 1;
-						} else {
-							that.isCollection = 0;
-						}
-						console.log("收藏状态", that.isCollection);
-					})
-					.catch((err) => {
-						console.error(err);
-						that.isCollection = 0;
-					});
+				this.isCollection = res[4].length > 0 ? 1 : 0;
+				
+				setTimeout(() => {
+					this.loading = false;
+				}, 500);
+
 			},
 		},
 	};

@@ -64,19 +64,23 @@
 			this.initUser();
 		},
 		onShow() {
-			
+
 		},
 		methods: {
 			async initUser() {
 				this.userInfo = await this.$u.api.getUserMes();
 				uni.setStorageSync("userInfo", this.userInfo);
 			},
-			// 初始化活动列表
+			// 初始化
 			async initActList() {
-				const actList = await this.$u.api.getActsAll();
-				const swiperList = await this.$u.api.getSwipersAll();
-				const newUpList = await this.$u.api.getGoodsAll();
+				this.swipers = [];
+				this.new_up = [];
+				this.horizontalScrollNavList = [];
 				
+				const actList = await this.$u.api.getActsAll(); // 活动列表
+				const swiperList = await this.$u.api.getSwipersAll(); // 轮播图列表
+				const newUpList = await this.$u.api.getGoodsAll(); // 新品上市列表
+				console.log()
 				// 从活动列表中随机选3个到活动推荐
 				let sum = 3, randomArr = [];
 				while(true) {
@@ -90,10 +94,23 @@
 						sum--;
 					}
 				}
-				console.log(randomArr);
 				
-				this.new_up = newUpList;
-				this.swipers = swiperList;
+				// 从活动列表中随机选4个到轮播图列表
+				sum = 4, randomArr = [];
+				while(true) {
+					if(sum === 0)
+						break;
+						
+					let i = RandomNum(0, swiperList.length);
+					if(randomArr.findIndex(item => item === i) === -1) {
+						randomArr.push(i);
+						this.swipers.push(swiperList[i]);
+						sum--;
+					}
+				}
+				
+				this.new_up = newUpList.reverse().slice(0, 5);
+	
 			},
 			// 去购物粗
 			goCommodityDetail() {
