@@ -3,7 +3,7 @@
 		<view class="info">
 			<view class="item">
 				<text class="tag" v-if="data.isHome">家</text>
-				<text class="label">{{ data.province }}{{ data.city }}{{ data.region }}{{ data.street }}</text>
+				<text class="label">{{ data.province }}{{ data.city }}{{ data.area || data.region }}{{ data.street }}</text>
 			</view>
 			<view class="item">{{ data.address }}</view>
 			<view class="item">

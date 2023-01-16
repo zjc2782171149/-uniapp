@@ -86,6 +86,7 @@ export default {
       left: 24rpx;
       top: 24rpx;
       z-index: 39;
+	  text-shadow: 1px 3px 3px #513c3c;
 
       image {
         vertical-align: middle;
@@ -124,6 +125,7 @@ export default {
         font-weight: 500;
         color: #ffffff;
         line-height: 44rpx;
+		text-shadow: 1px 3px 3px #513c3c;
 
         text:nth-child(1) {
           vertical-align: middle;
