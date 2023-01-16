@@ -35,8 +35,9 @@
 					</u-cell-item>
 						
 				</div>
-				<div class="cell" @click="contact">
+				<div class="cell">
 					<u-cell-item :arrow="false">
+						<u-button class="contact-button" open-type="contact"></u-button>
 						<div slot="title" class="cell-title">联系我们</div>
 						<image slot="icon" class="cell-icon" src='https://cxj.zhangjiancong.top/images/cxj/mine/phone.png'></image>
 					</u-cell-item>

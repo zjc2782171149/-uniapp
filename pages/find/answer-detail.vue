@@ -140,14 +140,14 @@
 
 			// 发表评论
 			async submitEvaluate() {
-				if (this.value.length < 10) {
-					uni.showToast({
-						title: "评论内容不能少于10个字",
-						icon: "none"
-					});
-					return;
-				}
-				console.log("发表者", uni.getStorageSync("userInfo"));
+				// if (this.value.length < 10) {
+				// 	uni.showToast({
+				// 		title: "评论内容不能少于10个字",
+				// 		icon: "none"
+				// 	});
+				// 	return;
+				// }
+				// console.log("发表者", uni.getStorageSync("userInfo"));
 				const that = this;
 				const evaluate = {
 					article_id: this.article.article_id,

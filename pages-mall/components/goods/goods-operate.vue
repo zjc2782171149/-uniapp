@@ -2,6 +2,7 @@
 	<view class="slot">
 		<view class="left">
 			<view class="item">
+				<u-button class="contact-button" open-type="contact"></u-button>
 				<u-icon size="36" name="server-fill"></u-icon>
 				<text>客服</text>
 			</view>
@@ -141,12 +142,13 @@
 		padding-bottom: env(safe-area-inset-bottom);
 
 		.left {
-			// width: 400rpx;
+			position: relative;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
 
 			.item {
+				position: relative;
 				color: $app-theme-text-black-color;
 				display: flex;
 				justify-content: center;
@@ -159,6 +161,15 @@
 					width: 100%;
 					font-size: 20rpx;
 				}
+			}
+			
+			.contact-button {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				// top: -10rpx;
+				// left: -10rpx;
+				opacity: 0.01;
 			}
 		}
 

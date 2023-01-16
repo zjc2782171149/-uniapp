@@ -58,4 +58,12 @@ import {
 } from '@/api';
 Vue.use(installApiModules, app);
 
+// 生产环境下，console置空
+if (uni.getSystemInfoSync().platform !== "devtools" || process.env.NODE_ENV === 'production') {
+	console.log = () => {};
+	console.warn = () => {};
+	console.error = () => {};
+}
+
+
 app.$mount();

@@ -97,12 +97,13 @@ export default {
     };
   },
   onLoad() {
-    this.initUser();
-    this.getRecommendGoods();
+
   },
   onShow() {
     // 处理首页需要渲染的数据
     // this.loadPageData(false);
+	this.initUser();
+	this.getRecommendGoods();
   },
   methods: {
     async initUser() {

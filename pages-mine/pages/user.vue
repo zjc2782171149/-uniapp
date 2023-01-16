@@ -14,7 +14,7 @@
 					<text>20</text>
 				</view> -->
 				<view class="fans">
-					<text>累计记录天数</text>
+					<text>累计记录次数</text>
 					<text>{{ totalRecord }}</text>
 				</view>
 			</view>

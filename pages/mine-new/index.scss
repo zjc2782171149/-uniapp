@@ -69,6 +69,7 @@
 }
 
 .cell {
+	position: relative;
 	
 	.cell-title {
 		font-size: 34rpx;
@@ -112,4 +113,12 @@
 	.copy {
 		font-size: 28rpx;
 		color: $app-theme-color;
+	}
+	
+	.contact-button {
+		width: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		opacity: 0.01;
 	}

@@ -471,7 +471,13 @@ export default {
               url: "/pages/mine-new/index",
             });
           }, 1000);
-        });
+        }).catch(err => {
+			console.error(err);
+			uni.showToast({
+			  title: "手机号已被使用",
+			  icon: "error",
+			});
+		})
     },
 
     async initUser() {

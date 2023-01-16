@@ -59,9 +59,11 @@
 				@change="changeSku">
 			</GoodsSelectSku>
 		</div>
-		
-		<u-loading :show="loading" size="50"></u-loading>
-	
+
+
+		<div class="loading">
+			<u-loading :show="loading" size="50"></u-loading>
+		</div>
 
 	</view>
 </template>
@@ -111,7 +113,7 @@
 				},
 				// 已选择地址
 				selectedAddress: "",
-				
+
 				loading: true, // 是否显示骨架屏组件
 			};
 		},
@@ -165,7 +167,8 @@
 				// 	getApp().globalData.addressList
 				// );
 				this.selectedAddress =
-					getApp().globalData.addressList[getApp().globalData.addressIndex] ? getApp().globalData.addressList[getApp().globalData.addressIndex].street : "";
+					getApp().globalData.addressList[getApp().globalData.addressIndex] ? getApp().globalData
+					.addressList[getApp().globalData.addressIndex].street : "";
 			},
 
 			async getGoodInfo(id) {
@@ -221,10 +224,8 @@
 
 				// 商品是否被收藏
 				this.isCollection = res[4].length > 0 ? 1 : 0;
-				
-				setTimeout(() => {
-					this.loading = false;
-				}, 500);
+
+				this.loading = false;
 
 			},
 		},
@@ -251,5 +252,13 @@
 		justify-content: center;
 		align-items: center;
 		padding-top: 24rpx;
+	}
+	
+	.loading {
+		width: 100vw;
+		height: 80vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 </style>

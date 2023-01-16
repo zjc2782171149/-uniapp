@@ -138,6 +138,7 @@
 				font-family: "Malgun Gothic";
 				color: rgb(179, 143, 106);
 				transform: scale(0.8);
+				margin-left: -10rpx;
 				// margin-top: -20rpx;
 			}
 		}

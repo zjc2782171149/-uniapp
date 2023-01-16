@@ -60,11 +60,10 @@
 			}
 		},
 		onLoad() {
-			this.initActList();
 			this.initUser();
 		},
 		onShow() {
-
+			this.initActList();
 		},
 		methods: {
 			async initUser() {
@@ -78,7 +77,7 @@
 				this.horizontalScrollNavList = [];
 				
 				const actList = await this.$u.api.getActsAll(); // 活动列表
-				const swiperList = await this.$u.api.getSwipersAll(); // 轮播图列表
+				const swiperList = await this.$u.api.getActsAll(); // 轮播图列表
 				const newUpList = await this.$u.api.getGoodsAll(); // 新品上市列表
 				console.log()
 				// 从活动列表中随机选3个到活动推荐
