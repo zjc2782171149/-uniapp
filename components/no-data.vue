@@ -34,6 +34,7 @@ export default {
   data() {
     return {
       ops: [
+		  { type: "good", tip: "敬请期待" },
         { type: "content", tip: "暂无相关内容" },
         { type: "collection", tip: "暂无收藏" },
         { type: "fans", tip: "暂无粉丝" },

@@ -126,7 +126,7 @@ export default {
     return {
       opsList: [
         {
-          name: "回答",
+          name: "问答",
         },
         {
           name: "科普",

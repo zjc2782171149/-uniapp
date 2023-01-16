@@ -29,6 +29,9 @@
 				<div class="text">{{ item.title.slice(0, 9) }}</div>
 				<div class="grey"></div>
 			</div>
+			
+			<NoData height="25vh" type="good" v-if="new_up.length === 0"></NoData>
+
 		</div>
 		
 		<div class="new like">

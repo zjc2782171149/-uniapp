@@ -54,6 +54,8 @@
         </u-waterfall>
       </div>
     </div>
+	
+	<NoData height="50vh" type="good" v-if="recommendGoodsList.length === 0"></NoData>
 
     <div class="blank"></div>
   </view>
