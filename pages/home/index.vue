@@ -60,9 +60,10 @@
 			}
 		},
 		onLoad() {
-			this.initUser();
+		
 		},
 		onShow() {
+			this.initUser();
 			this.initActList();
 		},
 		methods: {
@@ -76,12 +77,12 @@
 				this.new_up = [];
 				this.horizontalScrollNavList = [];
 				
-				const actList = await this.$u.api.getActsAll(); // 活动列表
-				const swiperList = await this.$u.api.getActsAll(); // 轮播图列表
+				const activity = await this.$u.api.getActsAll()
+				const actList = activity; // 活动列表
+				const swiperList = activity; // 轮播图列表
 				const newUpList = await this.$u.api.getGoodsAll(); // 新品上市列表
-				console.log()
 				// 从活动列表中随机选3个到活动推荐
-				let sum = 3, randomArr = [];
+				let sum = actList.length >= 3 ? 3 : actList.length, randomArr = [];
 				while(true) {
 					if(sum === 0)
 						break;
@@ -95,7 +96,7 @@
 				}
 				
 				// 从活动列表中随机选4个到轮播图列表
-				sum = 4, randomArr = [];
+				sum = swiperList.length >= 4 ? 4 : swiperList.length, randomArr = [];
 				while(true) {
 					if(sum === 0)
 						break;
