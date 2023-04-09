@@ -1,6 +1,6 @@
 // api请求地址
 export const HTTP_URL_PROD = 'https://cxj.zhangjiancong.top'
-export const HTTP_URL_DEV = 'http://localhost:3001'
+export const HTTP_URL_DEV = 'http://localhost:3002'
 
 
 // api前缀

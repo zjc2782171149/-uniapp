@@ -1,6 +1,6 @@
 <template>
   <view class="slot">
-    <view
+   <view
       class="item"
       v-for="(item, index) in list"
       :key="item.act_id"
@@ -30,6 +30,9 @@
         :src="item.pics"
       ></u-image>
     </view>
+	
+	<NoData height="35vh" type="good" v-if="list.length === 0"></NoData>
+	
   </view>
 </template>
 

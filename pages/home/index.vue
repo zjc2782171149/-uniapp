@@ -80,9 +80,8 @@
 				this.new_up = [];
 				this.horizontalScrollNavList = [];
 				
-				const activity = await this.$u.api.getActsAll()
-				const actList = activity; // 活动列表
-				const swiperList = activity; // 轮播图列表
+				const actList = await this.$u.api.getActsAll(); // 活动列表
+				const swiperList = await this.$u.api.getSwipersAll(); // 轮播图列表
 				const newUpList = await this.$u.api.getGoodsAll(); // 新品上市列表
 				// 从活动列表中随机选3个到活动推荐
 				let sum = actList.length >= 3 ? 3 : actList.length, randomArr = [];
