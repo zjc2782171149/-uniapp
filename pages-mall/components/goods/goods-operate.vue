@@ -26,6 +26,7 @@
 			<u-button :custom-style="customStyle" size="medium" :ripple="true" type="error" @click="buyNow">立即购买
 			</u-button>
 		</view>
+		
 	</view>
 </template>
 
@@ -50,7 +51,7 @@
 				customStyle: {
 					width: '210rpx',
 					margin: '0 10rpx',
-					borderRadius: '40rpx'
+					borderRadius: '40rpx',
 				}
 			};
 		},

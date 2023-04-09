@@ -12,7 +12,10 @@
 				<u-parse :html="article.content"></u-parse>
 			</view>
 
+			<image v-if="showDelete" @click="deleteArticle" class="cell-icon" src="https://cxj.zhangjiancong.top/images/cxj/delete.png"></image>
 		</view>
+		
+		
 		<!-- 评论区 -->
 		<TitleOperate v-if="type === 0" :title="'回答（' + evaluateLength + '）'" titleSize="32rpx"></TitleOperate>
 		<view v-if="type === 0" class="evaluate-list">
@@ -31,6 +34,12 @@
 		<!-- 举报 -->
 		<SelectReason ref="SelectReason" title="举报" :ops="reasonOps"></SelectReason>
 
+		<u-modal v-model="showHelp" title="删除确认" :title-style="{ color: themeColor }" :mask-close-able="true"
+			:confirm-color="themeColor" show-cancel-button='true' @cancel="cancel" @confirm="confirm">
+			<view class="slot-content">
+				<div class="title">你确认要删除该篇内容吗？</div>
+			</view>
+		</u-modal>
 	</view>
 </template>
 
@@ -60,6 +69,7 @@
 			return {
 				// 底部安全高度
 				safeAreaHeight: app.globalData.safeAreaHeight,
+				themeColor: this.$appTheme.appThemeColor,
 				// 文章内容
 				article: {},
 				// 评论数据
@@ -93,7 +103,9 @@
 					}
 				],
 				value: "",
-				type: 0
+				type: 0,
+				showHelp: false,
+				showDelete: false
 			};
 		},
 		onLoad(ops) {
@@ -181,7 +193,13 @@
 				}
 
 				this.initArticleEvaluate(article_id);
-
+				
+				// const userData = await uni.getStorage('userInfo');
+				console.log("用户数据", uni.getStorageSync('userInfo'));
+				console.log("该问题数据", article);
+				if(uni.getStorageSync('userInfo').user_id === article.user_id) {
+					this.showDelete = true;
+				}
 
 			},
 			// 初始化文章评论信息
@@ -210,6 +228,35 @@
 				})
 
 			},
+			deleteArticle() {
+				console.log("删除")
+				this.showHelp = true;
+			},
+			cancel() {
+				
+			},
+			// 删除文章
+			confirm() {
+				const that = this;
+				console.log(this.article);
+				
+				this.$u.api.deleteArticle({
+					article_id: that.article.article_id
+				}).then(res => {
+					uni.showToast({
+						title: "删除文章成功",
+						icon: "success"
+					});
+					
+					setTimeout(() => {
+						uni.navigateBack({
+							delta: 1
+						});
+					}, 1000)
+								
+						
+				})
+			}
 
 		}
 	};
@@ -280,5 +327,30 @@
 	.evaluate-list {
 		margin-top: -40rpx;
 		padding: 30rpx;
+	}
+	
+	.cell-icon {
+		width: 50rpx;
+		height: 50rpx;
+	}
+	
+	.slot-content {
+		padding: 30rpx;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.community {
+		width: 300rpx;
+		height: 300rpx;
+		background-image: url(https://cxj.zhangjiancong.top/images/cxj/community.jpg);
+		background-size: cover;
+	}
+	
+	.title {
+		margin: 16rpx 0;
+		font-size: 14px;
 	}
 </style>

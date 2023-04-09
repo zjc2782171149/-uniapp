@@ -64,6 +64,15 @@
 		<div class="loading">
 			<u-loading :show="loading" size="50"></u-loading>
 		</div>
+		
+		<u-modal v-model="showHelp" title="购买提示" :title-style="{ color: themeColor }" :mask-close-able="true"
+			:confirm-color="themeColor">
+			<view class="slot-content">
+				<div class="community"></div>
+				<div class="title">请扫描二维码关注官方公众号，在后台回复“化橘红茶”，加入微信社群购买。</div>
+				<!-- 请扫描二维码关注官方公众号，在后台回复“化橘红茶”，加入微信社群购买。 -->
+			</view>
+		</u-modal>
 
 	</view>
 </template>
@@ -105,6 +114,7 @@
 
 				// 背景色
 				bgColor: this.$appTheme.appThemeBgColor,
+				themeColor: this.$appTheme.appThemeColor,
 				// 已选择sku
 				selectedSku: {
 					label: "",
@@ -115,6 +125,7 @@
 				selectedAddress: "",
 
 				loading: true, // 是否显示骨架屏组件
+				showHelp: false // 展示购买引导
 			};
 		},
 		onLoad(ops) {
@@ -156,7 +167,8 @@
 
 			// 立即购买
 			buyNow() {
-				this.openSkuPopup();
+				// this.openSkuPopup();
+				this.showHelp = true;
 			},
 
 			async initAddress() {
@@ -260,5 +272,25 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+	}
+	
+	.slot-content {
+		padding: 30rpx;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.community {
+		width: 300rpx;
+		height: 300rpx;
+		background-image: url(https://cxj.zhangjiancong.top/images/cxj/community.jpg);
+		background-size: cover;
+	}
+	
+	.title {
+		margin: 16rpx 0;
+		font-size: 14px;
 	}
 </style>

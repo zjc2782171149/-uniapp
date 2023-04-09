@@ -50,6 +50,11 @@ export const useArticlesApi = (Vue, vm) => {
 		deleteArticleEvaluate: (req) => vm.$u.post('/api/cxj/delete_article_evaluate', {
 			evaluate_id: req.evaluate_id
 		}),
+		
+		// 删除文章
+		deleteArticle: (req) => vm.$u.post('/api/cxj/delete_article_com', {
+			article_id: req.article_id
+		}),
 
 	}
 }

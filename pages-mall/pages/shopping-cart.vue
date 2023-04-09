@@ -95,6 +95,16 @@
         </view>
       </view>
     </view>
+	
+	<u-modal v-model="showHelp" title="购买提示" :title-style="{ color: themeColor }" :mask-close-able="true"
+		:confirm-color="themeColor">
+		<view class="slot-content">
+			<div class="community"></div>
+			<div class="title">请扫描二维码关注官方公众号，在后台回复“化橘红茶”，加入微信社群购买。</div>
+			<!-- 请扫描二维码关注官方公众号，在后台回复“化橘红茶”，加入微信社群购买。 -->
+		</view>
+	</u-modal>
+	
   </view>
 </template>
 
@@ -112,6 +122,8 @@ export default {
       goodsList: [],
       deleteShow: false,
       // goodsData: goodsList,
+	  showHelp: false ,// 展示购买引导
+	  themeColor: this.$appTheme.appThemeColor,
     };
   },
   computed: {
@@ -179,21 +191,22 @@ export default {
       }
     },
     goPayResult() {
+		this.showHelp = true;
       // 重置想要购买的商品
-      const goodsBuyArr = [];
-      this.goodsList.map((item) =>
-        item.checked ? goodsBuyArr.push(item) : null
-      );
-      console.log("新的购物车愿景", goodsBuyArr);
-      getApp().globalData.goodsListSelected = goodsBuyArr;
+      // const goodsBuyArr = [];
+      // this.goodsList.map((item) =>
+      //   item.checked ? goodsBuyArr.push(item) : null
+      // );
+      // console.log("新的购物车愿景", goodsBuyArr);
+      // getApp().globalData.goodsListSelected = goodsBuyArr;
 
-      const pages = getCurrentPages();
-      uni.setStorageSync("previousRoute", pages[pages.length - 1].route);
-      console.log(pages[pages.length - 1].route);
+      // const pages = getCurrentPages();
+      // uni.setStorageSync("previousRoute", pages[pages.length - 1].route);
+      // console.log(pages[pages.length - 1].route);
 
-      uni.navigateTo({
-        url: "/pages-mall/pages/order/submit",
-      });
+      // uni.navigateTo({
+      //   url: "/pages-mall/pages/order/submit",
+      // });
     },
   },
 };
@@ -400,4 +413,25 @@ export default {
   position: absolute;
   right: 20rpx;
 }
+
+	.slot-content {
+		padding: 30rpx;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.community {
+		width: 300rpx;
+		height: 300rpx;
+		background-image: url(https://cxj.zhangjiancong.top/images/cxj/community.jpg);
+		background-size: cover;
+	}
+	
+	.title {
+		margin: 16rpx 0;
+		font-size: 14px;
+	}
+	
 </style>
