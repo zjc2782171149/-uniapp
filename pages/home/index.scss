@@ -51,46 +51,17 @@
 	}
 	
 	.swiper {
-		display: flex;
-		justify-content: center;
-		align-items: center;
 		width: 100%;
-		border-radius: 20rpx;
-		overflow: hidden;
+		padding: 0 40rpx;
 		
-		.banner-swiper {
-			width: 91.5%;
-			height: 300rpx;
-			border-radius: 20rpx;
-			//background-color: rgb(137, 136, 136);
-			overflow: hidden;
-			
-			.banner-swiper-item image {
-				width: 100%;
-				height: 100%;
-				border-radius: 20rpx;
-				
-			}
-			
-			/deep/ .uni-swiper-dots { // 指示点整个区域
-					bottom: 17rpx;
-					left: 620rpx;
-			}
-			
-			/deep/ .uni-swiper-dot { // 指示点元素默认样式
-					width: 13rpx !important;
-					height: 13rpx !important;
-			}
-			
-			/*
-			/deep/ .uni-swiper-dot-active { // 指示点元素激活（当前选中）状态样式
-					background: #CD9763;
-			}
-			*/
-			
+		.swiper-i {
+			width: 90%;
 		}
-	
+		
+
 	}
+	
+
 	
 .new {
 	display: flex;

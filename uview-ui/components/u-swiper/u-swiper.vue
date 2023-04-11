@@ -18,7 +18,8 @@
 					<view v-if="title && item.title" class="u-swiper-title u-line-1" :style="[{
 							'padding-bottom': titlePaddingBottom
 						}, titleStyle]">
-						{{ item.title }}
+						<view class="u-swiper-title-bg"></view>
+						<view class="u-swiper-title-text">{{ item.title }}</view>
 					</view>
 				</view>
 			</swiper-item>
@@ -287,15 +288,16 @@
 	.u-indicator-item-round {
 		width: 14rpx;
 		height: 14rpx;
-		margin: 0 6rpx;
+		margin: 0 8rpx;
 		border-radius: 20rpx;
 		transition: all 0.5s;
-		background-color: rgba(0, 0, 0, 0.3);
+		background-color: rgb(244, 246, 252);
 	}
 
 	.u-indicator-item-round-active {
-		width: 34rpx;
-		background-color: rgba(255, 255, 255, 0.8);
+		// width: 34rpx;
+		// background-color: rgba(255, 255, 255, 0.8);
+		background-color: rgb(228, 197, 152);
 	}
 
 	.u-indicator-item-number {
@@ -323,13 +325,31 @@
 
 	.u-swiper-title {
 		position: absolute;
-		background-color: rgba(0, 0, 0, 0.3);
+		// background-color: rgba(0, 0, 0, 0.3);
 		bottom: 0;
 		left: 0;
 		width: 100%;
 		font-size: 28rpx;
 		padding: 12rpx 24rpx;
-		color: rgba(255, 255, 255, 0.9);
+		
+		.u-swiper-title-bg {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 90%;
+			background-color: rgb(191, 191, 191);
+			opacity: 0.741;
+		}
+		
+		
+		.u-swiper-title-text {
+			position: absolute;
+			bottom: 8rpx;
+			z-index: 1000;
+			color: rgba(255, 255, 255, 0.9);
+			font-size: 12px;
+		}
 	}
 
 	.u-swiper-item {
