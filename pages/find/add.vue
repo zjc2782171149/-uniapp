@@ -5,26 +5,24 @@
 		<!-- 表单 -->
 		<view class="form">
 			<view class="content">
-				<u-input v-model="value" height="200" type="textarea" placeholder="请填写内容(最多50个字)"
-					maxlength="50" :focus="true"></u-input>
+				<u-input v-model="value" height="200" type="textarea" placeholder="请填写内容(最多50个字)" maxlength="50"
+					:focus="true"></u-input>
 			</view>
 			<view v-if="title === '每日喝茶记录'" class="pics">
 				<!-- 图片上传 -->
 				<u-upload :deleteConfirmBtnColor="appThemeColor" width="180" height="180" max-count="1"
-					:max-size="1024 * 1024 * 10" :action="uploadUrl" 
-					:auto-upload="true" @on-success="uploadPicSuccess"
-					:header="{ 'Authorization': 'Bearer ' + token }"
-				>
+					:max-size="1024 * 1024 * 10" :action="uploadUrl" :auto-upload="true" @on-success="uploadPicSuccess"
+					:header="{ 'Authorization': 'Bearer ' + token }">
 				</u-upload>
 			</view>
-			
+
 
 		</view>
 		<!-- 按钮 -->
 		<view class="btn">
 			<u-button type="gold" shape="circle" @click="submit"><text>提交</text></u-button>
 		</view>
-		
+
 
 	</view>
 </template>
@@ -59,6 +57,10 @@
 			uploadPicSuccess(res) {
 				if (res.status === 200) {
 					this.img = res.data.url;
+					uni.showToast({
+						title: "图片上传成功",
+						icon: 'success'
+					});
 				} else {
 					uni.showToast({
 						title: '图片上传失败',
@@ -79,7 +81,17 @@
 				// }
 
 				if (this.title === "每日喝茶记录") {
-					// 有图片
+					console.log("图片数据", this.img);
+					if(this.img === '') {
+						uni.showToast({
+							title: '需至少一张图片',
+							icon: 'none'
+						});
+						return;
+					}
+						
+						
+					// 有图片才能提交
 					this.$u.api.setArticleMes({
 						content: this.value,
 						publish_time: getApp().globalData.getNowTime(dayjs().format()),
@@ -87,17 +99,35 @@
 						type: 2,
 						img: this.img
 					}).then(res => {
-						uni.showToast({
-							title: '记录成功',
-							icon: 'success'
-						});
-
-						setTimeout(() => {
-							uni.switchTab({
-								url: '/pages/find/index'
+						// uni.showToast({
+						// 	title: '记录成功',
+						// 	icon: 'success'
+						// });
+						const that = this;
+						let userInfo = uni.getStorageSync('userInfo');
+						
+						this.$u.api
+							.setUserPoint({
+								point: userInfo.point,
+								addNum: 1
 							})
-						}, 1000);
+							.then((res) => {
+								uni.showToast({
+									title: "记录成功，积分+1",
+									icon: 'success'
+								});
 
+								userInfo.point = userInfo.point + 1;
+								uni.setStorageSync("userInfo", userInfo);
+
+								setTimeout(() => {
+									uni.switchTab({
+										url: '/pages/find/index'
+									})
+								}, 1000);
+
+
+							});
 
 					})
 				} else {
@@ -175,5 +205,4 @@
 	.btn {
 		padding: 60rpx 0rpx;
 	}
-	
 </style>

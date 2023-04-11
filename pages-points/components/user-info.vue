@@ -16,7 +16,7 @@
         </view>
       </view>
     </view>
-    <view class="right">
+<!--    <view class="right">
       <u-button
         type="gold"
         size="small"
@@ -27,7 +27,7 @@
         <u-icon name="plus"></u-icon>
         <text>每日签到</text>
       </u-button>
-    </view>
+    </view> -->
   </view>
 </template>
 

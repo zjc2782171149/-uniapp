@@ -48,6 +48,10 @@ export const useWxApi = (Vue, vm) => {
 		setUserSign: (req) => vm.$u.post('/api/cxj/set_user_sign', {
 			...req
 		}),
+		// 修改用户积分
+		setUserPoint: (req) => vm.$u.post('/api/cxj/set_user_point', {
+			...req
+		}),
 		// 添加用户地址
 		setUserAddress: (req) => vm.$u.post('/api/cxj/set_user_address', {
 			...req
