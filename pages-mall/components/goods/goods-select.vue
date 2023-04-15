@@ -7,13 +7,13 @@
 			</view>
 			<view class="operate"><u-icon name="more-dot-fill" :color="iconColor"></u-icon></view>
 		</view>
-		<view class="item" @click="goAddressPage">
+<!-- 		<view class="item" @click="goAddressPage">
 			<view class="info">
 				<view class="label">送至</view>
 				<view class="value">{{ selectedAddress || '请选择地址' }}</view>
 			</view>
 			<view class="operate"><u-icon name="more-dot-fill" :color="iconColor"></u-icon></view>
-		</view>
+		</view> -->
 	</view>
 </template>
 

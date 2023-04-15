@@ -44,11 +44,11 @@
 			</view>
 		</view>
 
-		<view class="item" v-if="currentTab == 0">
+<!-- 		<view class="item" v-if="currentTab == 0">
 			<u-cell-group>
 				<u-cell-item @click="toAddress" title="地址列表"></u-cell-item>
 			</u-cell-group>
-		</view>
+		</view> -->
 
 
 

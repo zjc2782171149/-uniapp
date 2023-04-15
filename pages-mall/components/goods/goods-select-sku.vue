@@ -63,6 +63,7 @@
         >立即购买</u-button
       >
     </view>
+	
   </u-popup>
 </template>
 
@@ -154,25 +155,26 @@ export default {
 
     // 立即购买
     bugNowHandle() {
+		this.$emit('buyNow');
       // 重置想要购买的商品
-      const goodsBuyArr = [];
+      // const goodsBuyArr = [];
 
-      goodsBuyArr.push({
-        ...this.data,
-        sku: this.selectSkuLabel,
-        price: this.selectSkuPrice,
-        num: this.num,
-      });
-      // console.log("新的购物车愿景", goodsBuyArr);
-      getApp().globalData.goodsListSelected = goodsBuyArr;
+      // goodsBuyArr.push({
+      //   ...this.data,
+      //   sku: this.selectSkuLabel,
+      //   price: this.selectSkuPrice,
+      //   num: this.num,
+      // });
+      // // console.log("新的购物车愿景", goodsBuyArr);
+      // getApp().globalData.goodsListSelected = goodsBuyArr;
 
-      const pages = getCurrentPages();
-      uni.setStorageSync("previousRoute", pages[pages.length - 1].route);
-      // console.log(pages[pages.length - 1])
+      // const pages = getCurrentPages();
+      // uni.setStorageSync("previousRoute", pages[pages.length - 1].route);
+      // // console.log(pages[pages.length - 1])
 
-      uni.navigateTo({
-        url: "/pages-mall/pages/order/submit",
-      });
+      // uni.navigateTo({
+      //   url: "/pages-mall/pages/order/submit",
+      // });
     },
   },
 };

@@ -35,7 +35,11 @@
 
 			<!-- 商品详情 -->
 			<TitleOperate title="商品详情" :backgroundColor="bgColor" titleSize="32rpx" align="center"></TitleOperate>
-			<view class="details-html" v-html="goodsDetail.html"></view>
+			<!-- <view class="details-html" v-html="goodsDetail.html"></view> -->
+			<view class="details-html">
+				<img mode="" src='https://cxj.backend.zhangjiancong.top/images/cxj/dbff982dd18290b3079c646f46cad503.png'/>
+				<img mode="" src='https://cxj.backend.zhangjiancong.top/images/cxj/dbff982dd18290b3079c646f46cad503.png'/>
+			</view>
 
 			<!-- 相关商品 
 		<TitleOperate title="相关商品" :backgroundColor="bgColor" titleSize="32rpx" align="center"></TitleOperate>
@@ -59,9 +63,11 @@
 				@change="changeSku">
 			</GoodsSelectSku>
 		</div>
+		
+		<div class="black_height"></div>
 
 
-		<div class="loading">
+		<div class="loading" v-show="loading">
 			<u-loading :show="loading" size="50"></u-loading>
 		</div>
 		
@@ -254,9 +260,22 @@
 	}
 
 	.details-html {
+		width: 100%;
 		background-color: $app-theme-bg-color;
 		padding: 0 30rpx 30rpx 30rpx;
 		margin-bottom: 100rpx;
+	}
+	
+	.details-html>img{
+	  width: auto;
+	  height: auto;
+	  max-width: 100%;
+	  max-height: 100%;
+	}
+	
+	.black_height {
+		width: 100%;
+		height: 20rpx;
 	}
 
 	.view-more {

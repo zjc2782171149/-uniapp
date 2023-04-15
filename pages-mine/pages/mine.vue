@@ -70,11 +70,11 @@
 				</u-form-item>
 
 				<!-- 跳转地址列表 -->
-				<u-form-item label="地址列表">
+<!-- 				<u-form-item label="地址列表">
 					<view class="value" @click="toAddress">
 						<u-icon :color="arrowColor" style="margin-left: 20rpx" size="28" name="arrow-right"></u-icon>
 					</view>
-				</u-form-item>
+				</u-form-item> -->
 			</u-form>
 		</view>
 
