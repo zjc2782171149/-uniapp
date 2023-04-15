@@ -35,11 +35,11 @@
 
 			<!-- 商品详情 -->
 			<TitleOperate title="商品详情" :backgroundColor="bgColor" titleSize="32rpx" align="center"></TitleOperate>
-			<!-- <view class="details-html" v-html="goodsDetail.html"></view> -->
-			<view class="details-html">
+			<view class="details-html" v-html="goodsDetail.html"></view>
+<!-- 			<view class="details-html">
 				<img mode="" src='https://cxj.backend.zhangjiancong.top/images/cxj/dbff982dd18290b3079c646f46cad503.png'/>
 				<img mode="" src='https://cxj.backend.zhangjiancong.top/images/cxj/dbff982dd18290b3079c646f46cad503.png'/>
-			</view>
+			</view> -->
 
 			<!-- 相关商品 
 		<TitleOperate title="相关商品" :backgroundColor="bgColor" titleSize="32rpx" align="center"></TitleOperate>
@@ -67,7 +67,7 @@
 		<div class="black_height"></div>
 
 
-		<div class="loading" v-show="loading">
+		<div class="loading" v-if="loading">
 			<u-loading :show="loading" size="50"></u-loading>
 		</div>
 		
@@ -267,6 +267,13 @@
 	}
 	
 	.details-html>img{
+	  width: auto;
+	  height: auto;
+	  max-width: 100%;
+	  max-height: 100%;
+	}
+	
+	.html_img{
 	  width: auto;
 	  height: auto;
 	  max-width: 100%;
