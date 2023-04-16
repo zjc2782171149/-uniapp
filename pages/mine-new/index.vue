@@ -82,11 +82,11 @@
 						src: "https://cxj.zhangjiancong.top/images/cxj/mine/heart.png",
 						link: "/pages-mine/pages/collection"
 					},
-					{
-						title: "我的订单",
-						src: "https://cxj.zhangjiancong.top/images/cxj/mine/paper.png",
-						link: "/pages-mall/pages/order/list"
-					},
+					// {
+					// 	title: "我的订单",
+					// 	src: "https://cxj.zhangjiancong.top/images/cxj/mine/paper.png",
+					// 	link: "/pages-mall/pages/order/list"
+					// },
 					{
 						title: "我的优惠",
 						src: "https://cxj.zhangjiancong.top/images/cxj/mine/price.png",
