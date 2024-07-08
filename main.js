@@ -9,6 +9,15 @@ App.mpType = 'app';
 import uView from 'uview-ui';
 Vue.use(uView);
 
+
+// 引入全局百度地图
+// import BaiduMap from 'vue-baidu-map'
+// Vue.use(BaiduMap, {
+//   // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
+//   ak: '63awp4sGfORGzBfhV1BvMPz5xq3GK5Q0'
+
+
+
 // uview-ui对小程序分享的mixin封装
 let mpShare = require('uview-ui/libs/mixin/mpShare.js');
 Vue.mixin(mpShare);
@@ -59,11 +68,11 @@ import {
 Vue.use(installApiModules, app);
 
 // 生产环境下，console置空
-if (uni.getSystemInfoSync().platform !== "devtools" || process.env.NODE_ENV === 'production') {
-	console.log = () => {};
-	console.warn = () => {};
-	console.error = () => {};
-}
+// if (uni.getSystemInfoSync().platform !== "devtools" || process.env.NODE_ENV === 'production') {
+// 	console.log = () => {};
+// 	console.warn = () => {};
+// 	console.error = () => {};
+// }
 
 
 app.$mount();

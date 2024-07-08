@@ -1,157 +1,197 @@
 <template>
 	<view class="container">
-		<navbar-common></navbar-common>
 
-		<div class="swiper">
-<!-- 						<swiper class="banner-swiper" circular indicator-dots="true" indicator-color="rgb(244, 246, 252)" indicator-active-color="rgb(228, 197, 152)" 
-			autoplay :interval="2000" :duration="500">
-				<swiper-item class="banner-swiper-item" v-for="(item, index) in swipers" :key="item.act_id"
-				@click="$u.route({ url: '/pages/actDetail/index', params: { url: item.url } })">
-					<u-image width="100%" height="100%" :src="item.pics" :fade="true" duration="450">
-						<view slot="error" style="font-size: 24rpx;">加载失败</view>
-					</u-image>
-					<div class="text-swiper">{{item.title}}</div>
-					<div class="grey"></div>
-				</swiper-item>
-			</swiper> -->
-			<u-swiper :list="list" class="swiper-i" title="true"  border-radius="14" img-mode="aspectFill" indicator-pos="bottomRight" 
-			 bg-color="rgb(191, 191, 191)"></u-swiper>
+		<NavbarRoundImg title="茄兔友谊小屋" :isBack="false" :bgImg="bgImg" backgroundColor="rgb(221, 195, 135)">
+		</NavbarRoundImg>
+
+		<div class="top">
+			<div class="swiper">
+				<u-swiper :list="list" :effect3d="true"></u-swiper>
+			</div>
 		</div>
 
 
 
 		<div class="new">
-			<div class="new-up">·新品上市·</div>
+			<div class="new-up">·故事回忆·</div>
 		</div>
-
-		<div class="new-items">
-			<div class="new-item" v-for="(item, index) in new_up" :key="item.good_id"
-				@click="$u.route({ url: '/pages-mall/pages/goods/detail', params: { id: item.good_id } })">
-				<u-image width="100%" height="100%" :src="item.pics" :fade="true" duration="450">
-					<view slot="error" style="font-size: 24rpx;">加载失败</view>
-				</u-image>
-				<div class="text">{{ item.title.slice(0, 9) }}</div>
-				<div class="grey"></div>
+		
+		
+		<div class="record" @scroll="scroll">
+			<div class="sign-record-per" v-for="(item, index) in showArticleList" :key="item.id" @click="goRecordDetail(item.id)">
+				<div class="avatar">
+					<u-avatar :src="item.icon">
+					</u-avatar>
+				</div>
+				<div class="main">
+					<div class="nickname">{{ item.nickname }}</div>
+					<div class="publish_time">{{ item.signTime }}</div>
+					<div class="content">
+						<u-parse :html="item.content"></u-parse>
+					</div>
+					<div class="picture">
+						<image v-for="(itemm, indexx) in item.pictureList" :src="itemm.url" mode="aspectFill">
+						</image>
+					</div>
+		
+				</div>
 			</div>
-
-			<NoData height="25vh" type="good" v-if="new_up.length === 0"></NoData>
-
+		</div>
+		
+		<div class="create-icon" @click="goCreate">
+			<u-icon name="plus" color="white" size="28"></u-icon>
+			<!-- <div class="text">新增</div> -->
 		</div>
 
-		<div class="new like">
-			<div class="new-up">·活动推荐·</div>
-		</div>
-
-		<!-- 横向滚动列表 -->
-		<colmun-act :list="horizontalScrollNavList"></colmun-act>
-
-		<div class="blank"></div>
 
 	</view>
 </template>
 
 <script>
-	import {
-		RandomNum
-	} from '@/utils/random.js';
-	import ColmunAct from '@/components/colmun-act.vue';
+	import NavbarRoundImg from "@/components/navbar/navbar-round-img.vue";
+
+	import dayjs from "dayjs";
+	import relativeTime from "dayjs/plugin/relativeTime";
+	import updateLocale from "dayjs/plugin/updateLocale";
+	import "dayjs/locale/zh-cn";
+
+	dayjs.extend(relativeTime);
+	dayjs.extend(updateLocale);
+	dayjs.locale("zh-cn");
 
 	export default {
 		components: {
-			ColmunAct
+			NavbarRoundImg
 		},
 
 		data() {
 			return {
+				userInfo: {},
 				swipers: [],
-				new_up: [],
-
-				// 横向滚动列表
-				horizontalScrollNavList: [],
 				list: [{
-						image: 'https://cxj.zhangjiancong.top/images/cxj/swiper1.jpg',
+						image: 'https://eggplantrabbit.zhangjiancong.top/images/eggplantrabbit/1.jpg',
 						title: '蒹葭苍苍，白露为霜。所谓伊人，在水一方'
 					},
 					{
-						image: 'https://cxj.zhangjiancong.top/images/cxj/swiper2.jpg',
+						image: 'https://eggplantrabbit.zhangjiancong.top/images/eggplantrabbit/2.jpg',
 						title: '溯洄从之，道阻且长。溯游从之，宛在水中央'
 					},
 					{
-						image: 'https://cxj.zhangjiancong.top/images/cxj/swiper3.jpg',
+						image: 'https://eggplantrabbit.zhangjiancong.top/images/eggplantrabbit/3.jpg',
 						title: '蒹葭萋萋，白露未晞。所谓伊人，在水之湄'
 					}
 				],
-				swiperTitle: {
-					height: "2px",
-					fontSize: '13px',
-					fontWeight: '600',
-					backgroundColor: 'rgb(191, 191, 191)',
-					opacity: '0.741',
-					fontFamily: "SourceHanSansCN",
-					color: 'rgb(255, 255, 255)',
-					zIndex: '1000'
-				}
+				value: '',
+				// 上传地址
+				uploadUrl: 'https://eggplantrabbit.zhangjiancong.top/api/eggplantrabbit/upload',
+				// uploadUrl: 'http://localhost:3002/api/upload',
+				// uploadUrl: 'http://cxj.zhangjiancong.top/api/cxj/upload',
+				img: '',
+				token: "eggplantrabbit",
+				long: 0,
+				circlePath: {
+					center: {
+						lng: 116.4,
+						lat: 39.9
+					},
+					radius: 500
+				},
+				center: {
+					lng: 0,
+					lat: 0,
+				},
+				zoom: 15,
+				// action: 'http://www.example.com/upload',
+				fileList: [],
+				show: false,
+				content: '东临碣石，以观沧海',
+				// bgImg: "http://cxj.zhangjiancong.top/images/cxj/mine/bg.webp",
+				bgImg: "",
+				backgroundColor: "rgba(0,0,0,0)",
+				// tabs
+				currentTab: 0,
+				tabsOps: [{
+						text: "记录",
+					},
+					{
+						text: "主页",
+					}
+					// {
+					// 	text: "记录",
+					// },
+				],
+				userInfo: {},
+				articleList: [],
+				showArticleList: [],
+				type: 0,
+				totalRecord: 0,
+				appThemeColor: this.$appTheme.appThemeColor,
+
 			}
 		},
 		onLoad() {
 
 		},
 		onShow() {
+			this.initRecord();
 			this.initUser();
-			this.initActList();
 		},
 		methods: {
 			async initUser() {
-				this.userInfo = await this.$u.api.getUserMes();
-				uni.setStorageSync("userInfo", this.userInfo);
-			},
-			// 初始化
-			async initActList() {
-				this.swipers = [];
-				this.new_up = [];
-				this.horizontalScrollNavList = [];
-
-				const actList = await this.$u.api.getActsAll(); // 活动列表
-				const swiperList = await this.$u.api.getSwipersAll(); // 轮播图列表
-				const newUpList = await this.$u.api.getGoodsAll(); // 新品上市列表
-				// 从活动列表中随机选3个到活动推荐
-				let sum = actList.length >= 3 ? 3 : actList.length,
-					randomArr = [];
-				while (true) {
-					if (sum === 0)
-						break;
-
-					let i = RandomNum(0, actList.length);
-					if (randomArr.findIndex(item => item === i) === -1) {
-						randomArr.push(i);
-						this.horizontalScrollNavList.push(actList[i]);
-						sum--;
-					}
+				// const res
+				const res = await this.$u.api.getUserMes()
+				console.log('首页用户信息', res)
+				if (res.status && res.status === -1) {
+					uni.reLaunch({
+						url: '/pages/login/index'
+					});
+				} else {
+					this.userInfo = res;
+					uni.setStorageSync('userInfo', this.userInfo)
+					uni.setStorageSync('isLogin', true)
 				}
-
-				// 从活动列表中随机选4个到轮播图列表
-				sum = swiperList.length >= 4 ? 4 : swiperList.length, randomArr = [];
-				while (true) {
-					if (sum === 0)
-						break;
-
-					let i = RandomNum(0, swiperList.length);
-					if (randomArr.findIndex(item => item === i) === -1) {
-						randomArr.push(i);
-						this.swipers.push(swiperList[i]);
-						sum--;
-					}
-				}
-
-				this.new_up = newUpList.reverse().slice(0, 5);
-
 			},
-			// 去购物粗
-			goCommodityDetail() {
+			
+			// 进入记录详情
+			goRecordDetail(id) {
+				console.log("aaaaaaa", id);
+				//在起始页面跳转到test.vue页面并传递参数
+				//作用场景，需要提供固定传参状态的页面，一般和动态参数一起使用
 				uni.navigateTo({
-					url: '/pages-mall/pages/goods/detail'
+					url: `/pages/detail/index?id=${id}&type=story`
 				});
 			},
+			
+			// 每日打卡信息
+			initRecord() {
+				let that = this;
+			
+				this.$u.api.getStory().then(res => {
+					console.log(res);
+					that.showArticleList = res.map(item => {
+						console.log(item.pictureList)
+						return {
+							...item,
+							signTime: dayjs(item.signTime).format("YYYY-MM-DD"),
+							pictureList: JSON.parse(item.pictureList)
+						}
+					})
+					
+					that.showArticleList = that.showArticleList.reverse();
+	
+					console.log("展示的", that.showArticleList);
+			
+				})
+			},
+			
+			// 新增故事回忆
+			goCreate() {
+				uni.navigateTo({
+					url: '/pages/home/create'
+				});
+			}
+			
+			
 
 		}
 	}

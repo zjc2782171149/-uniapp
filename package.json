@@ -10,7 +10,9 @@
 	"author": "Zhang Jiancong",
 	"license": "MIT",
 	"dependencies": {
+		"@amap/amap-jsapi-loader": "^1.0.1",
 		"@escook/request-miniprogram": "^0.2.1",
-		"dayjs": "^1.11.7"
+		"dayjs": "^1.11.7",
+		"vue-baidu-map": "^0.21.22"
 	}
 }

@@ -3,15 +3,96 @@
 	// }
 	
 	.container {
+		position: relative;
 		width: 100vw;
-		// min-height: 100%;
-		// overflow: scroll;
+		min-height: 100%;
+		overflow: scroll;
+		background-image: url("../../static/bg.jpg");
+		background-size: 100% 100%;
+		padding: 0 0 40rpx 0;
 	}
 	
 	/* 隐藏滚动条 */
 	.container::-webkit-scrollbar {
 	  display: none;
 	}
+	
+	.create-icon {
+		position: fixed;
+		display: flex;
+		right: 30rpx;
+		top: 1400rpx;
+		background-color: rgb(228, 197, 152);
+		width: 70rpx;
+		height: 70rpx;
+		justify-content: center;
+		align-items: center;
+		z-index: 1200;
+		border-radius: 50%;
+		border: 2px solid rgb(228, 197, 152);
+	}
+	
+	.record {
+		// display: flex;
+		width: 90%;
+		// height: 500rpx;
+		overflow-x: hidden;
+		overflow-y: scroll;
+		-webkit-overflow-scrolling: touch;
+		padding: 0 30rpx;
+		// height: 100vh
+	}
+	
+	.sign-record-per {
+		display: flex;
+		margin: 0 0 60rpx 0;
+		padding: 0 0 30rpx 0;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	}
+	
+	.avatar {
+		margin-right: 20rpx;
+	}
+	
+	.main {
+		width: 600rpx;
+	
+		.nickname {
+			margin-bottom: 10rpx;
+			color: rgb(228, 197, 152);
+			font-weight: 600;
+			font-size: 25rpx;
+		}
+	
+		.publish_time {
+			margin-bottom: 20rpx;
+			font-size: 18rpx;
+			color: gray;
+		}
+	
+		.content {
+			width: 100%;
+			margin-bottom: 20rpx;
+			word-wrap: break-word;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+	
+		.picture {
+			display: flex;
+	
+			image {
+				width: 150rpx;
+				height: 150rpx;
+				border-radius: 8rpx;
+				margin-right: 25rpx;
+			}
+		}
+	}
+	
+	
+	
 	
 	.text {
 		position: absolute;
@@ -162,4 +243,19 @@
 .blank {
 	width: 100%;
 	height: 100rpx;
+}
+
+.top {
+	position: relative;
+	height: 300rpx;
+	// border: 1px solid green;
+}
+
+.swiper {
+	position: absolute;
+	width: 90vw;
+	height: 200rpx;
+	left: 50%;
+	transform: translateX(-50%); /* 移动元素本身50% */
+	margin: 40rpx 0 0 0;
 }

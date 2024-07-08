@@ -7,7 +7,13 @@
 			"path": "pages/home/index"
 		},
 		{
-			"path": "pages/first/index",
+			"path": "pages/login/index"
+		},
+		{
+			"path": "pages/home/create"
+		},
+		{
+			"path": "pages/mine/index",
 			"style": {
 				"navigationStyle": "custom",
 				"app-plus": {
@@ -19,122 +25,23 @@
 			}
 		},
 		{
-			"path": "pages/find/index"
+			"path": "pages/detail/index"
 		},
 		{
-			"path": "pages/market/index"
-		},
-		{
-			"path": "pages/mine-new/index"
-		},
-		{
-			"path": "pages/actDetail/index",
+			"path": "pages/story/index",
 			"style": {
-				"navigationBarTitleText": "活动详情"
+				"navigationStyle": "custom",
+				"app-plus": {
+					"animationType": "fade-in",
+					"background": "transparent",
+					"backgroundColor": "rgba(0,0,0,0)",
+					"popGesture": "none"
+				}
 			}
-		},
-		{
-			"path": "pages/home/city-list"
-		},
-		{
-			"path": "pages/search"
-		},
-		{
-			"path": "pages/login/index"
-		},
-		{
-			"path": "pages/find/answer-detail"
-		},
-		{
-			"path": "pages/find/add"
-		},
-		{
-			"path": "pages/start-page"
 		}
-	],
+	   
+    ],
 	"subPackages": [
-		{
-			"root": "pages-mall",
-			"pages": [
-				{
-					"path": "pages/classify"
-				},
-				{
-					"path": "pages/shopping-cart"
-				},
-				{
-					"path": "pages/goods/detail"
-				},
-				{
-					"path": "pages/evaluate/list"
-				},
-				{
-					"path": "pages/evaluate/add"
-				},
-				{
-					"path": "pages/goods/list"
-				},
-				{
-					"path": "pages/order/submit"
-				},
-				{
-					"path": "pages/order/pay"
-				},
-				{
-					"path": "pages/order/pay-result"
-				},
-				{
-					"path": "pages/order/list"
-				},
-				{
-					"path": "pages/order/detail"
-				},
-				{
-					"path": "pages/after-sales/apply"
-				},
-				{
-					"path": "pages/after-sales/back"
-				}
-			]
-		},
-		{
-			"root": "pages-community",
-			"pages": []
-		},
-		{
-			"root": "pages-points",
-			"pages": [
-				{
-					"path": "pages/index"
-				}
-			]
-		},
-		{
-			"root": "pages-mine",
-			"pages": [
-				{
-					"path": "pages/discounts"
-				},
-				{
-					"path": "pages/address/list"
-				},
-				{
-					"path": "pages/address/add-or-update"
-				},
-				{
-					"path": "pages/collection"
-				},
-				{
-					"path": "pages/message"
-				},
-				{
-					"path": "pages/mine"
-				},
-				{
-					"path": "pages/user"
-				}
-			]
-		}
 	],
 	"preloadRule": {},
 	"globalStyle": {
@@ -146,26 +53,14 @@
 		"selectedColor": "#171717",
 		"list": [
 			{
-				"text": "首页",
+				"text": "故事",
 				"pagePath": "pages/home/index",
 				"iconPath": "./static/tabbar/home.png",
 				"selectedIconPath": "./static/tabbar/home_active.png"
 			},
 			{
-				"text": "发现",
-				"pagePath": "pages/find/index",
-				"iconPath": "./static/tabbar/find.png",
-				"selectedIconPath": "./static/tabbar/find_active.png"
-			},
-			{
-				"text": "市集",
-				"pagePath": "pages/market/index",
-				"iconPath": "./static/tabbar/market.png",
-				"selectedIconPath": "./static/tabbar/market_active.png"
-			},
-			{
 				"text": "我的",
-				"pagePath": "pages/mine-new/index",
+				"pagePath": "pages/mine/index",
 				"iconPath": "./static/tabbar/user.png",
 				"selectedIconPath": "./static/tabbar/user_active.png"
 			}
@@ -175,13 +70,13 @@
 		"current": 0,
 		"list": [
 			{
-				"name": "登录页",
-				"path": "pages/login/index"
-			},
-			{
-				"name": "首页",
+				"name": "故事",
 				"path": "pages/home/index"
+			},		{
+				"name": "我的",
+				"path": "pages/mine/index"
 			}
+			
 		]
 	}
 }

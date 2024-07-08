@@ -32,7 +32,15 @@
 			discountsList: [],
 			// 获取裁剪后的规则时间
 			getNowTime: function(time) {
-				return time.slice(0, 10) + " " + time.slice(11, 19);
+				let nowUTC = time.slice(0, 10) + " " + time.slice(11, 19);
+				// if(nowUTC.slice(11, 12))
+				// console.log(Number(nowUTC.slice(11, 13)));
+				let numberNew = (Number(nowUTC.slice(11, 13)) + 8) % 24; // 由UTC时间转为北京时间时，小时要进行+8
+				// if(Number(nowUTC.slice(11, 13)))
+				// console.log(numberNew);
+				let returnNum = nowUTC.slice(0, 11) + numberNew + nowUTC.slice(13);
+				// console.log(returnNum);
+				return returnNum;
 			}
 		},
 		onLaunch(options) {
@@ -40,7 +48,6 @@
 			// 获取系统信息
 			const systemInfo = uni.getSystemInfoSync();
 			// 胶囊按钮位置信息
-			const menuButtonInfo = wx.getMenuButtonBoundingClientRect();
 			// 导航栏高度 = 状态栏到胶囊的间距（胶囊距上距离-状态栏高度） * 2 + 胶囊高度 + 状态栏高度
 			console.log(systemInfo);
 			// that.globalData.menuTop = menuButtonInfo.top - systemInfo.statusBarHeight;

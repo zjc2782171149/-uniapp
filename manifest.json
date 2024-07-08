@@ -23,7 +23,9 @@
         "usingComponents" : true,
         "nvueCompiler" : "uni-app",
         "compilerVersion" : 3,
-        "modules" : {},
+        "modules" : {
+            "Geolocation" : {}
+        },
         "distribute" : {
             "android" : {
                 "permissions" : [
@@ -52,9 +54,24 @@
                 ],
                 "abiFilters" : [ "armeabi-v7a", "arm64-v8a" ]
             },
-            "ios" : {},
+            "ios" : {
+                "dSYMs" : false
+            },
             "sdkConfigs" : {
-                "ad" : {}
+                "ad" : {},
+                "geolocation" : {
+                    "amap" : {
+                        "__platform__" : [ "ios", "android" ],
+                        "appkey_ios" : "",
+                        "appkey_android" : "f712e1f30c86cffea64087c0b63268b2"
+                    }
+                },
+                "maps" : {
+                    "baidu" : {
+                        "appkey_ios" : "",
+                        "appkey_android" : "63awp4sGfORGzBfhV1BvMPz5xq3GK5Q0"
+                    }
+                }
             },
             "icons" : {
                 "android" : {
@@ -92,12 +109,12 @@
     },
     "quickapp" : {},
     "mp-weixin" : {
-        "appid" : "wx00ad24ea3d88ed1b",
+        "appid" : "wx8243f8b547e6e58f",
         "setting" : {
             "urlCheck" : true,
             "es6" : true,
             "minified" : true,
-            "postcss" : true
+            "postcss" : false
         },
         "optimization" : {
             "subPackages" : false
